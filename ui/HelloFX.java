@@ -17,7 +17,7 @@ public class HelloFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            // create a new Text shape
+            // create a new buisness.Text shape
             Text messageText = new Text("Hello World! Lets learn JavaFX.");
 
             // stack page
@@ -25,7 +25,7 @@ public class HelloFX extends Application {
 
             //Button ?
             Button btn = new Button();
-            btn.setText("Display Message");
+            btn.setText("Display buisness.Message");
             btn.setOnAction(new EventHandler() {
 
                 @Override
@@ -35,7 +35,7 @@ public class HelloFX extends Application {
                 }
             });
 
-            // add Text shape to Stack Pane
+            // add buisness.Text shape to Stack Pane
             ObservableList<Node> children = root.getChildren();
             children.add(messageText);
             children.add(btn);
