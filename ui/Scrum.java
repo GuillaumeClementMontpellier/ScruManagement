@@ -3,7 +3,7 @@ package ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ui.parent.LoginParent;
+import ui.parent.LoginLayout;
 
 public class Scrum extends Application {
 
@@ -18,7 +18,7 @@ public class Scrum extends Application {
 //        LoginFacade lf = new LoginFacade();
 
         // Setup
-        Scene scene = new Scene(new LoginParent(/*lf*/), 300, 275);
+        Scene scene = new Scene(new LoginLayout(/*lf*/), 300, 275);
         primaryStage.setScene(scene);
 
         primaryStage.show();

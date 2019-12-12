@@ -1,7 +1,5 @@
 package ui.parent;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,9 +13,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import ui.button.LoginButton;
 
-public class LoginParent extends GridPane {
+public class LoginLayout extends GridPane {
 
-    public LoginParent() {//LoginFacade lf){
+    public LoginLayout() {//LoginFacade lf){
 
         this.setAlignment(Pos.CENTER);
         this.setHgap(10);
@@ -42,7 +40,7 @@ public class LoginParent extends GridPane {
         this.add(pwBox, 1, 2);
 
         // Valid
-        Button btn = new LoginButton("Oups", userTextField, pwBox/*, lf*/);
+        Button btn = new LoginButton("Oups", userTextField, pwBox, this/*, lf*/);
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
@@ -51,5 +49,9 @@ public class LoginParent extends GridPane {
         // Text display result : TODO : change to action login()
         final Text actionTarget = new Text();
         this.add(actionTarget, 1, 6);
+    }
+
+    public void goToMain(/*User u*/){
+
     }
 }
