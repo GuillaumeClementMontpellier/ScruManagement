@@ -11,9 +11,9 @@ public class Scrum extends Application {
 
     public static void main(String[] args) {
         //parse env var
-        String url = "jdbc:mysql://address=(host=nkpl8b2jg68m87ht.cbetxkdyhwsb.us-east-1.rds.amazonaws.com)(port=3306)/gh1gh9s8lix3nsqp";
-        String dbUser = "vw3gwm1rplh4gm50";
-        String dbPwd = "v9v5u8y2eipsxqla";
+        String url = "";
+        String dbUser = "";
+        String dbPwd = "";
 
         //create factory and add it to facade
         GlobalFacade.getInstance().setFactory(new FactoryDAOMariaDB(url, dbUser, dbPwd));
