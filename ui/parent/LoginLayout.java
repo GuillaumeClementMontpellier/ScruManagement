@@ -1,5 +1,6 @@
 package ui.parent;
 
+import business.system.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,7 +16,9 @@ import ui.button.LoginButton;
 
 public class LoginLayout extends GridPane {
 
-    public LoginLayout() {//LoginFacade lf){
+    private Text errorLogin;
+
+    public LoginLayout() {
 
         this.setAlignment(Pos.CENTER);
         this.setHgap(10);
@@ -40,18 +43,22 @@ public class LoginLayout extends GridPane {
         this.add(pwBox, 1, 2);
 
         // Valid
-        Button btn = new LoginButton("Oups", userTextField, pwBox, this/*, lf*/);
+        Button btn = new LoginButton("Connect", userTextField, pwBox, this);
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
         this.add(hbBtn, 1, 4);
 
-        // Text display result : TODO : change to action login()
-        final Text actionTarget = new Text();
-        this.add(actionTarget, 1, 6);
+        // Text display result
+        this.errorLogin = new Text();
+        this.add(errorLogin, 1, 6);
     }
 
-    public void goToMain(/*User u*/){
+    public void goToMain(User u) {
+        this.errorLogin.setText("Welcome Back " + u.getFirstName() + " " + u.getLastName() + " !");
+    }
 
+    public void notLogin() {
+        this.errorLogin.setText("Invalid Password or UserName.");
     }
 }

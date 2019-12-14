@@ -1,18 +1,11 @@
 package DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import business.system.User;
+
 import java.sql.SQLException;
-import java.sql.Statement;
 
-abstract class UserDAO {
-    private Connection connection;
-    private Statement;
-    public UserDAO(String addressDataBase, String userDataBase, String passWordDataBase){
-        this.connection = DriverManager.getConnection(addressDataBase, userDataBase, passWordDataBase);
-    }
+public abstract class UserDAO {
 
+    public abstract User getUserByID(String mail, String password) throws SQLException;
 
 }
