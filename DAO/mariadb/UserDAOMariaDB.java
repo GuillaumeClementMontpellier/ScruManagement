@@ -1,3 +1,7 @@
+package DAO.mariadb;
+
+import DAO.UserDAO;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -5,9 +9,14 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBCEXAMPLE {
+public class UserDAOMariaDB extends UserDAO {
 
-	public static void main(String[] args) throws SQLException {
+
+    public UserDAOMariaDB(String addressDataBase, String userDataBase, String passWordDataBase) {
+        super(addressDataBase, userDataBase, passWordDataBase);
+    }
+
+    public static void main(String[] args) throws SQLException {
 
 		// Create connection : Doit mettre les infos du .conf
 
@@ -27,6 +36,7 @@ public class JDBCEXAMPLE {
 		// autre chose)
 
 		ResultSetMetaData md = res.getMetaData();
+
 
 		int columnCount = md.getColumnCount();
 
@@ -49,7 +59,7 @@ public class JDBCEXAMPLE {
 
 			rowCount++;
 		}
-		
+
 		// Close lors de la destruction du DAO
 
 		stmt.close();
