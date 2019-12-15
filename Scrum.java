@@ -1,11 +1,10 @@
-package ui;
-
-import DAO.factory.FactoryDAOMariaDB;
+import DAO.factory.AbstractFactoryDAO;
+import DAO.mariadb.FactoryDAOMariaDB;
 import business.facade.GlobalFacade;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ui.parent.LoginLayout;
+import ui.login.LoginLayout;
 
 public class Scrum extends Application {
 
@@ -16,7 +15,7 @@ public class Scrum extends Application {
         String dbPwd = "";
 
         //create factory and add it to facade
-        GlobalFacade.getInstance().setFactory(new FactoryDAOMariaDB(url, dbUser, dbPwd));
+        AbstractFactoryDAO.setInstance(new FactoryDAOMariaDB(url, dbUser, dbPwd));
 
         //start
         launch(args);

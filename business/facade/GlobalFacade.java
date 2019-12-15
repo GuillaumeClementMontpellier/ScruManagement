@@ -1,6 +1,5 @@
 package business.facade;
 
-import DAO.factory.AbstractFactoryDAO;
 import business.system.User;
 
 import java.sql.SQLException;
@@ -13,10 +12,6 @@ public class GlobalFacade implements Facade {
 
     private GlobalFacade() {
         this.loginFacade = new LoginFacade();
-    }
-
-    public void setFactory(AbstractFactoryDAO factory){
-        this.loginFacade.setFactory(factory);
     }
 
     public static GlobalFacade getInstance() {

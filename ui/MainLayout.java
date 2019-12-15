@@ -1,4 +1,4 @@
-package ui.parent;
+package ui;
 
 import java.awt.*;
 

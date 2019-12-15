@@ -1,4 +1,4 @@
-package ui.button;
+package ui.login.button;
 
 import business.facade.GlobalFacade;
 import business.system.User;
@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ui.parent.LoginLayout;
+import ui.login.LoginLayout;
 
 import java.sql.SQLException;
 

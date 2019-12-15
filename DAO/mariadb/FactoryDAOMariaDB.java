@@ -1,10 +1,10 @@
-package DAO.factory;
+package DAO.mariadb;
 
-import DAO.mariadb.UserDAOMariaDB;
+import DAO.factory.AbstractFactoryDAO;
 
 import java.sql.SQLException;
 
-public class FactoryDAOMariaDB implements AbstractFactoryDAO {
+public class FactoryDAOMariaDB extends AbstractFactoryDAO {
 
 	private String pwDataBase;
 	private String userDataBase;

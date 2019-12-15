@@ -8,14 +8,8 @@ import java.sql.SQLException;
 
 public class LoginFacade implements Facade{
 
-    private AbstractFactoryDAO factory;
-
-    public void setFactory(AbstractFactoryDAO factory){
-        this.factory = factory;
-    }
-
     public User login(String mail, String password) throws SQLException {
-        UserDAO userDAO = factory.createUserDAO();
+        UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();
 
         return userDAO.getUserByID(mail, password);
     }

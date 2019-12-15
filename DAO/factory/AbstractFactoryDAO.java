@@ -4,8 +4,18 @@ import DAO.UserDAO;
 
 import java.sql.SQLException;
 
-public interface AbstractFactoryDAO {
+public abstract class AbstractFactoryDAO {
 
-    public UserDAO createUserDAO() throws SQLException;
+    private static AbstractFactoryDAO instance = null;
+
+    public static AbstractFactoryDAO getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(AbstractFactoryDAO factory) {
+        instance = factory;
+    }
+
+    public abstract UserDAO createUserDAO() throws SQLException;
 
 }

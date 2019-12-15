@@ -9,5 +9,7 @@ Pour faire fonctionner le logiciel, vous avez besoin de posséder:
  
  ## To Build from Source
  
+ You need all of the above, plus :
+ 
  - JavaFX
  - un répertoire "lib" possédant le jar d'un pilote JDBC pour la base de donnée dans le classpath

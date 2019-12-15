@@ -1,4 +1,4 @@
-package ui.parent;
+package ui.login;
 
 import business.system.User;
 import javafx.geometry.Insets;
@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import ui.button.LoginButton;
+import ui.login.button.LoginButton;
 
 public class LoginLayout extends GridPane {
 
