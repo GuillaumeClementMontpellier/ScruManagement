@@ -3,6 +3,7 @@ package ui.login;
 import business.system.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -12,13 +13,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import ui.MainLayout;
 import ui.login.button.LoginButton;
 
 public class LoginLayout extends GridPane {
 
     private Text errorLogin;
+    private Stage primaryStage;
 
-    public LoginLayout() {
+    public LoginLayout(Stage primaryStage) {
+        this.primaryStage = primaryStage;
 
         this.setAlignment(Pos.CENTER);
         this.setHgap(10);
@@ -55,7 +60,10 @@ public class LoginLayout extends GridPane {
     }
 
     public void goToMain(User u) {
-        this.errorLogin.setText("Welcome Back " + u.getFirstName() + " " + u.getLastName() + " !");
+
+        Scene scene = new Scene(new MainLayout(u), 400, 400);
+        primaryStage.setScene(scene);
+
     }
 
     public void notLogin() {

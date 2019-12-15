@@ -16,7 +16,7 @@ public class GlobalFacade implements Facade {
 
     public static GlobalFacade getInstance() {
         if (instance == null) {
-          instance = new GlobalFacade();
+            instance = new GlobalFacade();
         }
         return instance;
     }

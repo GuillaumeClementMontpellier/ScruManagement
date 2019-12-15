@@ -1,6 +1,5 @@
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
-import business.facade.GlobalFacade;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,7 +8,7 @@ import ui.login.LoginLayout;
 public class Scrum extends Application {
 
     public static void main(String[] args) {
-        //parse env var
+        //parse java.env var
         String url = "";
         String dbUser = "";
         String dbPwd = "";
@@ -26,7 +25,7 @@ public class Scrum extends Application {
         primaryStage.setTitle("Scrum Welcome");
 
         // Setup
-        Scene scene = new Scene(new LoginLayout(), 300, 275);
+        Scene scene = new Scene(new LoginLayout(primaryStage), 300, 275);
         primaryStage.setScene(scene);
 
         primaryStage.show();

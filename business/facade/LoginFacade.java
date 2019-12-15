@@ -6,7 +6,7 @@ import business.system.User;
 
 import java.sql.SQLException;
 
-public class LoginFacade implements Facade{
+public class LoginFacade implements Facade {
 
     public User login(String mail, String password) throws SQLException {
         UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();

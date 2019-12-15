@@ -13,6 +13,13 @@ import java.sql.SQLException;
 
 public class LoginButton extends Button {
 
+    public LoginButton(String s, TextField userTextField, PasswordField pwBox, LoginLayout loginLayout) {
+        super(s);
+
+        // Set Event Handler for Validation
+        this.setOnAction(new LoginEventHandler(userTextField, pwBox, loginLayout));
+    }
+
     public static class LoginEventHandler implements EventHandler<ActionEvent> {
         private final TextField userTextField;
         private final PasswordField passTextField;
@@ -48,12 +55,5 @@ public class LoginButton extends Button {
             }
         }
 
-    }
-
-    public LoginButton(String s, TextField userTextField, PasswordField pwBox, LoginLayout loginLayout) {
-        super(s);
-
-        // Set Event Handler for Validation
-        this.setOnAction(new LoginEventHandler(userTextField, pwBox, loginLayout));
     }
 }

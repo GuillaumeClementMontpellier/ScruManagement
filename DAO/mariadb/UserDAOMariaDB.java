@@ -27,15 +27,15 @@ public class UserDAOMariaDB extends DAO implements UserDAO {
         // Execute query
         ResultSet resultSet = pre.executeQuery();
 
-		boolean success = resultSet.first();
+        boolean success = resultSet.first();
 
-		if (!success){
-			return null;
-		}
+        if (!success) {
+            return null;
+        }
 
-		//parse result set
-		String firstName = resultSet.getString("firstNameUser");
-		String lastName = resultSet.getString("lastNameUser");
+        //parse result set
+        String firstName = resultSet.getString("firstNameUser");
+        String lastName = resultSet.getString("lastNameUser");
 
         return new User(firstName, lastName, mail);
     }

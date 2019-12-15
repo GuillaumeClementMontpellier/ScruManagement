@@ -2,36 +2,34 @@ package business.system;
 
 public class Column implements Commentable {
 
-	private String name;
-	private String description;
+    private String name;
+    private String description;
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	/**
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	/**
-	 * 
-	 * @param description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * @param description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	@Override
-	public Comment getComments() {
-		// TODO
-		return null;
-	}
+    @Override
+    public Comment getComments() {
+        // TODO
+        return null;
+    }
 }

@@ -6,20 +6,20 @@ import java.sql.SQLException;
 
 public class FactoryDAOMariaDB extends AbstractFactoryDAO {
 
-	private String pwDataBase;
-	private String userDataBase;
-	private String urlDataBase;
+    private String pwDataBase;
+    private String userDataBase;
+    private String urlDataBase;
 
-	public FactoryDAOMariaDB(String urlDataBase, String userDataBase, String pwDataBase) {
+    public FactoryDAOMariaDB(String urlDataBase, String userDataBase, String pwDataBase) {
 
-		this.urlDataBase = urlDataBase;
-		this.userDataBase = userDataBase;
-		this.pwDataBase = pwDataBase;
+        this.urlDataBase = urlDataBase;
+        this.userDataBase = userDataBase;
+        this.pwDataBase = pwDataBase;
 
-	}
-	
-	public UserDAOMariaDB createUserDAO() throws SQLException {
+    }
 
-		return new UserDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
-	}
+    public UserDAOMariaDB createUserDAO() throws SQLException {
+
+        return new UserDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
+    }
 }
