@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAOMariaDB extends DAO implements UserDAO {
+public class UserDAOMariaDB extends UserDAO {
 
     public UserDAOMariaDB(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
         super(addressDataBase, userDataBase, passWordDataBase);
@@ -20,6 +20,7 @@ public class UserDAOMariaDB extends DAO implements UserDAO {
                 "Where emailUser=? and passWordUser=?";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
+
 
         pre.setString(1, mail);
         pre.setString(2, password);
