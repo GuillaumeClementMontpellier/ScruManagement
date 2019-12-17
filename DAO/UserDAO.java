@@ -4,7 +4,7 @@ import business.system.User;
 
 import java.sql.SQLException;
 
-public abstract class UserDAO extends DAO{
+public abstract class UserDAO extends DAO {
 
     public UserDAO(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
         super(addressDataBase, userDataBase, passWordDataBase);

@@ -12,11 +12,13 @@ import java.security.spec.InvalidKeySpecException;
 public class Cryptor {
 
     public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        Charset cs = StandardCharsets.UTF_16;
+        Charset cs = StandardCharsets.UTF_8;
 
         String originalPassword = "password";
-        String generatedPasswordHash = generateHash(originalPassword, "Salt is not empty", cs);
+        String salt = getSaltRandom(cs);
+        String generatedPasswordHash = generateHash(originalPassword, salt, cs);
         System.out.println(generatedPasswordHash);
+        System.out.println(salt);
 
     }
 
@@ -31,10 +33,10 @@ public class Cryptor {
         return cs.decode(ByteBuffer.wrap(hash)).toString();
     }
 
-//    private static String getSalt(Charset cs) throws NoSuchAlgorithmException {
-//        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-//        byte[] salt = new byte[16];
-//        sr.nextBytes(salt);
-//        return cs.decode(ByteBuffer.wrap(salt)).toString();
-//    }
+    private static String getSaltRandom(Charset cs) throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return cs.decode(ByteBuffer.wrap(salt)).toString();
+    }
 }

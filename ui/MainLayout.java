@@ -11,7 +11,11 @@ public class MainLayout extends GridPane {
     private Text lastName;
     private Text firstName;
 
+    private User activeUser;
+
     public MainLayout(User u) {
+
+        activeUser = u;
 
         this.setAlignment(Pos.CENTER);
         this.setHgap(10);
