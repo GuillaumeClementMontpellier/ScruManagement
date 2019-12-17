@@ -1,10 +1,12 @@
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ui.login.LoginLayout;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class Scrum extends Application {
@@ -25,13 +27,13 @@ public class Scrum extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Scrum Welcome");
+    public void start(Stage stage) throws IOException {
+        //load fxml
+        Parent root = FXMLLoader.load(getClass().getResource("gui/login/LoginFXML.fxml"));
 
-        // Setup
-        Scene scene = new Scene(new LoginLayout(primaryStage), 300, 275);
-        primaryStage.setScene(scene);
-
-        primaryStage.show();
+        //display fxml
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
