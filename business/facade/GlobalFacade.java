@@ -4,7 +4,7 @@ import business.system.User;
 
 import java.sql.SQLException;
 
-public class GlobalFacade implements Facade {
+public class GlobalFacade {
 
     private static GlobalFacade instance = null;
 
