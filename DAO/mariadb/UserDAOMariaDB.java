@@ -1,6 +1,5 @@
 package DAO.mariadb;
 
-import DAO.DAO;
 import DAO.UserDAO;
 import business.system.User;
 
@@ -39,6 +38,34 @@ public class UserDAOMariaDB extends UserDAO {
         String lastName = resultSet.getString("lastNameUser");
 
         return new User(firstName, lastName, mail);
+    }
+
+    @Override
+    public boolean registerUser(String mail, String password, String firstName, String lastName) throws SQLException {
+        String sql = "INSERT INTO User " +
+                "VALUES (?,?,?,?)";
+
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setString(1, mail);
+        pre.setString(2, password);
+        pre.setString(3, firstName);
+        pre.setString(4, lastName);
+
+        return pre.execute();
+    }
+
+
+    @Override
+    public boolean userExists(String mail) throws SQLException {
+        String sql = "Select id from User " +
+                "Where emailUser=?";
+
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setString(1, mail);
+
+        ResultSet resultSet = pre.executeQuery();
+
+        return resultSet.first();
     }
 
 }
