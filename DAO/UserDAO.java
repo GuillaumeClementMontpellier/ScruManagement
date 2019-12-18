@@ -14,6 +14,6 @@ public abstract class UserDAO extends DAO {
 
     public abstract boolean registerUser(String mail, String password, String firstName, String lastName) throws SQLException;
 
-    public abstract boolean userExists (String mail) throws SQLException;
+    public abstract boolean userExists(String mail) throws SQLException;
 
 }

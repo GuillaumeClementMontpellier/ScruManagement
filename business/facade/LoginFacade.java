@@ -20,9 +20,10 @@ public class LoginFacade {
             return null;
         }
         //TODO encrypt password
-        if (userDAO.registerUser(mail,password, firstName, lastName)){
+        if (userDAO.registerUser(mail, password, firstName, lastName)) {
             return login(mail, password);
+        } else {
+            return null;
         }
-        else {return null;}
     }
 }

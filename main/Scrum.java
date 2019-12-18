@@ -2,7 +2,6 @@ package main;
 
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
-import gui.login.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +15,7 @@ public class Scrum extends Application {
 
     private static Stage stageSingleton = null;
 
-    public static Stage getStage(){
+    public static Stage getStage() {
         return stageSingleton;
     }
 
