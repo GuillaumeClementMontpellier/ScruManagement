@@ -4,13 +4,24 @@ import business.facade.GlobalFacade;
 import business.system.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginController {
+
+    private Stage primaryStage;
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 
     @FXML
     private TextField usernameField;
@@ -32,7 +43,7 @@ public class LoginController {
     }
 
     @FXML
-    void handleLogin(ActionEvent event) {
+    void handleLogin(ActionEvent event) throws IOException {
         System.out.println("Try Login");
 
         String username = usernameField.getText();
@@ -51,8 +62,11 @@ public class LoginController {
 
         } else {
             //TODO : Make main layout
-            message.setText(u.getLastName() + " " + u.getFirstName());
-            message.setVisible(true);
+
+            Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
         }
     }
 }
