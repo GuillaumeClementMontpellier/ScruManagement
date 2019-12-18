@@ -37,8 +37,11 @@ public class LoginController {
     }
 
     @FXML
-    void goToRegister(ActionEvent event) {
-        // TODO
+    void goToRegister(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../register/register.fxml"));
+
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
 
     }
 
