@@ -1,6 +1,7 @@
+package main;
+
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
-import gui.login.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,12 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Scrum extends Application {
+
+    private static Stage stageSingleton = null;
+
+    public static Stage getStage() {
+        return stageSingleton;
+    }
 
     public static void main(String[] args) {
         Map<String, String> env = System.getenv();
@@ -29,13 +36,11 @@ public class Scrum extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //load fxml
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/login/LoginFXML.fxml"));
-        Parent root = loader.load();
+        stageSingleton = stage;
 
-        // pass Stage
-        LoginController lc = loader.<LoginController>getController();
-        lc.setPrimaryStage(stage);
+        //load fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/login/LoginFXML.fxml"));
+        Parent root = loader.load();
 
         //display fxml
         Scene scene = new Scene(root);

@@ -10,18 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import main.Scrum;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginController {
-
-    private Stage primaryStage;
-
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
 
     @FXML
     private TextField usernameField;
@@ -64,12 +58,10 @@ public class LoginController {
             message.setVisible(true);
 
         } else {
-            //TODO : Make main layout
-
             Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
 
             Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
+            Scrum.getStage().setScene(scene);
         }
     }
 }
