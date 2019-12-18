@@ -35,7 +35,7 @@ public class LoginController {
         Parent root = FXMLLoader.load(getClass().getResource("../register/register.fxml"));
 
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+        Scrum.getStage().setScene(scene);
 
     }
 

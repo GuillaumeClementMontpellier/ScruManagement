@@ -24,4 +24,8 @@ public class GlobalFacade {
     public User login(String username, String password) throws SQLException {
         return loginFacade.login(username, password);
     }
+
+    public User register(String username, String password, String firstName, String lastName) throws SQLException {
+        return loginFacade.register(username,password,firstName,lastName);
+    }
 }
