@@ -1,6 +1,7 @@
 package DAO.factory;
 
 import DAO.UserDAO;
+import DAO.UserStoryDAO;
 
 import java.sql.SQLException;
 
@@ -17,5 +18,6 @@ public abstract class AbstractFactoryDAO {
     }
 
     public abstract UserDAO createUserDAO() throws SQLException;
+    public abstract UserStoryDAO createUserStoryDAO() throws SQLException;
 
 }

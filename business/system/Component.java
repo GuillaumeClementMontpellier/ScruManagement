@@ -27,4 +27,10 @@ public abstract class Component implements Commentable {
         this.description = description;
     }
 
+    @Override
+    public Comment getComments() {
+        // Todo
+        return null;
+    }
+
 }

@@ -39,7 +39,7 @@ public class Scrum extends Application {
         stageSingleton = stage;
 
         //load fxml
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/login/LoginFXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/login/Login.fxml"));
         Parent root = loader.load();
 
         //display fxml
