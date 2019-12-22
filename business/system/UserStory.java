@@ -1,6 +1,6 @@
 package business.system;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class UserStory extends Component {
 
@@ -8,6 +8,15 @@ public class UserStory extends Component {
     private int projetID;
     private int score;
     private Date deadline;
+    private String description;
+
+    public UserStory(int id, String description, int projetID, int score, Date deadline) {
+        this.id = id;
+        this.projetID = projetID;
+        this.score = score;
+        this.deadline = deadline;
+        this.description = description;
+    }
 
 
     public int getId() {
@@ -42,4 +51,13 @@ public class UserStory extends Component {
         this.score = score;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

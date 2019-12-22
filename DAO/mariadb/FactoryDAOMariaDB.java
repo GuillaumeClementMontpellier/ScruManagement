@@ -21,7 +21,6 @@ public class FactoryDAOMariaDB extends AbstractFactoryDAO {
 
     @Override
     public UserDAOMariaDB createUserDAO() throws SQLException {
-
         return new UserDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
     }
 
