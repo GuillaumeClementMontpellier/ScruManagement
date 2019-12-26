@@ -7,6 +7,10 @@ public class SprintBacklog extends Backlog {
     private Date startDate;
     private Date endDate;
 
+    public SprintBacklog(int id) {
+        super(id);
+    }
+
     public Date getStartDate() {
         return this.startDate;
     }
@@ -22,6 +26,9 @@ public class SprintBacklog extends Backlog {
         this.endDate = endDate;
     }
 
+    public void setStartDate(Date endDate) {
+        this.endDate = endDate;
+    }
     @Override
     public Comment getComments() {
         // Todo

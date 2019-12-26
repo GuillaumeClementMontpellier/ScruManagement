@@ -1,6 +1,10 @@
 package business.system;
 
-public class TicketBaclog extends Backlog {
+public class TicketBacklog extends Backlog {
+    public TicketBacklog(int id) {
+        super(id);
+    }
+
     @Override
     public Comment getComments() {
         // Todo
