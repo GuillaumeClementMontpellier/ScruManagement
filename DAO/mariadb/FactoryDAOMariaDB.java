@@ -1,5 +1,6 @@
 package DAO.mariadb;
 
+import DAO.BacklogDAO;
 import DAO.UserStoryDAO;
 import DAO.factory.AbstractFactoryDAO;
 
@@ -27,5 +28,10 @@ public class FactoryDAOMariaDB extends AbstractFactoryDAO {
     @Override
     public UserStoryDAO createUserStoryDAO() throws SQLException {
         return new UserStoryDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
+    }
+
+    @Override
+    public BacklogDAO createBacklogDAO() throws SQLException {
+        return new BacklogDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
     }
 }
