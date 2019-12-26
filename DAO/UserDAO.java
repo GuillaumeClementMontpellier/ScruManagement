@@ -12,7 +12,7 @@ public abstract class UserDAO extends DAO {
 
     public abstract User getUserByID(String mail, String password) throws SQLException;
 
-    public abstract boolean registerUser(String mail, String password, String firstName, String lastName) throws SQLException;
+    public abstract void registerUser(String mail, String password, String firstName, String lastName) throws SQLException;
 
     public abstract boolean userExists(String mail) throws SQLException;
 

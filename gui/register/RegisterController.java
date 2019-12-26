@@ -33,7 +33,7 @@ public class RegisterController {
 
     @FXML
     void goToLogin(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("../login/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../login/LoginFXML.fxml"));
 
         Scene scene = new Scene(root);
         Scrum.getStage().setScene(scene);
