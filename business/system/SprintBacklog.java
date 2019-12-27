@@ -1,6 +1,6 @@
 package business.system;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class SprintBacklog extends Backlog {
 
@@ -9,6 +9,12 @@ public class SprintBacklog extends Backlog {
 
     public SprintBacklog(int id) {
         super(id);
+    }
+
+    public SprintBacklog(int id, java.sql.Date startDate, java.sql.Date endDate) {
+        super(id);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Date getStartDate() {

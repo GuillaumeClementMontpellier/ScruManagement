@@ -20,7 +20,7 @@ public class BacklogDAOMariaDB extends BacklogDAO {
 
     @Override
     public ProductBacklog getProductBacklog(int idProject) throws SQLException {
-        ResultSet resultSet = getBacklog(idProject, "1");
+        ResultSet resultSet = getBacklog(idProject, 1);
         int id = resultSet.getInt("idBacklog");
         return new ProductBacklog(id);
 
@@ -28,7 +28,7 @@ public class BacklogDAOMariaDB extends BacklogDAO {
 
     @Override
     public TicketBacklog getTicketBacklog(int idProject) throws SQLException {
-        ResultSet resultSet = getBacklog(idProject, "2");
+        ResultSet resultSet = getBacklog(idProject, 2);
         int id = resultSet.getInt("idBacklog");
         return new TicketBacklog(id);
     }
@@ -67,9 +67,27 @@ public class BacklogDAOMariaDB extends BacklogDAO {
     }
 
     @Override
-    public SprintBacklog[] getAllSprintBacklog(int idProject) {
+    public SprintBacklog[] getAllSprintBacklog(int idProject) throws SQLException {
         //TODO
-        return new SprintBacklog[0];
+
+        String sql = "Select * From SprintBacklog Where idBacklog Exists(Select idBacklog From  backlog where idProject = ? and type = ? order by idBacklog Desc)";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setString(1, Integer.toString(idProject));
+        pre.setString(2, "3");
+        ResultSet resultSet = pre.executeQuery();
+
+        ArrayList<SprintBacklog> solution = new ArrayList<SprintBacklog>();
+        int id;
+        Date startDate;
+        Date endDate;
+        while (resultSet.next()) {
+            id = resultSet.getInt("idBacklog");
+            startDate = resultSet.getDate("beginDate");
+            endDate = resultSet.getDate("endDate");
+            solution.add(new SprintBacklog(id,startDate,endDate));
+        }
+        SprintBacklog[] soos = solution.toArray(new SprintBacklog[solution.size()]);
+        return soos;
     }
 
     @Override
@@ -93,15 +111,155 @@ public class BacklogDAOMariaDB extends BacklogDAO {
 
     @Override
     public UserStory[] getUserStory(Column col) throws SQLException {
-        //TODO
-        return new UserStory[0];
+        String sql = "Select * From UserStory where idUserStory EXISTS (Select idUserStory from ColumnUserStory where idColumn  =  ?)";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setInt(1, col.getId());
+        ResultSet resultSet = pre.executeQuery();
+
+        ArrayList<UserStory> solution = new ArrayList();
+        int id;
+        int projetID;
+        int score;
+        Date deadline;
+        String description;
+        while (resultSet.next()) {
+            id = resultSet.getInt("idUserStory");
+            projetID = resultSet.getInt("projetID");
+            score = resultSet.getInt("score");
+            deadline = resultSet.getDate("deadline");
+            description = resultSet.getString("descriptionUserStory");
+            solution.add(new UserStory(id,description,projetID,score,deadline));
+        }
+        UserStory[] soos = solution.toArray(new UserStory[solution.size()]);
+        return soos;
     }
 
-    private ResultSet getBacklog (int idProject, String type) throws SQLException {
+    @Override
+    public Ticket[] getTickets(Column col) throws SQLException {
+        String sql = "Select * From Ticket where idTicket EXISTS (Select idTicket from ColumnTicket where idColumn  =  ?)";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setInt(1, col.getId());
+        ResultSet resultSet = pre.executeQuery();
+
+        ArrayList<Ticket> solution = new ArrayList();
+        //TODO when Ticket will be implemented
+        int id;
+        int projetID;
+        int score;
+        Date deadline;
+        String description;
+        while (resultSet.next()) {
+
+            id = resultSet.getInt("idUserStory");
+            projetID = resultSet.getInt("projetID");
+            score = resultSet.getInt("score");
+            deadline = resultSet.getDate("deadline");
+            description = resultSet.getString("descriptionUserStory");
+            solution.add(new Ticket());
+        }
+        Ticket[] soos = solution.toArray(new Ticket[solution.size()]);
+        return soos;
+    }
+
+    @Override
+    public boolean moveComponent(Component c, Column fromCol,Column toCol) throws SQLException {
+        String sql = "DELETE FROM ? WHERE idColumn = ? AND idComponent = ? ";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre = fillSQL(pre,c,fromCol);
+        pre.execute();
+
+        return addComponent(c,toCol);
+    }
+
+    @Override
+    public boolean addComponent(Component c, Column col) throws SQLException {
+        String sql = "Insert INTO ? Values (?,?)";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre = fillSQL(pre,c,col);
+        pre.execute();
+        return true;
+    }
+
+    @Override
+    public boolean createSprintBacklog(int idProject, Date startDate, Date endDate) throws SQLException {
+        createBacklog(idProject,3);
+
+        //TODO check if there is another way to do this:
+        String sql = "SELECT LAST_INSERT_ID() FROM Backlog";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        ResultSet resultSet = pre.executeQuery();
+        int id = resultSet.getInt("LAST_INSERT_ID()");
+
+        sql = "Insert INTO SprintBacklog Values (?,?,?)";
+        pre = this.connection.prepareStatement(sql);
+        pre.setInt(1,id);
+        pre.setDate(2,startDate);
+        pre.setDate(3,endDate);
+        pre.execute();
+        return true;
+    }
+
+    @Override
+    public boolean deleteSprintBacklog(SprintBacklog sprintBacklog) throws SQLException {
+        String sql = "Remove From SprintBacklog Where idBacklog = ?";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setInt(1,sprintBacklog.getId());
+        pre.execute();
+        sql = "Remove From Backlog Where idBacklog = ?";
+        pre = this.connection.prepareStatement(sql);
+        pre.setInt(1,sprintBacklog.getId());
+        pre.execute();
+        return true;
+    }
+
+    @Override
+    public boolean initiateProductTicketBacklog(int idProject) throws SQLException {
+        createBacklog(idProject, 1);
+        createBacklog(idProject,2);
+        return true;
+    }
+
+
+    private void createBacklog(int idProject, int type) throws SQLException{
+        String sql = "Insert into Backlog(idProject, type) Values (?,?)";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setInt(1,idProject);
+        pre.setInt(2,type);
+        pre.execute();
+        sql = "SELECT LAST_INSERT_ID() FROM Backlog";
+        pre = this.connection.prepareStatement(sql);
+        ResultSet resultSet = pre.executeQuery();
+        int id = resultSet.getInt("LAST_INSERT_ID()");
+        sql = "Insert into Column(idBacklog, name) values (?, TO DO)(?, Work in progress)(?, Done)";
+        pre = this.connection.prepareStatement(sql);
+        pre.setInt(1,id);
+        pre.setInt(2,id);
+        pre.setInt(3,id);
+        pre.execute();
+    }
+
+    private PreparedStatement fillSQL(PreparedStatement pre,Component c, Column col) throws SQLException {
+        pre = setCorrectTable(pre,c);
+        pre.setInt(2,col.getId());
+        pre.setInt(3,c.getId());
+        return pre;
+    }
+
+    private PreparedStatement setCorrectTable (PreparedStatement pre, Component c) throws SQLException{
+        if (c instanceof Ticket){
+            pre.setString(1,"ColumnTicket");
+        }
+        else {
+            pre.setString(1,"ColumnUserStory");
+        }
+        return pre;
+    }
+
+    private ResultSet getBacklog (int idProject, int type) throws SQLException {
         String sql = "Select idBacklog From  backlog where idProject = ? and type = ? ";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idProject);
-        pre.setString(2,type);
+        pre.setInt(2,type);
         return pre.executeQuery();
     }
 }
