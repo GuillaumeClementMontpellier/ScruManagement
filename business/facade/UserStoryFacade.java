@@ -1,28 +1,46 @@
 package business.facade;
 
+import DAO.UserStoryDAO;
+import DAO.factory.AbstractFactoryDAO;
 import business.system.Projet;
 import business.system.UserStory;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserStoryFacade {
 
-    // TODO
+    public UserStory getUserStoryByID(int id) throws SQLException {
+        UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
 
-    public List<UserStory> getUserStoryByProject(Projet currentProject) {
-        return new ArrayList<>();
+        return usDAO.getUserStoryById(id);
     }
 
-    public boolean updateUserStory(UserStory oldUS, UserStory newUS) {
-        return true;
+    public List<UserStory> getUserStoryByProject(Projet currentProject) throws SQLException {
+
+        UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
+
+        return usDAO.getUserStoryByProjectID(currentProject.getId());
     }
 
-    public boolean deleteUserStory(UserStory oldUS) {
-        return true;
+    public boolean updateUserStory(UserStory oldUS, UserStory newUS) throws SQLException {
+
+        UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
+
+        return usDAO.updateUserStory(oldUS.getId(), newUS);
     }
 
-    public boolean addUserStory(UserStory newUS) {
-        return false;
+    public boolean deleteUserStory(UserStory oldUS) throws SQLException {
+
+        UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
+
+        return usDAO.deleteUserStory(oldUS.getId());
+    }
+
+    public boolean addUserStory(UserStory newUS) throws SQLException {
+
+        UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
+
+        return usDAO.addUserStory(newUS);
     }
 }

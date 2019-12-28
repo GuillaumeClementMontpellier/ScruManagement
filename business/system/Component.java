@@ -9,9 +9,6 @@ public abstract class Component implements Commentable {
         return this.name;
     }
 
-    /**
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }
@@ -20,9 +17,6 @@ public abstract class Component implements Commentable {
         return this.description;
     }
 
-    /**
-     * @param description
-     */
     public void setDescription(String description) {
         this.description = description;
     }

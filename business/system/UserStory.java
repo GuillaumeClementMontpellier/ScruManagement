@@ -8,14 +8,17 @@ public class UserStory extends Component {
     private int projetID;
     private int score;
     private Date deadline;
-    private String description;
 
-    public UserStory(int id, String description, int projetID, int score, Date deadline) {
-        this.id = id;
-        this.projetID = projetID;
-        this.score = score;
-        this.deadline = deadline;
-        this.description = description;
+    public UserStory() {
+    }
+
+    public UserStory(int id, String name, String description, int projetID, int score, Date deadline) {
+        setId(id);
+        setName(name);
+        setDescription(description);
+        setProjetID(projetID);
+        setScore(score);
+        setDeadline(deadline);
     }
 
 
@@ -51,13 +54,4 @@ public class UserStory extends Component {
         this.score = score;
     }
 
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

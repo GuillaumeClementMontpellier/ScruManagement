@@ -3,11 +3,11 @@ package DAO.mariadb;
 import DAO.UserStoryDAO;
 import business.system.UserStory;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 public class UserStoryDAOMariaDB extends UserStoryDAO {
@@ -15,8 +15,6 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
     public UserStoryDAOMariaDB(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
         super(addressDataBase, userDataBase, passWordDataBase);
     }
-
-    // TODO : implement auto-generated methods
 
     @Override
     public UserStory getUserStoryById(int id) throws SQLException {
@@ -39,8 +37,9 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
         int projetID = resultSet.getInt("projetID");
         int score = resultSet.getInt("score");
         Date deadline = resultSet.getDate("deadline");
+        String name = resultSet.getString("nameUserStory");
 
-        return new UserStory(id, descr, projetID, score, deadline);
+        return new UserStory(id, name, descr, projetID, score, deadline);
     }
 
     @Override
@@ -66,15 +65,18 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
         int USid = resultSet.getInt("idUserStory");
         int score = resultSet.getInt("score");
         Date deadline = resultSet.getDate("deadline");
+        String name = resultSet.getString("nameUserStory");
 
-        list.add(new UserStory(USid, description, projetID, score, deadline));
+        list.add(new UserStory(USid, name, description, projetID, score, deadline));
 
         while (resultSet.next()) {
             description = resultSet.getString("descriptionUserStory");
             USid = resultSet.getInt("projetID");
             score = resultSet.getInt("score");
             deadline = resultSet.getDate("deadline");
-            list.add(new UserStory(USid, description, projetID, score, deadline));
+            name = resultSet.getString("nameUserStory");
+
+            list.add(new UserStory(USid, name, description, projetID, score, deadline));
         }
 
         return list;
@@ -97,9 +99,10 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
     @Override
     public boolean updateUserStory(int id, UserStory newUS) throws SQLException {
         String sql = "UPDATE UserStory " +
-                "and score = ? " +
+                "SET score = ? " +
                 "and deadline = ? " +
                 "and descriptionUserStory = ? " +
+                "and name = ? " +
                 "where idUserStory = ?";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
@@ -107,7 +110,8 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
         pre.setInt(1, newUS.getScore());
         pre.setDate(2, newUS.getDeadline());
         pre.setString(3, newUS.getDescription());
-        pre.setInt(4, id);
+        pre.setString(4, newUS.getName());
+        pre.setInt(5, id);
 
         int nbAffected = pre.executeUpdate();
 
@@ -117,7 +121,7 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
     @Override
     public boolean addUserStory(UserStory newUS) throws SQLException {
         String sql = "Insert into UserStory " +
-                "values (?, ?, ?, ?)";
+                "values (?, ?, ?, ?, ?)";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
 
@@ -125,6 +129,7 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
         pre.setInt(2, newUS.getScore());
         pre.setDate(3, newUS.getDeadline());
         pre.setString(4, newUS.getDescription());
+        pre.setString(5, newUS.getName());
 
         int nbAffected = pre.executeUpdate();
 
