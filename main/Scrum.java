@@ -2,6 +2,7 @@ package main;
 
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
+import gui.login.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +41,7 @@ public class Scrum extends Application {
 
         //load fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/login/Login.fxml"));
+//        LoginController cont = loader.getController();
         Parent root = loader.load();
 
         //display fxml

@@ -1,11 +1,18 @@
 package gui.main;
 
-
+import business.system.User;
+import gui.userstory.NewUserStoryCreation;
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
+import javafx.stage.Window;
 
 public class HomeController {
 
+
     @FXML
-    private Text message;
+    private Window childContent;
+
+    @FXML
+    private NewUserStoryCreation childContentController;
+
+    private User activeUser;
 }

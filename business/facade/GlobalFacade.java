@@ -43,10 +43,6 @@ public class GlobalFacade {
         return userStoryFacade.updateUserStory(oldUS, newUS);
     }
 
-    public List<UserStory> getUserStoryByProject(Projet currentProject) throws SQLException {
-        return userStoryFacade.getUserStoryByProject(currentProject);
-    }
-
     public boolean deleteUserStory(UserStory oldUS) throws SQLException {
         return userStoryFacade.deleteUserStory(oldUS);
     }

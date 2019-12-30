@@ -5,18 +5,16 @@ import java.sql.Date;
 public class UserStory extends Component {
 
     private int id;
-    private int projetID;
     private int score;
     private Date deadline;
 
     public UserStory() {
     }
 
-    public UserStory(int id, String name, String description, int projetID, int score, Date deadline) {
+    public UserStory(int id, String name, String description, int score, Date deadline) {
         setId(id);
         setName(name);
         setDescription(description);
-        setProjetID(projetID);
         setScore(score);
         setDeadline(deadline);
     }
@@ -28,14 +26,6 @@ public class UserStory extends Component {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getProjetID() {
-        return projetID;
-    }
-
-    public void setProjetID(int projetID) {
-        this.projetID = projetID;
     }
 
     public Date getDeadline() {

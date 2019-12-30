@@ -60,7 +60,7 @@ public class NewUserStoryCreation {
 
     }
 
-    private void exit() {
+    public void exit() {
         System.out.println("Exit pressed");
     }
 
