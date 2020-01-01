@@ -117,7 +117,7 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
 
         ResultSet rs = pre.getGeneratedKeys();
 
-        if(rs.next()){
+        if (rs.next()) {
             newUS.setId(rs.getInt(1));
         }
 

@@ -1,16 +1,17 @@
 package business.facade;
 
-import business.system.Projet;
 import business.system.User;
 import business.system.UserStory;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class GlobalFacade {
 
     // Singleton
     private static GlobalFacade instance = null;
+    // Logic
+    private final UserStoryFacade userStoryFacade;
+    private LoginFacade loginFacade;
 
     private GlobalFacade() {
 
@@ -25,17 +26,12 @@ public class GlobalFacade {
         return instance;
     }
 
-    // Logic
-    private final UserStoryFacade userStoryFacade;
-
-    private LoginFacade loginFacade;
-
     public User login(String username, String password) throws SQLException {
         return loginFacade.login(username, password);
     }
 
     public User register(String username, String password, String firstName, String lastName) throws SQLException {
-        return loginFacade.register(username,password,firstName,lastName);
+        return loginFacade.register(username, password, firstName, lastName);
     }
 
     public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {

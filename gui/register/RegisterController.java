@@ -32,14 +32,15 @@ public class RegisterController {
     private Label message;
 
     @FXML
-    void goToLogin(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("../login/LoginFXML.fxml"));
+    void goToLogin(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../login/Login.fxml"));
 
         Scene scene = new Scene(root);
         Scrum.getStage().setScene(scene);
     }
+
     @FXML
-    void register(ActionEvent event) throws IOException{
+    void register(ActionEvent event) throws IOException {
         System.out.println("Try register");
 
         String username = emailField.getText();

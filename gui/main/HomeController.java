@@ -20,12 +20,6 @@ public class HomeController {
     @FXML
     private MainControlleur childContentController;
 
-    @FXML
-    private Window sideBar;
-
-    @FXML
-    private SideBarControlleur sideBarController;
-
 
     /**
      * Change la sub-scene (volet de droite) de la fenetre
