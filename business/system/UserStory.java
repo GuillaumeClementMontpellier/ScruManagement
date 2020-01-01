@@ -34,4 +34,5 @@ public class UserStory extends Component {
         this.score = score;
     }
 
+
 }

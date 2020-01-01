@@ -2,6 +2,7 @@ package business.system;
 
 public class Projet {
 
+    int id;
     private String name;
     private int id;
 
@@ -9,6 +10,7 @@ public class Projet {
         return this.id;
     }
 
+    public int getId(){return this.id;}
     public String getName() {
         return this.name;
     }

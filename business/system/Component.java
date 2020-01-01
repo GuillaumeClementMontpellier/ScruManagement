@@ -3,7 +3,6 @@ package business.system;
 public abstract class Component implements Commentable {
 
     private int id;
-
     private String name;
     private String description;
 
