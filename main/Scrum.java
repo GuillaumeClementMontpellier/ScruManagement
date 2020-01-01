@@ -38,10 +38,10 @@ public class Scrum extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stageSingleton = stage;
+        stage.setTitle("ScruManagement");
 
         //load fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../gui/login/Login.fxml"));
-//        LoginController cont = loader.getController();
         Parent root = loader.load();
 
         //display fxml

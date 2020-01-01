@@ -16,5 +16,5 @@ public abstract class UserStoryDAO extends DAO {
 
     public abstract boolean updateUserStory(int id, UserStory newUS) throws SQLException;
 
-    public abstract boolean addUserStory(UserStory newUS) throws SQLException;
+    public abstract boolean addUserStory(UserStory newUS, int projectID) throws SQLException;
 }

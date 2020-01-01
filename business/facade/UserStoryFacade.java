@@ -28,10 +28,10 @@ public class UserStoryFacade {
         return usDAO.deleteUserStory(oldUS.getId());
     }
 
-    public boolean addUserStory(UserStory newUS) throws SQLException {
+    public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
 
         UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
 
-        return usDAO.addUserStory(newUS);
+        return usDAO.addUserStory(newUS, projectID);
     }
 }

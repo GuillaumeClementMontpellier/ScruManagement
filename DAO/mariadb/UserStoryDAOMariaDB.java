@@ -3,10 +3,7 @@ package DAO.mariadb;
 import DAO.UserStoryDAO;
 import business.system.UserStory;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserStoryDAOMariaDB extends UserStoryDAO {
 
@@ -41,15 +38,25 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
 
     @Override
     public boolean deleteUserStory(int id) throws SQLException {
-        String sql = "DELETE from UserStory where idUserStory = ?";
 
+        // Delete ColumnUserStory
+        String sql = "DELETE from ColumnUserStory where idComponent = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
+
+        pre.setInt(1, id);
+
+        int nbAff = pre.executeUpdate();
+
+        // Delete User Story
+        sql = "DELETE from UserStory where idUserStory = ?";
+
+        pre = this.connection.prepareStatement(sql);
 
         pre.setInt(1, id);
 
         int nbAffected = pre.executeUpdate();
 
-        return nbAffected > 0;
+        return (nbAffected > 0) && (nbAff > 0);
     }
 
     @Override
@@ -74,12 +81,74 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
         return nbAffected > 0;
     }
 
+    /**
+     * If sucess, set UserStory id to generated id
+     *
+     * @param newUS
+     * @param projectID
+     * @return
+     * @throws SQLException
+     */
     @Override
-    public boolean addUserStory(UserStory newUS) throws SQLException {
+    public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
+
+        // Insert User Story
+        boolean success = insertUserStory(newUS);
+        if (!success) {
+            return false;
+        }
+
+        // Search Column to Insert into
+        int idColumn = getUserStoryBacklogColumn(projectID);
+        if (idColumn == -1) {
+            return false;
+        }
+
+        // Insert Column User Story
+        String sql = "INSERT INTO ColumnUserStory" +
+                "Values (?, ?)";
+
+        PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+        pre.setInt(1, idColumn);
+        pre.setInt(2, newUS.getId());
+
+        int nbAffected = pre.executeUpdate();
+
+        ResultSet rs = pre.getGeneratedKeys();
+
+        if(rs.next()){
+            newUS.setId(rs.getInt(1));
+        }
+
+        return nbAffected > 0;
+    }
+
+    private int getUserStoryBacklogColumn(int projectID) throws SQLException {
+        // TODO : put real type
+        String sql = "Select c.idColumn from Backlog b, ColumnBacklog c " +
+                "WHERE b.idProject = ? " +
+                "and b.typeBacklog = 1 " +
+                "and b.idBacklog = c.idBacklog";
+
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+
+        pre.setInt(1, projectID);
+
+        ResultSet rs = pre.executeQuery();
+
+        int idColumn = -1;
+        if (rs.next()) {
+            idColumn = rs.getInt(1);
+        }
+        return idColumn;
+    }
+
+    private boolean insertUserStory(UserStory newUS) throws SQLException {
         String sql = "Insert into UserStory " +
                 "values ( ?, ?, ?, ?)";
 
-        PreparedStatement pre = this.connection.prepareStatement(sql);
+        PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         pre.setInt(1, newUS.getScore());
         pre.setDate(2, newUS.getDeadline());
@@ -87,7 +156,20 @@ public class UserStoryDAOMariaDB extends UserStoryDAO {
         pre.setString(4, newUS.getName());
 
         int nbAffected = pre.executeUpdate();
+        ResultSet rs = pre.getGeneratedKeys();
 
-        return nbAffected > 0;
+        if (nbAffected > 0) {
+            return false;
+        }
+
+        int idUS = -1;
+        if (rs.next()) {
+            idUS = rs.getInt(1);
+        } else {
+            return false;
+        }
+
+        newUS.setId(idUS);
+        return true;
     }
 }

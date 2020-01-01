@@ -34,9 +34,8 @@ public class GlobalFacade {
         return loginFacade.login(username, password);
     }
 
-    // TODO : redo type and params
-    public boolean addUserStory(UserStory newUS) throws SQLException {
-        return userStoryFacade.addUserStory(newUS);
+    public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
+        return userStoryFacade.addUserStory(newUS, projectID);
     }
 
     public boolean updateUserStory(UserStory oldUS, UserStory newUS) throws SQLException {

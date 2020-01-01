@@ -55,6 +55,7 @@ public class LoginController {
             message.setVisible(true);
 
         } else {
+            // TODO : change to project selection
             Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
 
             Scene scene = new Scene(root);
