@@ -41,8 +41,8 @@ public class UserDAOMariaDB extends UserDAO {
     }
 
     @Override
-    public boolean registerUser(String mail, String password, String firstName, String lastName) throws SQLException {
-        String sql = "INSERT INTO User " +
+    public void registerUser(String mail, String password, String firstName, String lastName) throws SQLException {
+        String sql = "INSERT INTO User(emailUser,passWordUser,firstNameUser,lastNameUser) " +
                 "VALUES (?,?,?,?)";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
@@ -51,14 +51,14 @@ public class UserDAOMariaDB extends UserDAO {
         pre.setString(3, firstName);
         pre.setString(4, lastName);
 
-        return pre.execute();
+        pre.execute();
     }
 
 
     @Override
     public boolean userExists(String mail) throws SQLException {
-        String sql = "Select id from User " +
-                "Where emailUser=?";
+        String sql = "Select idUser from User " +
+                "Where emailUser = ?";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setString(1, mail);

@@ -34,6 +34,10 @@ public class GlobalFacade {
         return loginFacade.login(username, password);
     }
 
+    public User register(String username, String password, String firstName, String lastName) throws SQLException {
+        return loginFacade.register(username,password,firstName,lastName);
+    }
+
     public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
         return userStoryFacade.addUserStory(newUS, projectID);
     }
