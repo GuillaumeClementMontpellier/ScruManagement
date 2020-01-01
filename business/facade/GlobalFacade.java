@@ -56,9 +56,11 @@ public class GlobalFacade {
     public TicketBacklog getTicketBacklog(Projet p) throws SQLException {
         return backlogFacade.getTicketBacklog(p);
     }
+
     public ProductBacklog getProductBacklog(Projet p) throws SQLException {
         return backlogFacade.getProductBacklog(p);
     }
+
     public SprintBacklog getLatestSprintBacklog(Projet p) throws SQLException {
         return backlogFacade.getLatestSprintBacklog(p);
     }
@@ -71,7 +73,7 @@ public class GlobalFacade {
         return backlogFacade.getColumn(backlog);
     }
 
-    public UserStory[] getUserStory(Column col) throws SQLException{
+    public UserStory[] getUserStory(Column col) throws SQLException {
         return backlogFacade.getUserStory(col);
     }
 
@@ -80,15 +82,15 @@ public class GlobalFacade {
     }
 
     public boolean moveComponent(Component c, Column fromCol, Column toCol) throws SQLException {
-        return backlogFacade.moveComponent(c,fromCol,toCol);
+        return backlogFacade.moveComponent(c, fromCol, toCol);
     }
 
     public boolean addComponent(Component c, Column col) throws SQLException {
-        return backlogFacade.addComponent(c,col);
+        return backlogFacade.addComponent(c, col);
     }
 
     public boolean createSprintBacklog(int idProject, Date startDate, Date endDate) throws SQLException {
-        return backlogFacade.createSprintBacklog(idProject,startDate,endDate);
+        return backlogFacade.createSprintBacklog(idProject, startDate, endDate);
     }
 
     public boolean deleteSprintBacklog(SprintBacklog sprintBacklog) throws SQLException {

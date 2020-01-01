@@ -137,6 +137,7 @@ public class BacklogDAOMariaDB extends BacklogDAO {
 
     @Override
     public Ticket[] getTickets(Column col) throws SQLException {
+        // TODO : review SQL
         String sql = "Select * From Ticket where idTicket EXISTS (Select idTicket from ColumnTicket where idColumn  =  ?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, col.getId());
