@@ -4,8 +4,8 @@ import business.system.Projet;
 import business.system.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ public class HomeController {
     private Projet projet;
 
     @FXML
-    private Window childContent;
+    private Node childContent;
 
     @FXML
     private MainControlleur childContentController;

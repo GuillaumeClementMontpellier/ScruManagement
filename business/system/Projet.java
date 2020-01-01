@@ -2,11 +2,13 @@ package business.system;
 
 public class Projet {
 
-    int id;
     private String name;
     private int id;
 
-    public int getId(){return this.id;}
+    public int getId() {
+        return this.id;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -15,9 +17,6 @@ public class Projet {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public void setId(int id) {
         this.id = id;

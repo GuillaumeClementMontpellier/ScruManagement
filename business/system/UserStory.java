@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class UserStory extends Component {
 
-    private int id;
     private int score;
     private Date deadline;
 
@@ -17,15 +16,6 @@ public class UserStory extends Component {
         setDescription(description);
         setScore(score);
         setDeadline(deadline);
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Date getDeadline() {

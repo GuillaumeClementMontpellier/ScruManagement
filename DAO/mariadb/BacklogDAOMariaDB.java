@@ -84,7 +84,7 @@ public class BacklogDAOMariaDB extends BacklogDAO {
             id = resultSet.getInt("idBacklog");
             startDate = resultSet.getDate("beginDate");
             endDate = resultSet.getDate("endDate");
-            solution.add(new SprintBacklog(id,startDate,endDate));
+            solution.add(new SprintBacklog(id, startDate, endDate));
         }
         SprintBacklog[] soos = solution.toArray(new SprintBacklog[solution.size()]);
         return soos;
@@ -122,13 +122,14 @@ public class BacklogDAOMariaDB extends BacklogDAO {
         int score;
         Date deadline;
         String description;
+        String name;
         while (resultSet.next()) {
             id = resultSet.getInt("idUserStory");
-            projetID = resultSet.getInt("projetID");
+            name = resultSet.getString("nameUserStory");
             score = resultSet.getInt("score");
             deadline = resultSet.getDate("deadline");
             description = resultSet.getString("descriptionUserStory");
-            solution.add(new UserStory(id,description,projetID,score,deadline));
+            solution.add(new UserStory(id, name, description, score, deadline));
         }
         UserStory[] soos = solution.toArray(new UserStory[solution.size()]);
         return soos;
@@ -162,27 +163,27 @@ public class BacklogDAOMariaDB extends BacklogDAO {
     }
 
     @Override
-    public boolean moveComponent(Component c, Column fromCol,Column toCol) throws SQLException {
+    public boolean moveComponent(Component c, Column fromCol, Column toCol) throws SQLException {
         String sql = "DELETE FROM ? WHERE idColumn = ? AND idComponent = ? ";
         PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre = fillSQL(pre,c,fromCol);
+        pre = fillSQL(pre, c, fromCol);
         pre.execute();
 
-        return addComponent(c,toCol);
+        return addComponent(c, toCol);
     }
 
     @Override
     public boolean addComponent(Component c, Column col) throws SQLException {
         String sql = "Insert INTO ? Values (?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre = fillSQL(pre,c,col);
+        pre = fillSQL(pre, c, col);
         pre.execute();
         return true;
     }
 
     @Override
     public boolean createSprintBacklog(int idProject, Date startDate, Date endDate) throws SQLException {
-        createBacklog(idProject,3);
+        createBacklog(idProject, 3);
 
         //TODO check if there is another way to do this:
         String sql = "SELECT LAST_INSERT_ID() FROM Backlog";
@@ -192,9 +193,9 @@ public class BacklogDAOMariaDB extends BacklogDAO {
 
         sql = "Insert INTO SprintBacklog Values (?,?,?)";
         pre = this.connection.prepareStatement(sql);
-        pre.setInt(1,id);
-        pre.setDate(2,startDate);
-        pre.setDate(3,endDate);
+        pre.setInt(1, id);
+        pre.setDate(2, startDate);
+        pre.setDate(3, endDate);
         pre.execute();
         return true;
     }
@@ -203,11 +204,11 @@ public class BacklogDAOMariaDB extends BacklogDAO {
     public boolean deleteSprintBacklog(SprintBacklog sprintBacklog) throws SQLException {
         String sql = "Remove From SprintBacklog Where idBacklog = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre.setInt(1,sprintBacklog.getId());
+        pre.setInt(1, sprintBacklog.getId());
         pre.execute();
         sql = "Remove From Backlog Where idBacklog = ?";
         pre = this.connection.prepareStatement(sql);
-        pre.setInt(1,sprintBacklog.getId());
+        pre.setInt(1, sprintBacklog.getId());
         pre.execute();
         return true;
     }
@@ -215,16 +216,16 @@ public class BacklogDAOMariaDB extends BacklogDAO {
     @Override
     public boolean initiateProductTicketBacklog(int idProject) throws SQLException {
         createBacklog(idProject, 1);
-        createBacklog(idProject,2);
+        createBacklog(idProject, 2);
         return true;
     }
 
 
-    private void createBacklog(int idProject, int type) throws SQLException{
+    private void createBacklog(int idProject, int type) throws SQLException {
         String sql = "Insert into Backlog(idProject, type) Values (?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre.setInt(1,idProject);
-        pre.setInt(2,type);
+        pre.setInt(1, idProject);
+        pre.setInt(2, type);
         pre.execute();
         sql = "SELECT LAST_INSERT_ID() FROM Backlog";
         pre = this.connection.prepareStatement(sql);
@@ -232,34 +233,33 @@ public class BacklogDAOMariaDB extends BacklogDAO {
         int id = resultSet.getInt("LAST_INSERT_ID()");
         sql = "Insert into Column(idBacklog, name) values (?, TO DO)(?, Work in progress)(?, Done)";
         pre = this.connection.prepareStatement(sql);
-        pre.setInt(1,id);
-        pre.setInt(2,id);
-        pre.setInt(3,id);
+        pre.setInt(1, id);
+        pre.setInt(2, id);
+        pre.setInt(3, id);
         pre.execute();
     }
 
-    private PreparedStatement fillSQL(PreparedStatement pre,Component c, Column col) throws SQLException {
-        pre = setCorrectTable(pre,c);
-        pre.setInt(2,col.getId());
-        pre.setInt(3,c.getId());
+    private PreparedStatement fillSQL(PreparedStatement pre, Component c, Column col) throws SQLException {
+        pre = setCorrectTable(pre, c);
+        pre.setInt(2, col.getId());
+        pre.setInt(3, c.getId());
         return pre;
     }
 
-    private PreparedStatement setCorrectTable (PreparedStatement pre, Component c) throws SQLException{
-        if (c instanceof Ticket){
-            pre.setString(1,"ColumnTicket");
-        }
-        else {
-            pre.setString(1,"ColumnUserStory");
+    private PreparedStatement setCorrectTable(PreparedStatement pre, Component c) throws SQLException {
+        if (c instanceof Ticket) {
+            pre.setString(1, "ColumnTicket");
+        } else {
+            pre.setString(1, "ColumnUserStory");
         }
         return pre;
     }
 
-    private ResultSet getBacklog (int idProject, int type) throws SQLException {
+    private ResultSet getBacklog(int idProject, int type) throws SQLException {
         String sql = "Select idBacklog From  backlog where idProject = ? and type = ? ";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idProject);
-        pre.setInt(2,type);
+        pre.setInt(2, type);
         return pre.executeQuery();
     }
 }

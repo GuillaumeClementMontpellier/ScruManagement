@@ -1,8 +1,6 @@
 package business.facade;
 
-import business.system.Projet;
-import business.system.User;
-import business.system.UserStory;
+import business.system.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -12,9 +10,9 @@ public class GlobalFacade {
     // Singleton
     private static GlobalFacade instance = null;
     // Logic
-    private final UserStoryFacade userStoryFacade;
-    private final LoginFacade loginFacade;
-    private final BacklogFacade backlogFacade;
+    private UserStoryFacade userStoryFacade;
+    private LoginFacade loginFacade;
+    private BacklogFacade backlogFacade;
 
     private GlobalFacade() {
 

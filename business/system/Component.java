@@ -3,13 +3,19 @@ package business.system;
 public abstract class Component implements Commentable {
 
     private int id;
+
     private String name;
     private String description;
 
-    public Component(int id,String description){
+    public Component(int id, String name, String description) {
         this.id = id;
+        this.name = name;
         this.description = description;
     }
+
+    public Component() {
+    }
+
     public String getName() {
         return this.name;
     }
@@ -34,6 +40,10 @@ public abstract class Component implements Commentable {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
