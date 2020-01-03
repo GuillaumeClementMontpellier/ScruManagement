@@ -17,9 +17,6 @@ public class HomeController {
     @FXML
     private Node childContent;
 
-    @FXML
-    private MainControlleur childContentController;
-
 
     /**
      * Change la sub-scene (volet de droite) de la fenetre
@@ -34,7 +31,7 @@ public class HomeController {
 
         Parent root = loader.load();
 
-        childContentController = loader.getController();
+        MainControlleur childContentController = loader.getController();
 
         childContentController.setHomeControlleur(this);
         childContentController.setProjet(this.projet);
@@ -42,6 +39,11 @@ public class HomeController {
         childContentController.init(param);
 
         childContent.getScene().setRoot(root);
+    }
+
+    public void handleChat() {
+
+
     }
 
 }

@@ -5,10 +5,10 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" animated="false" collapsible="false"
-            maxHeight="-Infinity"
-            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-            text="SCRUManagement" xmlns="http://javafx.com/javafx/11.0.1"
+<?import util.IconView?>
+<TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="SCRUManagement"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gui.main.HomeController">
     <content>
         <SplitPane dividerPositions="0.25" prefHeight="200.0" prefWidth="200.0">
@@ -17,12 +17,12 @@
                     <items>
                         <AnchorPane prefHeight="49.0" prefWidth="146.0">
                             <children>
-                                <Icon content="PERSON" layoutX="5.0" layoutY="5.0"/>
-                                <Text layoutX="52.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                <IconView fx:value="user-cog" layoutX="10.0" layoutY="10.0"/>
+                                <Line endX="17.0" endY="-12.66666030883789" layoutX="20.0" layoutY="45.0"
+                                      startX="17.0" startY="-40.00000762939453"/>
+                                <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0"
                                       text="Project"/>
-                                <Line endX="17.0" endY="-12.66666030883789" layoutX="15.0" layoutY="44.0" startX="17.0"
-                                      startY="-40.00000762939453"/>
-                                <Icon content="SETTINGS" layoutX="112.0" layoutY="4.0"/>
+                                <IconView fx:value="cog" layoutX="100.0" layoutY="2.5"/>
                             </children>
                         </AnchorPane>
                         <ScrollPane centerShape="false" prefHeight="286.0" prefWidth="146.0">
@@ -53,9 +53,9 @@
                         </ScrollPane>
                         <AnchorPane prefHeight="51.0" prefWidth="108.0">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="146.0" text="Chat"
-                                        textFill="WHITE"/>
-                                <Icon content="OPEN_IN_NEW" layoutX="114.0" layoutY="12.0"/>
+                                <Button mnemonicParsing="false" onAction="#handleChat" prefHeight="50.0"
+                                        prefWidth="146.0" text="Chat"/>
+                                <IconView fx:value="external-link-alt" layoutX="100.0" layoutY="17.5"/>
                             </children>
                         </AnchorPane>
                     </items>
@@ -64,8 +64,8 @@
                     <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="41.0" layoutX="-2.0"
                                    layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="37.0"/>
-                        <Icon content="CHAT" layoutX="5.0" layoutY="6.0"/>
-                        <fx:include source="../Empty.fxml" fx:id="childContent"/>
+                        <IconView fx:value="comments" layoutX="7.5" layoutY="-20.0"/>
+                        <fx:include fx:id="childContent" source="../Empty.fxml"/>
                     </children>
                 </Pane>
             </items>
