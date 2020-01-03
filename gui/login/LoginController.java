@@ -27,7 +27,6 @@ public class LoginController {
     private Text message;
 
     public void initialize() {
-        // TODO
     }
 
     @FXML
@@ -41,7 +40,10 @@ public class LoginController {
 
     @FXML
     void handleLogin(ActionEvent event) throws IOException {
-        System.out.println("Try Login");
+
+        // Pourquoi cela ne change pas ?
+        message.setText("Identifying");
+        message.setVisible(true);
 
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -55,9 +57,9 @@ public class LoginController {
 
         if (u == null) {
             message.setText("Invalid Mail or Password");
-            message.setVisible(true);
-
         } else {
+            message.setText("Loading");
+
             // TODO : change to project selection
             Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
 
