@@ -16,14 +16,12 @@ public class IconView extends Region {
 
     private SVGPath svg;
 
-    public IconView() {
-    }
-
     public IconView(String icon) {
         setIcon(icon);
     }
 
-    public static IconView valueOf(String value) throws IOException {
+    @SuppressWarnings("unused")
+    public static IconView valueOf(String value) {
         return new IconView(value);
     }
 
@@ -31,17 +29,16 @@ public class IconView extends Region {
 
         String path = "../static/fontawesome/svgs/solid/" + icon + ".svg";
 
-        String url = String.valueOf(getClass().getResource(path));
+        String fileUrl = String.valueOf(getClass().getResource(path));
 
-        SVGParser SVGParser = new SVGParser(url);
-
-        if (SVGParser.failed()) return;
-
-        String value = SVGParser.getPath();
+        String svgPath = parseSVG(fileUrl);
+        if (this.svg == null) {
+            return;
+        }
 
         this.svg = new SVGPath();
 
-        svg.setContent(value);
+        svg.setContent(svgPath);
 
         double width = 15;
         double height = 15;
@@ -74,65 +71,60 @@ public class IconView extends Region {
         svg.setScaleY(scaleHeight);
     }
 
-    private class SVGParser {
 
-        private String url;
-        private String value;
+    /**
+     * Parse the svg in path, and if success,
+     * getPath() is set to return the path of the svg line
+     *
+     * @param url : url to svg to parse
+     * @return path if success, null if failure
+     */
+    public String parseSVG(String url) {
 
-        public SVGParser(String url) {
-            this.url = url;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            return null;
         }
 
-        public String getPath() {
-            return value;
+        Document document;
+        try {
+            document = builder.parse(url);
+        } catch (SAXException | IOException e) {
+            e.printStackTrace();
+            return null;
         }
 
-        public boolean failed() {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            try {
-                builder = factory.newDocumentBuilder();
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-                return true;
-            }
+        String xpathExpression = "//path/@d";
 
-            Document document = null;
-            try {
-                document = builder.parse(url);
-            } catch (SAXException | IOException e) {
-                e.printStackTrace();
-                return true;
-            }
+        XPathFactory xpf = XPathFactory.newInstance();
+        XPath xpath = xpf.newXPath();
+        XPathExpression expression;
 
-            String xpathExpression = "//path/@d";
-
-            XPathFactory xpf = XPathFactory.newInstance();
-            XPath xpath = xpf.newXPath();
-            XPathExpression expression = null;
-
-            try {
-                expression = xpath.compile(xpathExpression);
-            } catch (XPathExpressionException e) {
-                e.printStackTrace();
-                return true;
-            }
-
-            NodeList svgPaths = null;
-            try {
-                svgPaths = (NodeList) expression.evaluate(document, XPathConstants.NODESET);
-            } catch (XPathExpressionException e) {
-                e.printStackTrace();
-                return true;
-            }
-
-            if (svgPaths.getLength() < 1) {
-                System.out.println("No path in svg");
-                return true;
-            }
-
-            value = svgPaths.item(0).getNodeValue();
-            return false;
+        try {
+            expression = xpath.compile(xpathExpression);
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+            return null;
         }
+
+        NodeList svgPaths;
+        try {
+            svgPaths = (NodeList) expression.evaluate(document, XPathConstants.NODESET);
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if (svgPaths.getLength() < 1) {
+            System.out.println("No path in svg");
+            return null;
+        }
+
+        return svgPaths.item(0).getNodeValue();
     }
+
 }
