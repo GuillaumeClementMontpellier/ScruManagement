@@ -71,7 +71,6 @@ public class IconView extends Region {
         svg.setScaleY(scaleHeight);
     }
 
-
     /**
      * Parse the svg in path, and if success,
      * getPath() is set to return the path of the svg line
