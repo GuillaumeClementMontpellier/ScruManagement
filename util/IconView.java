@@ -32,7 +32,9 @@ public class IconView extends Region {
         String fileUrl = String.valueOf(getClass().getResource(path));
 
         String svgPath = parseSVG(fileUrl);
-        if (this.svg == null) {
+
+
+        if (svgPath == null) {
             return;
         }
 
@@ -72,13 +74,12 @@ public class IconView extends Region {
     }
 
     /**
-     * Parse the svg in path, and if success,
-     * getPath() is set to return the path of the svg line
+     * Parse the svg in path,
      *
      * @param url : url to svg to parse
-     * @return path if success, null if failure
+     * @return String, path of SVG if success, null if failure
      */
-    public String parseSVG(String url) {
+    public static String parseSVG(String url) {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
