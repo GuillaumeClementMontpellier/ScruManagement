@@ -224,14 +224,15 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     private void createBacklog(int idProject, int type) throws SQLException {
         String sql = "Insert into Backlog(idProject, type) Values (?,?)";
-        PreparedStatement pre = this.connection.prepareStatement(sql);
+        PreparedStatement pre = this.connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pre.setInt(1, idProject);
         pre.setInt(2, type);
         pre.execute();
-        sql = "SELECT LAST_INSERT_ID() FROM Backlog";
-        pre = this.connection.prepareStatement(sql);
-        ResultSet resultSet = pre.executeQuery();
-        int id = resultSet.getInt("LAST_INSERT_ID()");
+
+        ResultSet rs = pre.getGeneratedKeys();
+
+        int id = rs.getInt(1);
+
         sql = "Insert into Column(idBacklog, name) values (?, TO DO)(?, Work in progress)(?, Done)";
         pre = this.connection.prepareStatement(sql);
         pre.setInt(1, id);
