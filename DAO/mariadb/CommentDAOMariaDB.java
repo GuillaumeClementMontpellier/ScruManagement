@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CommentDAOMariaDB extends CommentDAO {
+public class CommentDAOMariaDB extends DAOMariaDB implements CommentDAO {
     public CommentDAOMariaDB(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
         super(addressDataBase, userDataBase, passWordDataBase);
     }
