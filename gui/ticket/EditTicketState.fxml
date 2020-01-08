@@ -31,31 +31,42 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-            <left>
-                <Label text="Ticket" BorderPane.alignment="CENTER">
-                    <font>
-                        <Font size="30.0" />
-                    </font>
-                </Label>
-            </left>
-        </BorderPane>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
-         <right>
-            <Button mnemonicParsing="false" text="Cancel" BorderPane.alignment="CENTER" />
-         </right>
-      </BorderPane>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <center>
-            <Button mnemonicParsing="false" text="Ok" BorderPane.alignment="CENTER" />
-         </center>
-      </BorderPane>
       <Label alignment="CENTER" prefHeight="18.0" prefWidth="266.0" text="New Ticket State" GridPane.rowIndex="3">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Ticket" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+         <left>
+            <Button cancelButton="true" mnemonicParsing="false" text="Return" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="20.0" />
+               </BorderPane.margin></Button>
+         </left>
+         <center>
+            <Button defaultButton="true" mnemonicParsing="false" text="Edit Ticktet" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <Button mnemonicParsing="false" text="Remove Ticket" BorderPane.alignment="CENTER" style="-fx-background-color: tomato;">
+               <BorderPane.margin>
+                  <Insets right="20.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
+      </BorderPane>
     </children>
 </GridPane>

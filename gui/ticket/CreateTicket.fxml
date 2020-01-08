@@ -32,23 +32,18 @@
       </Label>
       <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
-         <right>
-            <Button mnemonicParsing="false" text="Cancel" BorderPane.alignment="CENTER" />
-         </right>
+         <center>
+            <Button cancelButton="true" mnemonicParsing="false" text="Return" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
       <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <center>
-            <Button mnemonicParsing="false" text="Ok" BorderPane.alignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" text="Create Tictek" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-         <left>
-            <Label text="Ticket" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-         </left>
-      </BorderPane>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
    </children>
 </GridPane>
