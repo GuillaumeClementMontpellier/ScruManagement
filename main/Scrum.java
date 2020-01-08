@@ -55,6 +55,8 @@ public class Scrum extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        stage.setResizable(false);
+
         stageSingleton = stage;
         stage.setTitle("ScruManagement");
 

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import main.Scrum;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ProjetListController {
     @FXML
-    private VBox vertPane;
+    private GridPane listPane;
 
     private User user;
     private List<Projet> projectList;
@@ -27,23 +27,26 @@ public class ProjetListController {
 
         Scene scene = new Scene(root);
         Scrum.getStage().setScene(scene);
+
     }
 
     public void setUser(User u) throws IOException {
         this.user = u;
         this.projectList = GlobalFacade.getInstance().getProjectListFromUser(u);
 
-        for (Projet p : projectList) {
+        for (int i = 0; i < projectList.size(); i++) {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Projet.fxml"));
             Parent root = loader.load();
             ProjetController cont = loader.<ProjetController>getController();
 
-            cont.setProject(p);
+            cont.setProject(projectList.get(i));
             cont.setUser(u);
 
-            vertPane.getChildren().add(root);
+            listPane.add(root, 0, i);
         }
-        vertPane.autosize();
+
+        listPane.autosize();
     }
 
 

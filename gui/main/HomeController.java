@@ -2,10 +2,13 @@ package gui.main;
 
 import business.system.Projet;
 import business.system.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
@@ -15,8 +18,18 @@ public class HomeController {
     private Projet projet;
 
     @FXML
+    private GridPane listSprint;
+
+    @FXML
     private Node childContent;
 
+    public void setUser(User activeUser) {
+        this.activeUser = activeUser;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
 
     /**
      * Change la sub-scene (volet de droite) de la fenetre
@@ -42,8 +55,32 @@ public class HomeController {
     }
 
     public void handleChat() {
-
-
+        // TODO
+        System.out.println("HomeController.handleChat");
     }
 
+    public void handleUserSetting(MouseEvent mouseEvent) {
+        // TODO
+        System.out.println("HomeController.handleUserSetting");
+    }
+
+    public void handleProjectSetting(MouseEvent mouseEvent) {
+        // TODO
+        System.out.println("HomeController.handleProjectSetting");
+    }
+
+    public void handleComment(MouseEvent mouseEvent) {
+        // TODO
+        System.out.println("HomeController.handleComment");
+    }
+
+    public void goToProductBacklog(ActionEvent event) {
+        // TODO
+        System.out.println("HomeController.goToProductBacklog");
+    }
+
+    public void goToTicktBacklog(ActionEvent event) {
+        // TODO
+        System.out.println("HomeController.goToTicktBacklog");
+    }
 }
