@@ -2,15 +2,21 @@ package business.system;
 
 public class User {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String passWord;
 
-    public User(String firstName, String lastName, String mail) {
+    public User(int id,String firstName, String lastName, String mail) {
+        this.id = id;
         this.email = mail;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {

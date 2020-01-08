@@ -20,7 +20,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public ProductBacklog getProductBacklog(int idProject) throws SQLException {
-        ResultSet resultSet = getBacklog(idProject, 1);
+        ResultSet resultSet = this.getBacklog(idProject, 1);
         int id = resultSet.getInt("idBacklog");
         return new ProductBacklog(id);
 
