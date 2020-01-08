@@ -25,54 +25,6 @@ public class IconView extends Region {
         return new IconView(value);
     }
 
-    public void setIcon(String icon) {
-
-        String path = "../static/fontawesome/svgs/solid/" + icon + ".svg";
-
-        String fileUrl = String.valueOf(getClass().getResource(path));
-
-        String svgPath = parseSVG(fileUrl);
-
-
-        if (svgPath == null) {
-            return;
-        }
-
-        this.svg = new SVGPath();
-
-        svg.setContent(svgPath);
-
-        double width = 15;
-        double height = 15;
-
-        adaptScale(width, height);
-
-    }
-
-    private void adaptScale(double width, double height) {
-
-        setMinSize(width, height);
-        setPrefSize(width, height);
-        setMaxSize(width, height);
-
-        this.getChildren().add(svg);
-
-        double pw = svg.prefWidth(width);
-        double ph = svg.prefHeight(height);
-
-        double tx = getTranslateX() - (pw / 2) + (width / 2);
-        double ty = getTranslateY() - (ph / 2) + (height / 2);
-
-        setTranslateX(tx);
-        setTranslateY(ty);
-
-        double scaleWidth = width / pw;
-        double scaleHeight = height / ph;
-
-        svg.setScaleX(scaleWidth);
-        svg.setScaleY(scaleHeight);
-    }
-
     /**
      * Parse the svg in path,
      *
@@ -125,6 +77,54 @@ public class IconView extends Region {
         }
 
         return svgPaths.item(0).getNodeValue();
+    }
+
+    public void setIcon(String icon) {
+
+        String path = "../static/fontawesome/svgs/solid/" + icon + ".svg";
+
+        String fileUrl = String.valueOf(getClass().getResource(path));
+
+        String svgPath = parseSVG(fileUrl);
+
+
+        if (svgPath == null) {
+            return;
+        }
+
+        this.svg = new SVGPath();
+
+        svg.setContent(svgPath);
+
+        double width = 15;
+        double height = 15;
+
+        adaptScale(width, height);
+
+    }
+
+    private void adaptScale(double width, double height) {
+
+        setMinSize(width, height);
+        setPrefSize(width, height);
+        setMaxSize(width, height);
+
+        this.getChildren().add(svg);
+
+        double pw = svg.prefWidth(width);
+        double ph = svg.prefHeight(height);
+
+        double tx = getTranslateX() - (pw / 2) + (width / 2);
+        double ty = getTranslateY() - (ph / 2) + (height / 2);
+
+        setTranslateX(tx);
+        setTranslateY(ty);
+
+        double scaleWidth = width / pw;
+        double scaleHeight = height / ph;
+
+        svg.setScaleX(scaleWidth);
+        svg.setScaleY(scaleHeight);
     }
 
 }

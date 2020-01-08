@@ -60,6 +60,7 @@ public class RegisterController {
             message.setVisible(true);
 
         } else {
+            // TODO : change to Project list
             Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
 
             Scene scene = new Scene(root);

@@ -60,7 +60,7 @@ public class LoginController {
         } else {
             message.setText("Loading");
 
-            // TODO : change to project selection
+            // TODO : change to Project list
             Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
 
             Scene scene = new Scene(root);

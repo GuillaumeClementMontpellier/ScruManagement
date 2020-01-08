@@ -6,9 +6,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 <?import util.IconView?>
-<TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="SCRUManagement"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" animated="false" collapsible="false" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            text="SCRUManagement" xmlns="http://javafx.com/javafx/11.0.1"
             fx:controller="gui.main.HomeController">
     <content>
         <SplitPane dividerPositions="0.25" prefHeight="200.0" prefWidth="200.0">
