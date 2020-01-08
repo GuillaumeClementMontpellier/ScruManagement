@@ -1,20 +1,17 @@
 package DAO;
 
+import DAO.mariadb.DAOMariaDB;
 import business.system.UserStory;
 
 import java.sql.SQLException;
 
-public abstract class UserStoryDAO extends DAO {
+public interface UserStoryDAO {
+    
+    UserStory getUserStoryById(int id) throws SQLException;
 
-    public UserStoryDAO(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
-        super(addressDataBase, userDataBase, passWordDataBase);
-    }
+    boolean deleteUserStory(int id) throws SQLException;
 
-    public abstract UserStory getUserStoryById(int id) throws SQLException;
+    boolean updateUserStory(int id, UserStory newUS) throws SQLException;
 
-    public abstract boolean deleteUserStory(int id) throws SQLException;
-
-    public abstract boolean updateUserStory(int id, UserStory newUS) throws SQLException;
-
-    public abstract boolean addUserStory(UserStory newUS, int projectID) throws SQLException;
+    boolean addUserStory(UserStory newUS, int projectID) throws SQLException;
 }

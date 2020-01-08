@@ -1,39 +1,38 @@
 package DAO;
 
+import DAO.mariadb.DAOMariaDB;
 import business.system.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
 
-public abstract class BacklogDAO extends DAO {
-    public BacklogDAO(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
-        super(addressDataBase, userDataBase, passWordDataBase);
-    }
+public interface BacklogDAO {
 
-    public abstract ProductBacklog getProductBacklog(int idProject) throws SQLException;
 
-    public abstract TicketBacklog getTicketBacklog(int idProject) throws SQLException;
+    ProductBacklog getProductBacklog(int idProject) throws SQLException;
+
+    TicketBacklog getTicketBacklog(int idProject) throws SQLException;
 
     //return null if there is no SprintBacklog
-    public abstract SprintBacklog getLatestSprintBacklog(int idProject) throws SQLException;
+    SprintBacklog getLatestSprintBacklog(int idProject) throws SQLException;
 
     //return null if there is no SprintBacklog
-    public abstract SprintBacklog[] getAllSprintBacklog(int idProject) throws SQLException;
+    SprintBacklog[] getAllSprintBacklog(int idProject) throws SQLException;
 
-    public abstract Column[] getColumn(Backlog backlog) throws SQLException;
+    Column[] getColumn(Backlog backlog) throws SQLException;
 
-    public abstract UserStory[] getUserStory(Column col) throws SQLException;
+    UserStory[] getUserStory(Column col) throws SQLException;
 
-    public abstract Ticket[] getTickets(Column col) throws SQLException;
+    Ticket[] getTickets(Column col) throws SQLException;
 
-    public abstract boolean moveComponent(Component c, Column fromCol, Column toCol) throws SQLException;
+    boolean moveComponent(Component c, Column fromCol, Column toCol) throws SQLException;
 
-    public abstract boolean addComponent(Component c, Column col) throws SQLException;
+    boolean addComponent(Component c, Column col) throws SQLException;
 
-    public abstract boolean createSprintBacklog(int idProject, Date startDate, Date endDate) throws SQLException;
+    boolean createSprintBacklog(int idProject, Date startDate, Date endDate) throws SQLException;
 
-    public abstract boolean deleteSprintBacklog(SprintBacklog sprintBacklog) throws SQLException;
+    boolean deleteSprintBacklog(SprintBacklog sprintBacklog) throws SQLException;
 
     //use it only once, when the project is created
-    public abstract boolean initiateProductTicketBacklog(int idProject) throws SQLException;
+    boolean initiateProductTicketBacklog(int idProject) throws SQLException;
 }

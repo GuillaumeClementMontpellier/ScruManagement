@@ -5,7 +5,7 @@ import business.system.UserStory;
 
 import java.sql.*;
 
-public class UserStoryDAOMariaDB extends UserStoryDAO {
+public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
 
     public UserStoryDAOMariaDB(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
         super(addressDataBase, userDataBase, passWordDataBase);

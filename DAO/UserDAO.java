@@ -4,16 +4,12 @@ import business.system.User;
 
 import java.sql.SQLException;
 
-public abstract class UserDAO extends DAO {
+public interface UserDAO {
 
-    public UserDAO(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
-        super(addressDataBase, userDataBase, passWordDataBase);
-    }
+    User getUserByID(String mail, String password) throws SQLException;
 
-    public abstract User getUserByID(String mail, String password) throws SQLException;
+    void registerUser(String mail, String password, String firstName, String lastName) throws SQLException;
 
-    public abstract void registerUser(String mail, String password, String firstName, String lastName) throws SQLException;
-
-    public abstract boolean userExists(String mail) throws SQLException;
+    boolean userExists(String mail) throws SQLException;
 
 }

@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAOMariaDB extends UserDAO {
+public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
 
     public UserDAOMariaDB(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
         super(addressDataBase, userDataBase, passWordDataBase);

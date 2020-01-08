@@ -12,7 +12,7 @@ import java.util.ArrayList;
 //type 2 = ticket
 //type 3 = sprint
 
-public class BacklogDAOMariaDB extends BacklogDAO {
+public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     public BacklogDAOMariaDB(String addressDataBase, String userDataBase, String passWordDataBase) throws SQLException {
         super(addressDataBase, userDataBase, passWordDataBase);
