@@ -8,9 +8,11 @@ import java.util.List;
 
 public class ProjetFacade {
     public List<Projet> getProjectListFromUser(User u) {
-        // TODO : use DAO
+        // TODO : use DAO a la place
         System.out.println("ProjetFacade.getProjectListFromUser");
         System.out.println("u = " + u);
-        return new ArrayList<Projet>();
+        ArrayList<Projet> pList = new ArrayList<>();
+        pList.add(new Projet(-1, "NomMock Projet"));
+        return pList;
     }
 }

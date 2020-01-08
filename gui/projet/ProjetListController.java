@@ -39,8 +39,12 @@ public class ProjetListController {
             ProjetController cont = loader.<ProjetController>getController();
 
             cont.setProject(p);
+            cont.setUser(u);
 
             vertPane.getChildren().add(root);
         }
+        vertPane.autosize();
     }
+
+
 }
