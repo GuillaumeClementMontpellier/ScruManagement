@@ -8,6 +8,7 @@ import gui.main.HomeController;
 import gui.main.MainControlleur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -23,6 +24,9 @@ public class UserStoryController implements MainControlleur {
     private User activeUser;
     private HomeController homeControlleur;
     private UserStory currentUS;
+
+    @FXML
+    private Button editButton;
 
     @FXML
     private TextField nomField;
@@ -57,6 +61,7 @@ public class UserStoryController implements MainControlleur {
             descrField.setEditable(true);
             datePicker.setEditable(true);
             scoreField.setEditable(true);
+            editButton.setText("Confirm changes");
             return;
         }
 
