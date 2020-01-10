@@ -92,7 +92,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public Column[] getColumn(Backlog backlog) throws SQLException {
-        String sql = "Select idColumn, name From backlog where idBacklog = ?";
+        String sql = "Select idColumn, name From backlog where idBacklog = ? order by rank";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, backlog.getId());
         ResultSet resultSet = pre.executeQuery();
@@ -100,10 +100,12 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         ArrayList<Column> solution = new ArrayList();
         int id;
         String name;
+        int rank;
         while (resultSet.next()) {
             id = resultSet.getInt("idColumn");
             name = resultSet.getString("name");
-            solution.add(new Column(id, name));
+            rank = resultSet.getInt("rank");
+            solution.add(new Column(id, name,rank));
         }
         Column[] soos = solution.toArray(new Column[solution.size()]);
         return soos;
@@ -233,7 +235,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
         int id = rs.getInt(1);
 
-        sql = "Insert into Column(idBacklog, name) values (?, TO DO)(?, Work in progress)(?, Done)";
+        sql = "Insert into Column(idBacklog, name, rank) values (?, TO DO, 1)(?, Work in progress,2)(?, Done,3)";
         pre = this.connection.prepareStatement(sql);
         pre.setInt(1, id);
         pre.setInt(2, id);
