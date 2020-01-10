@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Ticket extends Component {
 
+	private int idTicket;
 	private String titleTicket;
     private String descriptionTicket;
 	private String statusTicket;
@@ -16,10 +17,19 @@ public class Ticket extends Component {
 	}
 
 	public Ticket(int id, String title, String description, String status) {		
+		setIdTicket(id);		
 		setTitleTicket(title);
 		setDescription(description);
 		setStatus(status);
 		setCreationDate(formatter.format(java.time.LocalDate.now()));
+	}
+
+	public int getIdTicket() {
+		return this.idTicket;	
+	}
+
+	public void setIdTicket(int id) {
+		this.idTicket = id;	
 	}
 
 	public String getTitleTicket() {
