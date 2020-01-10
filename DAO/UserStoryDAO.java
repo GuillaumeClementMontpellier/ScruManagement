@@ -12,5 +12,5 @@ public interface UserStoryDAO {
 
     boolean updateUserStory(int id, UserStory newUS) throws SQLException;
 
-    boolean addUserStory(UserStory newUS, int projectID) throws SQLException;
+    boolean addUserStory(UserStory newUS) throws SQLException;
 }

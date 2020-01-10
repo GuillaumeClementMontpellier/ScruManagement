@@ -82,69 +82,14 @@ public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
     }
 
     /**
-     * If sucess, set UserStory id to generated id
+     * If sucess, set UserStory id to generated id ?
      *
      * @param newUS
-     * @param projectID
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
-
-        // Insert User Story
-        boolean success = insertUserStory(newUS);
-        if (!success) {
-            return false;
-        }
-
-        // Search Column to Insert into
-        int idColumn = getUserStoryBacklogColumn(projectID);
-        if (idColumn == -1) {
-            return false;
-        }
-
-        // Insert Column User Story
-        String sql = "INSERT INTO ColumnUserStory" +
-                "Values (?, ?)";
-
-        PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-        pre.setInt(1, idColumn);
-        pre.setInt(2, newUS.getId());
-
-        int nbAffected = pre.executeUpdate();
-
-        ResultSet rs = pre.getGeneratedKeys();
-
-        if (rs.next()) {
-            newUS.setId(rs.getInt(1));
-        }
-
-        return nbAffected > 0;
-    }
-
-    private int getUserStoryBacklogColumn(int projectID) throws SQLException {
-        // TODO : put real type
-        String sql = "Select c.idColumn from Backlog b, ColumnBacklog c " +
-                "WHERE b.idProject = ? " +
-                "and b.typeBacklog = 1 " +
-                "and b.idBacklog = c.idBacklog";
-
-        PreparedStatement pre = this.connection.prepareStatement(sql);
-
-        pre.setInt(1, projectID);
-
-        ResultSet rs = pre.executeQuery();
-
-        int idColumn = -1;
-        if (rs.next()) {
-            idColumn = rs.getInt(1);
-        }
-        return idColumn;
-    }
-
-    private boolean insertUserStory(UserStory newUS) throws SQLException {
+    public boolean addUserStory(UserStory newUS) throws SQLException {
         String sql = "Insert into UserStory " +
                 "values ( ?, ?, ?, ?)";
 

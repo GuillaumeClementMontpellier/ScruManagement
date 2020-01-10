@@ -22,6 +22,8 @@ public class GlobalFacade {
         this.userStoryFacade = new UserStoryFacade();
         this.backlogFacade = new BacklogFacade();
         this.projetFacade = new ProjetFacade();
+
+        userStoryFacade.setBacklogFacade(backlogFacade);
     }
 
     public static GlobalFacade getInstance() {

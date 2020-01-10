@@ -35,13 +35,14 @@ public class UserStoryController extends gui.main.AbstractControlleur {
 
     @FXML
     private Text message;
+
     private boolean delete;
 
     @FXML
     void exit() throws IOException {
         // TODO : go to US Backlog
         System.out.println("Exit pressed");
-        // homeControlleur.changeSubScene();
+//        getHomeControlleur().changeSubScene("", null);
     }
 
     @FXML

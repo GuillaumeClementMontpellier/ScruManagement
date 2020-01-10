@@ -249,6 +249,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
     }
 
     private PreparedStatement setCorrectTable(PreparedStatement pre, Component c) throws SQLException {
+        // TODO : change : Bad smell !!
         if (c instanceof Ticket) {
             pre.setString(1, "ColumnTicket");
         } else {
