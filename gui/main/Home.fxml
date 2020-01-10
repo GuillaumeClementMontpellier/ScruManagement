@@ -35,7 +35,7 @@
                                         <panes>
                                             <TitledPane animated="false" text="Sprint Backlog">
                                                 <content>
-                                                    <!-- TODO : replace by list of Sprints and add a Sprint -->
+                                                    <!-- TODO : replace by list of Sprints and add a Sprint Button -->
                                                     <GridPane fx:id="listSprint"/>
                                                 </content>
                                             </TitledPane>
