@@ -75,7 +75,11 @@ public class HomeController {
     }
 
     public void goToProductBacklog(ActionEvent event) {
-        // TODO
+        try {
+            this.changeSubScene("ProductBacklog.fxml",null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("HomeController.goToProductBacklog");
     }
 
