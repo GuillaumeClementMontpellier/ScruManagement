@@ -146,18 +146,17 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         ArrayList<Ticket> solution = new ArrayList();
         //TODO when Ticket will be implemented
         int id;
-        int projetID;
-        int score;
-        Date deadline;
         String description;
+        String status;
+        String title;
         while (resultSet.next()) {
 
             id = resultSet.getInt("idUserStory");
-            projetID = resultSet.getInt("projetID");
-            score = resultSet.getInt("score");
-            deadline = resultSet.getDate("deadline");
             description = resultSet.getString("descriptionUserStory");
-            solution.add(new Ticket());
+            title = resultSet.getString("descriptionUserStory");
+            status = resultSet.getString("descriptionUserStory");
+            
+            solution.add(new Ticket(id, title, description, status));
         }
         Ticket[] soos = solution.toArray(new Ticket[solution.size()]);
         return soos;
