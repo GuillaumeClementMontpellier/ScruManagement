@@ -15,6 +15,7 @@ public class GlobalFacade {
     private LoginFacade loginFacade;
     private BacklogFacade backlogFacade;
     private ProjetFacade projetFacade;
+    private TicketFacade ticketFacade;
 
     private GlobalFacade() {
 
@@ -22,6 +23,7 @@ public class GlobalFacade {
         this.userStoryFacade = new UserStoryFacade();
         this.backlogFacade = new BacklogFacade();
         this.projetFacade = new ProjetFacade();
+        this.ticketFacade = new TicketFacade();
 
         userStoryFacade.setBacklogFacade(backlogFacade);
     }
@@ -108,5 +110,22 @@ public class GlobalFacade {
 
     public List<Projet> getProjectListFromUser(User u) {
         return projetFacade.getProjectListFromUser(u);
+    }
+
+    public Ticket getTicketById(int ticketId) throws  SQLException {
+        return  ticketFacade.getTicketById(ticketId);
+    }
+
+    public boolean addTicket(Ticket newTicket, int ProjectId) throws SQLException {
+        return  ticketFacade.addTicket(newTicket, ProjectId);
+    }
+
+    public boolean deleteTicket(Ticket oldTicket) throws SQLException {
+        return  ticketFacade.deleteTicket(oldTicket);
+
+    }
+
+    public boolean updateTicket(Ticket updatedTicket, Ticket oldTicket) throws SQLException {
+        return  ticketFacade.updateTicket(updatedTicket, oldTicket);
     }
 }

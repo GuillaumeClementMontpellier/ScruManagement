@@ -1,6 +1,7 @@
 package DAO.factory;
 
 import DAO.BacklogDAO;
+import DAO.TicketDAO;
 import DAO.UserDAO;
 import DAO.UserStoryDAO;
 
@@ -23,5 +24,7 @@ public abstract class AbstractFactoryDAO {
     public abstract UserStoryDAO createUserStoryDAO() throws SQLException;
 
     public abstract BacklogDAO createBacklogDAO() throws SQLException;
+
+    public abstract TicketDAO createTicketDAO() throws  SQLException;
 
 }
