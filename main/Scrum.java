@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Map;
 
 public class Scrum extends Application {
@@ -22,9 +23,8 @@ public class Scrum extends Application {
         return stageSingleton;
     }
 
-    public static void goToProjectList(User user, URL resource) throws IOException {
+    public static void goToProjectList(User user, URL resource) throws IOException, SQLException {
 
-        // TODO : change to Project list
         FXMLLoader loader = new FXMLLoader(resource);
 
         Parent root = loader.load();

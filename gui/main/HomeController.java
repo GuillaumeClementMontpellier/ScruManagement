@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class HomeController {
 
@@ -40,7 +41,8 @@ public class HomeController {
      **/
     public void changeSubScene(String pathToFxml, Object param) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToFxml));
+        URL resource = getClass().getResource(pathToFxml);
+        FXMLLoader loader = new FXMLLoader(resource);
 
         Parent root = loader.load();
 
@@ -76,11 +78,10 @@ public class HomeController {
 
     public void goToProductBacklog(ActionEvent event) {
         try {
-            this.changeSubScene("ProductBacklog.fxml",null);
+            this.changeSubScene("../backlog/ProductBacklog.fxml",null);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("HomeController.goToProductBacklog");
     }
 
     public void goToTicktBacklog(ActionEvent event) {

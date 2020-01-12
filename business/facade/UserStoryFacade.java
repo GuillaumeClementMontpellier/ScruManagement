@@ -37,13 +37,13 @@ public class UserStoryFacade {
         return usDAO.deleteUserStory(oldUS.getId());
     }
 
-    public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
+    public boolean addUserStory(UserStory newUS, Projet projet) throws SQLException {
 
         UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
         boolean success = usDAO.addUserStory(newUS);
 
         // Add to column
-        ProductBacklog pb = backlogFacade.getProductBacklog(new Projet(projectID, null));
+        ProductBacklog pb = backlogFacade.getProductBacklog(projet);
         Column column = backlogFacade.getColumn(pb)[1];
 
         backlogFacade.addComponent(newUS, column);

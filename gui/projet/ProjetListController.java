@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import main.Scrum;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProjetListController {
@@ -18,29 +19,33 @@ public class ProjetListController {
     private GridPane listPane;
 
     private User user;
-    private List<Projet> projectList;
+    private Projet[] projectList;
 
     @FXML
     void goToProjectCreation() throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("./CreateProject.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("./CreateProject.fxml"));
+        Parent root = loader.load();
+
+        CreateProjectController cont = loader.<CreateProjectController>getController();
+        cont.setUser(user);
 
         Scene scene = new Scene(root);
         Scrum.getStage().setScene(scene);
 
     }
 
-    public void setUser(User u) throws IOException {
+    public void setUser(User u) throws IOException, SQLException {
         this.user = u;
         this.projectList = GlobalFacade.getInstance().getProjectListFromUser(u);
 
-        for (int i = 0; i < projectList.size(); i++) {
+        for (int i = 0; i < projectList.length; i++) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Projet.fxml"));
             Parent root = loader.load();
             ProjetController cont = loader.<ProjetController>getController();
 
-            cont.setProject(projectList.get(i));
+            cont.setProject(projectList[i]);
             cont.setUser(u);
 
             listPane.add(root, 0, i);

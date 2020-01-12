@@ -23,8 +23,6 @@ public class ProjetController {
 
     @FXML
     void loadProjet() throws IOException {
-        // Todo
-        System.out.println("ProjetController.loadProjet");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
 
         Parent root = loader.load();
@@ -47,9 +45,16 @@ public class ProjetController {
         this.user = u;
     }
 
-    public void editProject(MouseEvent mouseEvent) {
-        // Todo : go to edit project screen (Add user, change name, ...)
-        System.out.println("ProjetController.editProject");
-        System.out.println("mouseEvent = " + mouseEvent);
+    public void editProject(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditProject.fxml"));
+
+        Parent root = loader.load();
+        EditProjectController cont = loader.<EditProjectController>getController();
+
+        cont.setProject(projet);
+        cont.setUser(user);
+
+        Scene scene = new Scene(root);
+        Scrum.getStage().setScene(scene);
     }
 }
