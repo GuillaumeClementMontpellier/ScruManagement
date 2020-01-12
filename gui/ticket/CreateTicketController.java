@@ -42,7 +42,7 @@ public class CreateTicketController extends AbstractControlleur {
         try {
             success = GlobalFacade.getInstance().addTicket(newTicket, currentProject.getId());
         } catch (SQLException e) {
-            message.setText("Error creating Ticket");
+            message.setText("Error creating Ticket 1");
             message.setVisible(true);
             return;
         }
@@ -50,14 +50,15 @@ public class CreateTicketController extends AbstractControlleur {
         if (success) {
             homeControlleur.changeSubScene("../main/HomeController", newTicket);
         } else {
-            message.setText("Error creating Ticket");
+            message.setText("Error creating Ticket 2");
             message.setVisible(true);
         }
     }
 
     public void exit() throws IOException {
+        // TODO: 12/01/2020 display ticket backlog
         System.out.println("Exit pressed");
-        homeControlleur.changeSubScene("../main/Home.fxml", null);
+        //homeControlleur.changeSubScene("", null);
     }
 
     @Override
