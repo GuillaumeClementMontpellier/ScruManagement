@@ -46,9 +46,9 @@ public class HomeController {
 
         Parent root = loader.load();
 
-        MainControlleur childContentController = loader.getController();
+        MainController childContentController = loader.getController();
 
-        childContentController.setHomeControlleur(this);
+        childContentController.setHomeController(this);
         childContentController.setProject(this.project);
         childContentController.setUser(this.activeUser);
         childContentController.init(param);

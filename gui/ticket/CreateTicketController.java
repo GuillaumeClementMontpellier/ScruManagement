@@ -4,7 +4,7 @@ import business.facade.GlobalFacade;
 import business.system.Project;
 import business.system.Ticket;
 import business.system.User;
-import gui.main.AbstractControlleur;
+import gui.main.AbstractController;
 import gui.main.HomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class CreateTicketController extends AbstractControlleur {
+public class CreateTicketController extends AbstractController {
 
     @FXML
     private TextField titleField;
@@ -25,7 +25,7 @@ public class CreateTicketController extends AbstractControlleur {
 
     private Project currentProject;
     private User currentUser;
-    private HomeController homeControlleur;
+    private HomeController homeController;
 
     @FXML
     private Text message;
@@ -48,7 +48,7 @@ public class CreateTicketController extends AbstractControlleur {
         }
 
         if (success) {
-            homeControlleur.changeSubScene("../main/HomeController", newTicket);
+            homeController.changeSubScene("../main/HomeController", newTicket);
         } else {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -58,7 +58,7 @@ public class CreateTicketController extends AbstractControlleur {
     public void exit() throws IOException {
         // TODO : goto Ticket Backlog
         System.out.println("Exit pressed");
-        // homeControlleur.changeSubScene("", );
+        // homeController.changeSubScene("", );
     }
 
     @Override
@@ -72,8 +72,8 @@ public class CreateTicketController extends AbstractControlleur {
     }
 
     @Override
-    public void setHomeControlleur(HomeController homeControlleur) {
-        this.homeControlleur = homeControlleur;
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
     }
 
     @Override

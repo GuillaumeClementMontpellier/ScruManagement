@@ -60,7 +60,7 @@ public class EditProjectController {
 
         Project project = new Project(-1, name, summary, type, deadline);
 
-        GlobalFacade.getInstance().addProject(project, user);
+        GlobalFacade.getInstance().createProject(project, user);
     }
 
     @FXML

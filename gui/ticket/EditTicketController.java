@@ -1,13 +1,13 @@
 package gui.ticket;
 
-import gui.main.AbstractControlleur;
+import gui.main.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
-public class EditTicketControlleur extends AbstractControlleur {
+public class EditTicketController extends AbstractController {
 
     @FXML
     private TextArea descrField;

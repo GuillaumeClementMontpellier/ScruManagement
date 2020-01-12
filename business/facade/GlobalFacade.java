@@ -96,16 +96,16 @@ public class GlobalFacade {
         return backlogFacade.addComponent(c, col);
     }
 
-    public boolean createSprintBacklog(int idProject, Date startDate, Date endDate) throws SQLException {
-        return backlogFacade.createSprintBacklog(idProject, startDate, endDate);
+    public boolean createSprintBacklog(int project, Date startDate, Date endDate) throws SQLException {
+        return backlogFacade.createSprintBacklog(project, startDate, endDate);
     }
 
     public boolean deleteSprintBacklog(SprintBacklog sprintBacklog) throws SQLException {
         return backlogFacade.deleteSprintBacklog(sprintBacklog);
     }
 
-    public boolean initiateProductTicketBacklog(int idProject) throws SQLException {
-        return backlogFacade.initiateProductTicketBacklog(idProject);
+    public boolean initiateProductTicketBacklog(int project) throws SQLException {
+        return backlogFacade.initiateProductTicketBacklog(project);
     }
 
     public List<Project> getProjectListFromUser(User u) throws SQLException {
@@ -122,44 +122,39 @@ public class GlobalFacade {
 
     public boolean deleteTicket(Ticket oldTicket) throws SQLException {
         return ticketFacade.deleteTicket(oldTicket);
-
     }
 
     public boolean updateTicket(Ticket updatedTicket, Ticket oldTicket) throws SQLException {
         return ticketFacade.updateTicket(updatedTicket, oldTicket);
     }
 
-    public boolean addProject(Project project, User user) {
-        return projectFacade.addProject(project, user);
-    }
-
     public Project getProjectByID(int idProject) throws SQLException {
         return projectFacade.getProjectByID(idProject);
     }
 
-    public User getProjectAdmin(int idProject) throws SQLException {
-        return projectFacade.getProjectAdmin(idProject);
+    public List<Collaborator> getProjectTeam(Project project) throws SQLException {
+        return projectFacade.getProjectTeam(project);
     }
 
-    public User getProjectScrumMaster(int idProject) throws SQLException {
-        return projectFacade.getProjectScrumMaster(idProject);
+    public User getProjectAdmin(Project project) throws SQLException {
+        return projectFacade.getProjectAdmin(project);
     }
 
-    public User getProjectProductOwner(int idProject) throws SQLException {
-        return projectFacade.getProjectProductOwner(idProject);
+    public User getProjectScrumMaster(Project project) throws SQLException {
+        return projectFacade.getProjectScrumMaster(project);
     }
 
-    public User[] getProjectDevelopers(int idProject) throws SQLException {
-        return projectFacade.getProjectDevelopers(idProject);
+    public User getProjectProductOwner(Project project) throws SQLException {
+        return projectFacade.getProjectProductOwner(project);
     }
 
-    public User[] getProjectTeam(int idProject) throws SQLException {
-        return projectFacade.getProjectTeam(idProject);
+    public List<User> getProjectDevelopers(Project project) throws SQLException {
+        return projectFacade.getProjectDevelopers(project);
     }
 
 
-    public boolean createProject(Project project, User creator) throws SQLException {
-        return projectFacade.createProject(project, creator);
+    public boolean createProject(Project project, List<Collaborator> collaborator) throws SQLException {
+        return projectFacade.createProject(project, collaborator);
     }
 
     public boolean editProject(Project project) throws SQLException {
@@ -171,16 +166,16 @@ public class GlobalFacade {
     }
 
 
-    public boolean addCollaborator(int idProject, User collaborator) throws SQLException {
-        return projectFacade.addCollaborator(idProject, collaborator);
+    public boolean addCollaborator(Collaborator collaborator) throws SQLException {
+        return projectFacade.addCollaborator(collaborator);
     }
 
-    public boolean editCollaborator(int idProject, User collaborator) throws SQLException {
-        return projectFacade.editCollaborator(idProject, collaborator);
+    public boolean editCollaborator(Collaborator collaborator) throws SQLException {
+        return projectFacade.editCollaborator(collaborator);
     }
 
-    public boolean removeCollaborator(int idProject, User collaborator) throws SQLException {
-        return projectFacade.removeCollaborator(idProject, collaborator);
+    public boolean removeCollaborator(Collaborator collaborator) throws SQLException {
+        return projectFacade.removeCollaborator(collaborator);
 
     }
 

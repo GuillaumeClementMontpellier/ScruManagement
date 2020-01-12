@@ -48,7 +48,7 @@ public class CreateProjectController {
 
         Project project = new Project(-1, name, summary, type, deadline);
         boolean success = GlobalFacade.getInstance().createProject(project, user);
-        if (success) {
+        if (!success) {
             message.setText("Erreur lors de creation de project");
             message.setVisible(true);
             return;
@@ -59,8 +59,8 @@ public class CreateProjectController {
     }
 
     @FXML
-    void handleReturn(ActionEvent event) {
-        System.out.println("CreateProjectController.handleReturn");
+    void handleReturn(ActionEvent event) throws SQLException, IOException {
+        Scrum.goToProjectList(user, getClass().getResource("ProjectList.fxml"));
     }
 
 }

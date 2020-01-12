@@ -3,11 +3,11 @@ package gui.main;
 import business.system.Project;
 import business.system.User;
 
-public abstract class AbstractControlleur implements MainControlleur {
+public abstract class AbstractController implements MainController {
 
     private Project project;
     private User activeUser;
-    private HomeController homeControlleur;
+    private HomeController homeController;
 
     protected Project getProject() {
         return project;
@@ -22,13 +22,13 @@ public abstract class AbstractControlleur implements MainControlleur {
         return activeUser;
     }
 
-    protected HomeController getHomeControlleur() {
-        return homeControlleur;
+    protected HomeController getHomeController() {
+        return homeController;
     }
 
     @Override
-    public void setHomeControlleur(HomeController homeControlleur) {
-        this.homeControlleur = homeControlleur;
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
     }
 
     @Override

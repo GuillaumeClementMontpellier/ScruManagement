@@ -54,41 +54,43 @@ public class ProjectFacade {
 
 
 
-    public void createProject(Project project, List<Collaborator> collaborators) throws SQLException {
+    public boolean createProject(Project project, List<Collaborator> collaborators) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         // Project
-        projectDAO.createProject(project.getId(), project.getName(), project.getSummary(), project.getType(), project.getDeadline());
+        boolean bool = projectDAO.createProject(project.getId(), project.getName(), project.getSummary(), project.getType(), project.getDeadline());
 
         // Team
         for (Collaborator collaborator : collaborators ) {
             projectDAO.addCollaborator(collaborator.getIdProject(), collaborator.getIdUser(), collaborator.getIdRole(), collaborator.isAdmin());
         }
+
+        return bool;
     }
 
-    public void editProject(Project project) throws SQLException {
+    public boolean editProject(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        projectDAO.editProject(project);
+        return projectDAO.editProject(project);
     }
 
-    public void deleteProject(Project project) throws SQLException {
+    public boolean deleteProject(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        projectDAO.deleteProject(project.getId());
+        return projectDAO.deleteProject(project.getId());
     }
 
 
 
-    public void addCollaborator(Collaborator collaborator) throws SQLException {
+    public boolean addCollaborator(Collaborator collaborator) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        projectDAO.addCollaborator(collaborator.getIdProject(), collaborator.getIdUser(), collaborator.getIdRole(), collaborator.isAdmin());
+        return projectDAO.addCollaborator(collaborator.getIdProject(), collaborator.getIdUser(), collaborator.getIdRole(), collaborator.isAdmin());
     }
 
-    public void editCollaborator(Collaborator collaborator) throws SQLException {
+    public boolean editCollaborator(Collaborator collaborator) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        projectDAO.editCollaborator(collaborator.getIdProject(), collaborator.getIdUser(), collaborator.getIdRole(), collaborator.isAdmin());
+        return projectDAO.editCollaborator(collaborator.getIdProject(), collaborator.getIdUser(), collaborator.getIdRole(), collaborator.isAdmin());
     }
 
-    public void removeCollaborator(Collaborator collaborator) throws SQLException {
+    public boolean removeCollaborator(Collaborator collaborator) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        projectDAO.removeCollaborator(collaborator.getIdProject(), collaborator.getIdUser());
+        return projectDAO.removeCollaborator(collaborator.getIdProject(), collaborator.getIdUser());
     }
 }

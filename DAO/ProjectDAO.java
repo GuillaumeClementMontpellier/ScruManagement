@@ -28,16 +28,16 @@ public interface ProjectDAO {
     List<User> getProjectDevelopers(int idProject) throws SQLException;
 
 
-    void createProject(int id, String name, String summary, String type, Date deadline) throws SQLException;
+    boolean createProject(int id, String name, String summary, String type, Date deadline) throws SQLException;
 
-    void editProject(Project project) throws SQLException;
+    boolean editProject(Project project) throws SQLException;
 
-    void deleteProject(int idProject) throws SQLException;
+    boolean deleteProject(int idProject) throws SQLException;
 
 
-    void addCollaborator(int idProject, int idCollaborator, int role, boolean isAdmin) throws SQLException;
+    boolean addCollaborator(int idProject, int idCollaborator, int role, boolean isAdmin) throws SQLException;
 
-    void editCollaborator(int idProject, int idCollaborator, int role, boolean isAdmin) throws SQLException;
+    boolean editCollaborator(int idProject, int idCollaborator, int role, boolean isAdmin) throws SQLException;
 
-    void removeCollaborator(int idProject, int collaborator) throws SQLException;
+    boolean removeCollaborator(int idProject, int collaborator) throws SQLException;
 }

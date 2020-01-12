@@ -133,7 +133,7 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
 
     @Override
-    public void createProject(int id, String name, String summary, String type, Date deadline) throws SQLException {
+    public boolean createProject(int id, String name, String summary, String type, Date deadline) throws SQLException {
         String sql = "INSERT INTO Project VALUES (?,?,?,?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, id);
@@ -142,10 +142,11 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.setString(4, type);
         pre.setDate(5, deadline);
         pre.execute();
+        return true;
     }
 
     @Override
-    public void editProject(Project project) throws SQLException {
+    public boolean editProject(Project project) throws SQLException {
         String sql = "UPDATE Project SET idRole = ? WHERE idProject = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, project.getId());
@@ -154,20 +155,22 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.setString(4, project.getType());
         pre.setDate(5, project.getDeadline());
         pre.execute();
+        return true;
     }
 
     @Override
-    public void deleteProject(int idProject) throws SQLException {
+    public boolean deleteProject(int idProject) throws SQLException {
         String sql = "DELETE FROM Project WHERE idProject = ? ";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idProject);
         pre.execute();
+        return true;
     }
 
 
 
     @Override
-    public void addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
+    public boolean addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
         String sql = "INSERT INTO WorkOn VALUES (?,?,?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idCollaborator);
@@ -175,10 +178,11 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.setInt(3, idRole);
         pre.setBoolean(4, isAdmin);
         pre.execute();
+        return true;
     }
 
     @Override
-    public void editCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
+    public boolean editCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
         String sql = "UPDATE WorkOn SET idRole = ? WHERE idUser = ? AND idProject = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idRole);
@@ -186,15 +190,17 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.setInt(3, idProject);
         pre.setBoolean(4, isAdmin);
         pre.execute();
+        return true;
     }
 
     @Override
-    public void removeCollaborator(int idProject, int idCollaborator) throws SQLException {
+    public boolean removeCollaborator(int idProject, int idCollaborator) throws SQLException {
         String sql = "DELETE FROM WorkOn WHERE idUser = ? AND idProject = ? ";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idCollaborator);
         pre.setInt(2, idProject);
         pre.execute();
+        return true;
     }
 
 
