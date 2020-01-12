@@ -41,6 +41,7 @@ public class CreateProjectController {
 
     @FXML
     void handleConfirm(ActionEvent event) throws SQLException, IOException {
+
         String name = nameField.getText();
         String summary = summaryField.getText();
         String type = typeField.getText();
@@ -59,8 +60,9 @@ public class CreateProjectController {
     }
 
     @FXML
-    void handleReturn(ActionEvent event) {
-        System.out.println("CreateProjectController.handleReturn");
+    void handleReturn(ActionEvent event) throws IOException, SQLException {
+
+        Scrum.goToProjectList(user, getClass().getResource("ProjetList.fxml"));
     }
 
 }

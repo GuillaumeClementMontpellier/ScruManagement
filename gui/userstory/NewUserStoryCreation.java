@@ -61,8 +61,7 @@ public class NewUserStoryCreation extends AbstractControlleur {
 
     public void exit() throws IOException {
         // TODO : goto US Backlog
-        System.out.println("Exit pressed");
-//        homeControlleur.changeSubScene("../userstory/UserStoryController", );
+        getHomeControlleur().goToProductBacklog(null);
     }
 
     @Override

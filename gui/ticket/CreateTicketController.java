@@ -59,8 +59,6 @@ public class CreateTicketController extends AbstractControlleur {
 
     public void exit() throws IOException {
         // TODO : goto Ticket Backlog
-        System.out.println("Exit pressed");
-        // homeControlleur.changeSubScene("", );
     }
 
     @Override

@@ -42,7 +42,7 @@ public class UserStoryController extends gui.main.AbstractControlleur {
     void exit() throws IOException {
         // TODO : go to US Backlog
         System.out.println("Exit pressed");
-//        getHomeControlleur().changeSubScene("", null);
+        getHomeControlleur().goToProductBacklog(null);
     }
 
     @FXML

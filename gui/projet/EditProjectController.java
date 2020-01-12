@@ -9,8 +9,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import main.Scrum;
 
+import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 
 public class EditProjectController {
@@ -50,8 +53,7 @@ public class EditProjectController {
     }
 
     @FXML
-    void handleConfirm(ActionEvent event) {
-        System.out.println("EditProjectController.handleConfirm");
+    void handleConfirm(ActionEvent event) throws IOException, SQLException {
 
         String name = nameField.getText();
         String summary = summaryField.getText();
@@ -60,24 +62,34 @@ public class EditProjectController {
 
         Projet projet = new Projet(-1, name, summary, type, deadline);
 
-        GlobalFacade.getInstance().addProject(projet, user);
+        boolean success = GlobalFacade.getInstance().addProject(projet, user);
+
+        if (!success) {
+            message.setText("Error when Submitting Project");
+        }else {
+            Scrum.goToProjectList(user, getClass().getResource("ProjetList.fxml"));
+        }
     }
 
     @FXML
-    void handleReturn(ActionEvent event) {
-        System.out.println("EditProjectController.handleReturn");
+    void handleReturn(ActionEvent event) throws IOException, SQLException {
+        Scrum.goToProjectList(user, getClass().getResource("ProjetList.fxml"));
     }
 
     @FXML
-    void handleDelete(ActionEvent actionEvent) {
+    void handleDelete(ActionEvent actionEvent) throws SQLException, IOException {
         if (!delete) {
             message.setText("Are you sure ? this cannot be undone !");
             message.setVisible(true);
             return;
         }
 
-        // TODO : delete Project
-        System.out.println("EditProjectController.handleDelete");
+        boolean success = GlobalFacade.getInstance().deleteProject(project);
+        if (!success) {
+            message.setText("Error when deleting Project");
+        }else {
+            Scrum.goToProjectList(user, getClass().getResource("ProjetList.fxml"));
+        }
 
     }
 }
