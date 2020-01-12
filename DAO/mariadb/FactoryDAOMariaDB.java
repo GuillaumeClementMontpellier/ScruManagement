@@ -1,6 +1,7 @@
 package DAO.mariadb;
 
 import DAO.BacklogDAO;
+import DAO.ProjectDAO;
 import DAO.TicketDAO;
 import DAO.UserStoryDAO;
 import DAO.factory.AbstractFactoryDAO;
@@ -39,5 +40,11 @@ public class FactoryDAOMariaDB extends AbstractFactoryDAO {
     @Override
     public TicketDAO createTicketDAO() throws SQLException {
         return new TicketDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
+    }
+
+    @Override
+    public ProjectDAO createProjetDAO() throws SQLException {
+        // TODO : implements Projet DAO
+        return null;
     }
 }
