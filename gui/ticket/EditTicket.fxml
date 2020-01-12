@@ -39,5 +39,15 @@
       <Button cancelButton="true" mnemonicParsing="false" onAction="#handleReturn" text="Return" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Button defaultButton="true" mnemonicParsing="false" onAction="#handleCreateTicket" text="Edit Ticket" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Text fx:id="message" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="79.13671875" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="214.0" text="Title" GridPane.rowIndex="1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </TextField>
    </children>
 </GridPane>
