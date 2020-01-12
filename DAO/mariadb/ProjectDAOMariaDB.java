@@ -3,10 +3,7 @@ package DAO.mariadb;
 import DAO.ProjectDAO;
 import DAO.UserDAO;
 import DAO.factory.AbstractFactoryDAO;
-import business.system.Collaborator;
-import business.system.Project;
-import business.system.User;
-import javafx.util.Pair;
+import business.system.*;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -49,27 +46,41 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
 
     @Override
-    public Pair<List<User>,List<String>> getProjectTeam(int idProject) throws SQLException {
+    public List<Collaborator> getProjectTeam(int idProject) throws SQLException {
         ResultSet resultSet = getTeam(idProject);
-        List<User> users = new ArrayList();
-        List<String> roles = new ArrayList();
-        UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();
+        List<Collaborator> team = new ArrayList();
+        int idUser;
+        int idRole;
+        boolean isAdmin;
+        Collaborator collaborator;
         while (resultSet.next()) {
-            users.add(userDAO.getUserByIdUser(resultSet.getInt("idUser")));
-            roles.add(resultSet.getString("description"));
+            idUser = resultSet.getInt("idUser");
+            idRole = resultSet.getInt("idRole");
+            isAdmin = resultSet.getBoolean("isAdmin");
+            if (idRole == 2) {
+                collaborator = new ScrumMaster(idUser, idProject, isAdmin);
+            }
+            else if (idRole == 3) {
+                collaborator = new ProductOwner(idUser, idProject, isAdmin);
+            }
+            else {
+                collaborator = new Developer(idUser, idProject, isAdmin);
+            }
+            team.add(collaborator);
         }
-        return new Pair<List<User>,List<String>>(users,roles);
+        return team;
     }
 
+    // Currently returning the first (and only one) admin
+    // If multiple admin is implemented TODO list of admin
     @Override
     public User getProjectAdmin(int idProject) throws SQLException {
-        Pair<List<User>,List<String>> team = getProjectTeam(idProject);
-        List<User> users = team.getKey();
-        List<String> roles = team.getValue();
+        List<Collaborator> team = getProjectTeam(idProject);
+        UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();
         int i = 0;
-        while (i < users.size()) {
-            if (roles.get(i) == "Administrator") {
-                return users.get(i);
+        while (i < team.size()) {
+            if (team.get(i).isAdmin()) {
+                return userDAO.getUserByIdUser(team.get(i).getIdUser());
             }
             i+=1;
         }
@@ -78,13 +89,12 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
     @Override
     public User getProjectScrumMaster(int idProject) throws SQLException {
-        Pair<List<User>,List<String>> team = getProjectTeam(idProject);
-        List<User> users = team.getKey();
-        List<String> roles = team.getValue();
+        List<Collaborator> team = getProjectTeam(idProject);
+        UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();
         int i = 0;
-        while (i < users.size()) {
-            if (roles.get(i) == "Scrum Master") {
-                return users.get(i);
+        while (i < team.size()) {
+            if (team.get(i).getIdRole() == 2) {
+                return userDAO.getUserByIdUser(team.get(i).getIdUser());
             }
             i+=1;
         }
@@ -93,13 +103,12 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
     @Override
     public User getProjectProductOwner(int idProject) throws SQLException {
-        Pair<List<User>,List<String>> team = getProjectTeam(idProject);
-        List<User> users = team.getKey();
-        List<String> roles = team.getValue();
+        List<Collaborator> team = getProjectTeam(idProject);
+        UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();
         int i = 0;
-        while (i < users.size()) {
-            if (roles.get(i) == "Product Owner") {
-                return users.get(i);
+        while (i < team.size()) {
+            if (team.get(i).getIdRole() == 3) {
+                return userDAO.getUserByIdUser(team.get(i).getIdUser());
             }
             i+=1;
         }
@@ -108,13 +117,13 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
     @Override
     public List<User> getProjectDevelopers(int idProject) throws SQLException {
-        Pair<List<User>,List<String>> team = getProjectTeam(idProject);
-        List<User> users = team.getKey();
-        List<String> roles = team.getValue();
+        List<Collaborator> team = getProjectTeam(idProject);
+        UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();
+        List<User> users = new ArrayList<>();
         int i = 0;
-        while (i < users.size()) {
-            if (roles.get(i) != "Developer") {
-                users.remove(i);
+        while (i < team.size()) {
+            if (team.get(i).getIdRole() == 4) {
+                users.add(userDAO.getUserByIdUser(team.get(i).getIdUser()));
             }
             i+=1;
         }

@@ -27,7 +27,7 @@ public class ProjectFacade {
 
 
 
-    public Pair<List<User>, List<String>> getProjectTeam(Project project) throws SQLException {
+    public List<Collaborator> getProjectTeam(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectTeam(project.getId());
     }

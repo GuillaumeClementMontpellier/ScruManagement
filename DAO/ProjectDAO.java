@@ -17,7 +17,7 @@ public interface ProjectDAO {
 
 
     // User & their Role on the project
-    Pair<List<User>,List<String>> getProjectTeam(int idProject) throws SQLException;
+    List<Collaborator> getProjectTeam(int idProject) throws SQLException;
 
     User getProjectAdmin(int idProject) throws SQLException;
 
