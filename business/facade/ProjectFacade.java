@@ -3,10 +3,7 @@ package business.facade;
 import DAO.BacklogDAO;
 import DAO.ProjectDAO;
 import DAO.factory.AbstractFactoryDAO;
-import business.system.Collaborator;
-import business.system.Project;
-import business.system.TicketBacklog;
-import business.system.User;
+import business.system.*;
 import javafx.util.Pair;
 
 import java.sql.Date;
@@ -54,17 +51,9 @@ public class ProjectFacade {
 
 
 
-    public boolean createProject(Project project, List<Collaborator> collaborators) throws SQLException {
+    public Project createProject(String name, String summary, String type, Date deadline) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        // Project
-        boolean bool = projectDAO.createProject(project.getId(), project.getName(), project.getSummary(), project.getType(), project.getDeadline());
-
-        // Team
-        for (Collaborator collaborator : collaborators ) {
-            projectDAO.addCollaborator(collaborator.getIdProject(), collaborator.getIdUser(), collaborator.getIdRole(), collaborator.isAdmin());
-        }
-
-        return bool;
+        return projectDAO.createProject(name, summary, type, deadline);
     }
 
     public boolean editProject(Project project) throws SQLException {
@@ -79,9 +68,9 @@ public class ProjectFacade {
 
 
 
-    public boolean addCollaborator(Collaborator collaborator) throws SQLException {
+    public Collaborator addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        return projectDAO.addCollaborator(collaborator.getIdProject(), collaborator.getIdUser(), collaborator.getIdRole(), collaborator.isAdmin());
+        return projectDAO.addCollaborator(idProject, idCollaborator, idRole, isAdmin);
     }
 
     public boolean editCollaborator(Collaborator collaborator) throws SQLException {

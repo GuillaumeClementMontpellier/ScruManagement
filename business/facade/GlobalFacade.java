@@ -153,8 +153,8 @@ public class GlobalFacade {
     }
 
 
-    public boolean createProject(Project project, List<Collaborator> collaborator) throws SQLException {
-        return projectFacade.createProject(project, collaborator);
+    public Project createProject(String name, String summary, String type, Date deadline) throws SQLException {
+        return projectFacade.createProject(name, summary, type, deadline);
     }
 
     public boolean editProject(Project project) throws SQLException {
@@ -166,8 +166,8 @@ public class GlobalFacade {
     }
 
 
-    public boolean addCollaborator(Collaborator collaborator) throws SQLException {
-        return projectFacade.addCollaborator(collaborator);
+    public Collaborator addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
+        return projectFacade.addCollaborator(idProject, idCollaborator, idRole, isAdmin);
     }
 
     public boolean editCollaborator(Collaborator collaborator) throws SQLException {

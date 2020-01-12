@@ -67,4 +67,15 @@ public class User {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean equals(Object user) {
+        if (!(user instanceof User)) {
+            return false;
+        }
+        User otherUser = (User) user;
+        if (this.getId() == otherUser.getId()) {
+            return true;
+        }
+        return false;
+    }
 }

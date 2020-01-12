@@ -39,13 +39,13 @@ public class ProjectListController {
         this.user = u;
         this.projectList = GlobalFacade.getInstance().getProjectListFromUser(u);
 
-        for (int i = 0; i < projectList.length; i++) {
+        for (int i = 0; i < projectList.size(); i++) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Project.fxml"));
             Parent root = loader.load();
             ProjectController cont = loader.<ProjectController>getController();
 
-            cont.setProject(projectList[i]);
+            cont.setProject(projectList.get(i));
             cont.setUser(u);
 
             listPane.add(root, 0, i);

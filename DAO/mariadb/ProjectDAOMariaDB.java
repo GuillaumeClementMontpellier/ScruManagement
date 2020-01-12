@@ -133,16 +133,22 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
 
     @Override
-    public boolean createProject(int id, String name, String summary, String type, Date deadline) throws SQLException {
-        String sql = "INSERT INTO Project VALUES (?,?,?,?,?)";
+    public Project createProject(String name, String summary, String type, Date deadline) throws SQLException {
+        // Inserting project
+        String sql = "INSERT INTO Project VALUES (?,?,?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre.setInt(1, id);
         pre.setString(2, name);
         pre.setString(3, summary);
         pre.setString(4, type);
         pre.setDate(5, deadline);
         pre.execute();
-        return true;
+
+        // Retrieving id
+        sql = "SELECT LAST_INSERT_ID() FROM Project";
+        pre = this.connection.prepareStatement(sql);
+        ResultSet resultSet = pre.executeQuery();
+        int id = resultSet.getInt("LAST_INSERT_ID()");
+        return new Project(id, name, summary, type, deadline);
     }
 
     @Override
@@ -170,7 +176,7 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
 
     @Override
-    public boolean addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
+    public Collaborator addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
         String sql = "INSERT INTO WorkOn VALUES (?,?,?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idCollaborator);
@@ -178,7 +184,18 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.setInt(3, idRole);
         pre.setBoolean(4, isAdmin);
         pre.execute();
-        return true;
+
+        Collaborator collaborator;
+        if (idRole == 2) {
+            collaborator = new ScrumMaster(idCollaborator, idProject, isAdmin);
+        }
+        else if (idRole == 3) {
+            collaborator = new ProductOwner(idCollaborator, idProject, isAdmin);
+        }
+        else {
+            collaborator = new Developer(idCollaborator, idProject, isAdmin);
+        }
+        return collaborator;
     }
 
     @Override
