@@ -1,16 +1,11 @@
 package business.system;
 
-import java.text.SimpleDateFormat;  
-import java.util.Date; 
-
 public class Ticket extends Component {
 
 	private int idTicket;
 	private String titleTicket;
     private String descriptionTicket;
 	private String statusTicket;
-	private Date creationDateTicket;
-	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	public Ticket(){
 	
@@ -19,9 +14,8 @@ public class Ticket extends Component {
 	public Ticket(int id, String title, String description, String status) {		
 		setIdTicket(id);		
 		setTitleTicket(title);
-		setDescription(description);
-		setStatus(status);
-		setCreationDate(formatter.format(java.time.LocalDate.now()));
+		setDescriptionTicket(description);
+		setStatusTicket(status);
 	}
 
 	public int getIdTicket() {
@@ -53,14 +47,7 @@ public class Ticket extends Component {
 	}
 
 	public void setStatusTicket(String status) {
-		this.satusTicket = status;
+		this.statusTicket = status;
 	}
 
-	public Date getCreationDateTicket() {
-		return this.creationDateTicket;
-	}
-
-	public Date setCreationDateTicket(Date date) {
-		this.creationDateTicket = date
-	}
 }
