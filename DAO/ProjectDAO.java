@@ -6,8 +6,8 @@ import business.system.User;
 import java.sql.SQLException;
 
 public interface ProjectDAO {
+    Projet[] getProjectListFromUser(User u) throws SQLException;
     Projet getProjectByID(int idProject) throws SQLException;
-
 
     User getProjectAdmin(int idProject) throws SQLException;
 
@@ -20,18 +20,16 @@ public interface ProjectDAO {
     User[] getProjectTeam(int idProject) throws SQLException;
 
 
-    void createProject(Projet projet) throws SQLException;
+    boolean createProject(Projet projet, User creator) throws SQLException;
 
-    void editProject(Projet projet) throws SQLException;
+    boolean editProject(Projet projet) throws SQLException;
 
-    void deleteProject(Projet projet) throws SQLException;
-
-    void quitProject(int idProject, User collaborator) throws SQLException;
+    boolean deleteProject(Projet projet) throws SQLException;
 
 
-    void addCollaborator(int idProject, User collaborator) throws SQLException;
+    boolean addCollaborator(int idProject, User collaborator) throws SQLException;
 
-    void editCollaborator(int idProject, User collaborator) throws SQLException;
+    boolean editCollaborator(int idProject, User collaborator) throws SQLException;
 
-    void removeCollaborator(int idProject, User collaborator) throws SQLException;
+    boolean removeCollaborator(int idProject, User collaborator) throws SQLException;
 }

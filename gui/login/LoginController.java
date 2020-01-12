@@ -39,7 +39,7 @@ public class LoginController {
     }
 
     @FXML
-    void handleLogin(ActionEvent event) throws IOException {
+    void handleLogin(ActionEvent event) throws IOException, SQLException {
 
         // Pourquoi cela ne change pas ?
         message.setText("Identifying");

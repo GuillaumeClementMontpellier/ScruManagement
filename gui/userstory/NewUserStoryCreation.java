@@ -44,9 +44,7 @@ public class NewUserStoryCreation extends AbstractControlleur {
         UserStory newUS = new UserStory(-1, name, descr, score, deadline);
 
         try {
-            success = GlobalFacade.getInstance()
-                    .addUserStory(newUS,
-                            getProjet().getId());
+            success = GlobalFacade.getInstance().addUserStory(newUS, getProjet());
         } catch (SQLException e) {
             message.setText("Error adding User Story");
             message.setVisible(true);

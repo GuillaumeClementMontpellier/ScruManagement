@@ -15,7 +15,7 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
 
     public User getUserByID(String mail, String password) throws SQLException {
         // Create query
-        String sql = "Select firstNameUser, lastNameUser from User " +
+        String sql = "Select idUser, firstNameUser, lastNameUser from User " +
                 "Where emailUser=? and passWordUser=?";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);

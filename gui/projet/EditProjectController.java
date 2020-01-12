@@ -9,14 +9,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import main.Scrum;
 
-import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 
 
-public class CreateProjectController {
+public class EditProjectController {
 
     @FXML
     private Text message;
@@ -35,32 +32,52 @@ public class CreateProjectController {
 
     private User user;
 
+    private Projet project;
+
+    private boolean delete;
+
+    public void setProject(Projet project) {
+        this.project = project;
+        this.delete = false;
+        nameField.setText(project.getName());
+        summaryField.setText(project.getSummary());
+        typeField.setText(project.getType());
+        deadLinePicker.setValue(project.getDeadline().toLocalDate());
+    }
+
     public void setUser(User u) {
         this.user = u;
     }
 
     @FXML
-    void handleConfirm(ActionEvent event) throws SQLException, IOException {
+    void handleConfirm(ActionEvent event) {
+        System.out.println("EditProjectController.handleConfirm");
+
         String name = nameField.getText();
         String summary = summaryField.getText();
         String type = typeField.getText();
         Date deadline = Date.valueOf(deadLinePicker.getValue());
 
         Projet projet = new Projet(-1, name, summary, type, deadline);
-        boolean success = GlobalFacade.getInstance().createProject(projet, user);
-        if (success) {
-            message.setText("Erreur lors de creation de projet");
-            message.setVisible(true);
-            return;
-        }
 
-        Scrum.goToProjectList(user, getClass().getResource("ProjetList.fxml"));
-
+        GlobalFacade.getInstance().addProject(projet, user);
     }
 
     @FXML
     void handleReturn(ActionEvent event) {
-        System.out.println("CreateProjectController.handleReturn");
+        System.out.println("EditProjectController.handleReturn");
     }
 
+    @FXML
+    void handleDelete(ActionEvent actionEvent) {
+        if (!delete) {
+            message.setText("Are you sure ? this cannot be undone !");
+            message.setVisible(true);
+            return;
+        }
+
+        // TODO : delete Project
+        System.out.println("EditProjectController.handleDelete");
+
+    }
 }
