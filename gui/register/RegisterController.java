@@ -2,6 +2,7 @@ package gui.register;
 
 import business.facade.GlobalFacade;
 import business.system.User;
+import gui.projet.ProjetListController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,11 +61,7 @@ public class RegisterController {
             message.setVisible(true);
 
         } else {
-            // TODO : change to Project list
-            Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
-
-            Scene scene = new Scene(root);
-            Scrum.getStage().setScene(scene);
+            Scrum.goToProjectList(u, getClass().getResource("../projet/ProjetList.fxml"));
         }
     }
 }

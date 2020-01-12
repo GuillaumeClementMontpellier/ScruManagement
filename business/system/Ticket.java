@@ -1,45 +1,20 @@
 package business.system;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 public class Ticket extends Component {
 
-	private int idTicket;
-	private String titleTicket;
-    private String descriptionTicket;
 	private String statusTicket;
+	private Date creationDateTicket;
 
-	public Ticket(){
-	
-	}
-
-	public Ticket(int id, String title, String description, String status) {		
-		setIdTicket(id);		
-		setTitleTicket(title);
-		setDescriptionTicket(description);
+	public Ticket(int id, String title, String description, String status) {
+		setId(id);
+		setName(title);
+		setDescription(description);
 		setStatusTicket(status);
-	}
-
-	public int getIdTicket() {
-		return this.idTicket;	
-	}
-
-	public void setIdTicket(int id) {
-		this.idTicket = id;	
-	}
-
-	public String getTitleTicket() {
-		return this.titleTicket;
-	}
-
-	public void setTitleTicket(String title) {
-		this.titleTicket = title;
-	}
-	
-	public String getDescriptionTicket() {
-		return this.descriptionTicket;
-	}
-
-	public void setDescriptionTicket(String description) {
-		this.descriptionTicket = description;
+		setCreationDateTicket(Date.valueOf(LocalDate.now()));
 	}
 
 	public String getStatusTicket() {
@@ -50,4 +25,11 @@ public class Ticket extends Component {
 		this.statusTicket = status;
 	}
 
+	public Date getCreationDateTicket() {
+		return this.creationDateTicket;
+	}
+
+	public void setCreationDateTicket(Date date) {
+		this.creationDateTicket = date;
+	}
 }

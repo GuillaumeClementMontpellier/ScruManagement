@@ -60,11 +60,7 @@ public class LoginController {
         } else {
             message.setText("Loading");
 
-            // TODO : change to Project list
-            Parent root = FXMLLoader.load(getClass().getResource("../main/Home.fxml"));
-
-            Scene scene = new Scene(root);
-            Scrum.getStage().setScene(scene);
+            Scrum.goToProjectList(u, getClass().getResource("../projet/ProjetList.fxml"));
         }
     }
 }

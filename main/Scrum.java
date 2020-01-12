@@ -2,6 +2,8 @@ package main;
 
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
+import business.system.User;
+import gui.projet.ProjetListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 public class Scrum extends Application {
@@ -17,6 +20,22 @@ public class Scrum extends Application {
 
     public static Stage getStage() {
         return stageSingleton;
+    }
+
+    public static void goToProjectList(User user, URL resource) throws IOException {
+
+        // TODO : change to Project list
+        FXMLLoader loader = new FXMLLoader(resource);
+
+        Parent root = loader.load();
+
+        ProjetListController cont = loader.<ProjetListController>getController();
+
+        cont.setUser(user);
+
+        Scene scene = new Scene(root);
+        Scrum.getStage().setScene(scene);
+
     }
 
     public static void main(String[] args) {
@@ -36,6 +55,8 @@ public class Scrum extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        stage.setResizable(false);
+
         stageSingleton = stage;
         stage.setTitle("ScruManagement");
 

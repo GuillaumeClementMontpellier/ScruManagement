@@ -34,10 +34,11 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
         }
 
         //parse result set
+        int id = resultSet.getInt("idUser");
         String firstName = resultSet.getString("firstNameUser");
         String lastName = resultSet.getString("lastNameUser");
 
-        return new User(firstName, lastName, mail);
+        return new User(id, firstName, lastName, mail);
     }
 
     @Override
