@@ -41,7 +41,7 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
     public boolean addTicket(Ticket newTicket, int projectId) throws SQLException {
 
-        // Insert User Story
+        // Insert Ticket
         boolean success = insertTicket(newTicket);
         if (!success) {
             return false;
@@ -53,7 +53,7 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
             return false;
         }
 
-        // Insert Column User Story
+        // Insert Column Ticket
         String sql = "INSERT INTO ColumnTicket" +
                 "Values (?, ?)";
 
@@ -70,7 +70,8 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
             newTicket.setId(rs.getInt(1));
         }
 
-        return nbAffected > 0;    }
+        return nbAffected > 0;
+    }
 
     public boolean deleteTicket(int ticketId) throws SQLException {
 

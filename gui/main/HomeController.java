@@ -88,4 +88,12 @@ public class HomeController {
         // TODO
         System.out.println("HomeController.goToTicktBacklog");
     }
+
+    public void handleCreationTicket(MouseEvent event) {
+        try {
+            this.changeSubScene("../ticket/CreateTicket.fxml",null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

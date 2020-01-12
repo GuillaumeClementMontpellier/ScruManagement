@@ -40,11 +40,9 @@ public class CreateTicketController extends AbstractControlleur {
         Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket, "Unsolved");
 
         try {
-            success = GlobalFacade.getInstance()
-                    .addTicket(newTicket,
-                            currentProject.getId());
+            success = GlobalFacade.getInstance().addTicket(newTicket, currentProject.getId());
         } catch (SQLException e) {
-            message.setText("Error adding User Story");
+            message.setText("Error creating Ticket");
             message.setVisible(true);
             return;
         }
@@ -52,15 +50,14 @@ public class CreateTicketController extends AbstractControlleur {
         if (success) {
             homeControlleur.changeSubScene("../main/HomeController", newTicket);
         } else {
-            message.setText("Error adding User Story");
+            message.setText("Error creating Ticket");
             message.setVisible(true);
         }
     }
 
     public void exit() throws IOException {
-        // TODO : goto Ticket Backlog
         System.out.println("Exit pressed");
-        // homeControlleur.changeSubScene("", );
+        homeControlleur.changeSubScene("../main/Home.fxml", null);
     }
 
     @Override
