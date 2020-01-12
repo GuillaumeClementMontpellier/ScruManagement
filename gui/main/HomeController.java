@@ -1,7 +1,9 @@
 package gui.main;
 
-import business.system.Project;
+import business.facade.GlobalFacade;
+import business.system.Projet;
 import business.system.User;
+import business.system.UserStory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,5 +89,13 @@ public class HomeController {
     public void goToTicktBacklog(ActionEvent event) {
         // TODO
         System.out.println("HomeController.goToTicktBacklog");
+    }
+
+    public void handleCreationTicket(MouseEvent event) {
+        try {
+            this.changeSubScene("../ticket/CreateTicket.fxml",null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

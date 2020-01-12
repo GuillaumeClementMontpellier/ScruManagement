@@ -17,7 +17,7 @@ public class TicketFacade {
     public boolean addTicket(Ticket newTicket, int ProjectId) throws SQLException {
         TicketDAO ticketDAO = AbstractFactoryDAO.getInstance().createTicketDAO();
 
-        return ticketDAO.updateTicket(newTicket, ProjectId);
+        return ticketDAO.addTicket(newTicket, ProjectId);
     }
 
     public boolean deleteTicket(Ticket oldTicket) throws SQLException {
