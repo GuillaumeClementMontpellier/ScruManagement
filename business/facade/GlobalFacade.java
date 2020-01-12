@@ -4,6 +4,7 @@ import business.system.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GlobalFacade {
 
@@ -13,12 +14,18 @@ public class GlobalFacade {
     private UserStoryFacade userStoryFacade;
     private LoginFacade loginFacade;
     private BacklogFacade backlogFacade;
+    private ProjetFacade projetFacade;
+    private TicketFacade ticketFacade;
 
     private GlobalFacade() {
 
         this.loginFacade = new LoginFacade();
         this.userStoryFacade = new UserStoryFacade();
         this.backlogFacade = new BacklogFacade();
+        this.projetFacade = new ProjetFacade();
+        this.ticketFacade = new TicketFacade();
+
+        userStoryFacade.setBacklogFacade(backlogFacade);
     }
 
     public static GlobalFacade getInstance() {
@@ -99,5 +106,26 @@ public class GlobalFacade {
 
     public boolean initiateProductTicketBacklog(int idProject) throws SQLException {
         return backlogFacade.initiateProductTicketBacklog(idProject);
+    }
+
+    public List<Projet> getProjectListFromUser(User u) {
+        return projetFacade.getProjectListFromUser(u);
+    }
+
+    public Ticket getTicketById(int ticketId) throws  SQLException {
+        return  ticketFacade.getTicketById(ticketId);
+    }
+
+    public boolean addTicket(Ticket newTicket, int ProjectId) throws SQLException {
+        return  ticketFacade.addTicket(newTicket, ProjectId);
+    }
+
+    public boolean deleteTicket(Ticket oldTicket) throws SQLException {
+        return  ticketFacade.deleteTicket(oldTicket);
+
+    }
+
+    public boolean updateTicket(Ticket updatedTicket, Ticket oldTicket) throws SQLException {
+        return  ticketFacade.updateTicket(updatedTicket, oldTicket);
     }
 }

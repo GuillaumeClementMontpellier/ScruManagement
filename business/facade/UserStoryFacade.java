@@ -2,11 +2,20 @@ package business.facade;
 
 import DAO.UserStoryDAO;
 import DAO.factory.AbstractFactoryDAO;
+import business.system.Column;
+import business.system.ProductBacklog;
+import business.system.Projet;
 import business.system.UserStory;
 
 import java.sql.SQLException;
 
 public class UserStoryFacade {
+
+    private BacklogFacade backlogFacade;
+
+    public void setBacklogFacade(BacklogFacade backlogFacade){
+        this.backlogFacade = backlogFacade;
+    }
 
     public UserStory getUserStoryByID(int id) throws SQLException {
         UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
@@ -31,7 +40,14 @@ public class UserStoryFacade {
     public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
 
         UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
+        boolean success = usDAO.addUserStory(newUS);
 
-        return usDAO.addUserStory(newUS, projectID);
+        // Add to column
+        ProductBacklog pb = backlogFacade.getProductBacklog(new Projet(projectID, null));
+        Column column = backlogFacade.getColumn(pb)[1];
+
+        backlogFacade.addComponent(newUS, column);
+
+        return success;
     }
 }

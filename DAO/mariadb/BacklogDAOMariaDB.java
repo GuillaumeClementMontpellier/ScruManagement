@@ -92,7 +92,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public Column[] getColumn(Backlog backlog) throws SQLException {
-        String sql = "Select idColumn, name From backlog where idBacklog = ?";
+        String sql = "Select idColumn, name From backlog where idBacklog = ? order by rank";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, backlog.getId());
         ResultSet resultSet = pre.executeQuery();
@@ -100,10 +100,12 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         ArrayList<Column> solution = new ArrayList();
         int id;
         String name;
+        int rank;
         while (resultSet.next()) {
             id = resultSet.getInt("idColumn");
             name = resultSet.getString("name");
-            solution.add(new Column(id, name));
+            rank = resultSet.getInt("rank");
+            solution.add(new Column(id, name,rank));
         }
         Column[] soos = solution.toArray(new Column[solution.size()]);
         return soos;
@@ -137,27 +139,23 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public Ticket[] getTickets(Column col) throws SQLException {
-        // TODO : review SQL
         String sql = "Select * From Ticket where idTicket EXISTS (Select idTicket from ColumnTicket where idColumn  =  ?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, col.getId());
         ResultSet resultSet = pre.executeQuery();
 
         ArrayList<Ticket> solution = new ArrayList();
-        //TODO when Ticket will be implemented
-        int id;
-        int projetID;
-        int score;
-        Date deadline;
-        String description;
+        int idTicket;
+        String titleTicket;
+		String descriptionTicket;
+		String statusTicket;
         while (resultSet.next()) {
 
-            id = resultSet.getInt("idUserStory");
-            projetID = resultSet.getInt("projetID");
-            score = resultSet.getInt("score");
-            deadline = resultSet.getDate("deadline");
-            description = resultSet.getString("descriptionUserStory");
-            solution.add(new Ticket());
+            idTicket = resultSet.getInt("idTicket");
+            titleTicket = resultSet.getString("nameTicket");
+            descriptionTicket = resultSet.getString("descriptionTicket");
+            statusTicket = resultSet.getString("statusTicket");
+            solution.add(new Ticket(idTicket, titleTicket, descriptionTicket, statusTicket));
         }
         Ticket[] soos = solution.toArray(new Ticket[solution.size()]);
         return soos;
@@ -233,7 +231,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
         int id = rs.getInt(1);
 
-        sql = "Insert into Column(idBacklog, name) values (?, TO DO)(?, Work in progress)(?, Done)";
+        sql = "Insert into Column(idBacklog, name, rank) values (?, TO DO, 1)(?, Work in progress,2)(?, Done,3)";
         pre = this.connection.prepareStatement(sql);
         pre.setInt(1, id);
         pre.setInt(2, id);
@@ -249,6 +247,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
     }
 
     private PreparedStatement setCorrectTable(PreparedStatement pre, Component c) throws SQLException {
+        // TODO : change : Bad smell !!
         if (c instanceof Ticket) {
             pre.setString(1, "ColumnTicket");
         } else {

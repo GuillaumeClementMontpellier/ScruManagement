@@ -6,7 +6,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 <?import util.IconView?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" animated="false" collapsible="false" maxHeight="-Infinity"
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" animated="false" collapsible="false"
+            maxHeight="-Infinity"
             maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
             text="SCRUManagement" xmlns="http://javafx.com/javafx/11.0.1"
             fx:controller="gui.main.HomeController">
@@ -17,38 +18,33 @@
                     <items>
                         <AnchorPane prefHeight="49.0" prefWidth="146.0">
                             <children>
-                                <IconView fx:value="user-cog" layoutX="10.0" layoutY="10.0"/>
+                                <IconView fx:value="user-cog" onMouseClicked="#handleUserSetting" layoutX="10.0"
+                                          layoutY="10.0"/>
                                 <Line endX="17.0" endY="-12.66666030883789" layoutX="20.0" layoutY="45.0"
                                       startX="17.0" startY="-40.00000762939453"/>
                                 <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0"
                                       text="Project"/>
-                                <IconView fx:value="cog" layoutX="100.0" layoutY="2.5"/>
+                                <IconView fx:value="cog" onMouseClicked="#handleProjectSetting" layoutX="100.0"
+                                          layoutY="2.5"/>
                             </children>
                         </AnchorPane>
                         <ScrollPane centerShape="false" prefHeight="286.0" prefWidth="146.0">
                             <content>
-                                <Accordion prefHeight="84.0" prefWidth="146.0">
-                                    <panes>
-                                        <TitledPane animated="false" text="Sprint Backlog">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                            prefWidth="200.0"/>
-                                            </content>
-                                        </TitledPane>
-                                        <TitledPane animated="false" text="Product Backlog">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                            prefWidth="200.0"/>
-                                            </content>
-                                        </TitledPane>
-                                        <TitledPane animated="false" text="Ticket Backlog">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                                            prefWidth="200.0"/>
-                                            </content>
-                                        </TitledPane>
-                                    </panes>
-                                </Accordion>
+                                <GridPane>
+                                    <Accordion prefWidth="146.0">
+                                        <panes>
+                                            <TitledPane animated="false" text="Sprint Backlog">
+                                                <content>
+                                                    <!-- TODO : replace by list of Sprints and add a Sprint Button -->
+                                                    <GridPane fx:id="listSprint"/>
+                                                </content>
+                                            </TitledPane>
+
+                                        </panes>
+                                    </Accordion>
+                                    <Button GridPane.rowIndex="1" onAction="#goToTicktBacklog" text="Ticket Backlog" prefWidth="146.0"/>
+                                    <Button GridPane.rowIndex="2" text="Product Backlog" onAction="#goToProductBacklog" prefWidth="146.0"/>
+                                </GridPane>
                             </content>
                         </ScrollPane>
                         <AnchorPane prefHeight="51.0" prefWidth="108.0">
@@ -62,7 +58,7 @@
                 </SplitPane>
                 <Pane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="41.0" layoutX="-2.0"
+                        <Rectangle onMouseEntered="#handleComment" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="41.0" layoutX="-2.0"
                                    layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="37.0"/>
                         <IconView fx:value="comments" layoutX="7.5" layoutY="-20.0"/>
                         <fx:include fx:id="childContent" source="../Empty.fxml"/>

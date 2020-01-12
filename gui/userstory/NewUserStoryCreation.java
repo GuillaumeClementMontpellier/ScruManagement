@@ -1,11 +1,8 @@
 package gui.userstory;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
-import business.system.User;
 import business.system.UserStory;
-import gui.main.HomeController;
-import gui.main.MainControlleur;
+import gui.main.AbstractControlleur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -17,7 +14,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class NewUserStoryCreation implements MainControlleur {
+public class NewUserStoryCreation extends AbstractControlleur {
 
     @FXML
     private TextField nomField;
@@ -34,12 +31,6 @@ public class NewUserStoryCreation implements MainControlleur {
     @FXML
     private Text message;
 
-    private Projet projet;
-
-    private User actveUser;
-
-    private HomeController homeControlleur;
-
     @FXML
     void handleCreate(ActionEvent event) throws IOException {
 
@@ -55,7 +46,7 @@ public class NewUserStoryCreation implements MainControlleur {
         try {
             success = GlobalFacade.getInstance()
                     .addUserStory(newUS,
-                            projet.getId());
+                            getProjet().getId());
         } catch (SQLException e) {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -63,7 +54,7 @@ public class NewUserStoryCreation implements MainControlleur {
         }
 
         if (success) {
-            homeControlleur.changeSubScene("../userstory/UserStoryController", newUS);
+            getHomeControlleur().changeSubScene("../userstory/UserStoryController", newUS);
         } else {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -74,21 +65,6 @@ public class NewUserStoryCreation implements MainControlleur {
         // TODO : goto US Backlog
         System.out.println("Exit pressed");
 //        homeControlleur.changeSubScene("../userstory/UserStoryController", );
-    }
-
-    @Override
-    public void setProjet(Projet projet) {
-        this.projet = projet;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.actveUser = user;
-    }
-
-    @Override
-    public void setHomeControlleur(HomeController homeControlleur) {
-        this.homeControlleur = homeControlleur;
     }
 
     @Override

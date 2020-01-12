@@ -1,11 +1,7 @@
 package gui.userstory;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
-import business.system.User;
 import business.system.UserStory;
-import gui.main.HomeController;
-import gui.main.MainControlleur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,11 +14,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class UserStoryController implements MainControlleur {
+public class UserStoryController extends gui.main.AbstractControlleur {
 
-    private Projet projet;
-    private User activeUser;
-    private HomeController homeControlleur;
     private UserStory currentUS;
 
     @FXML
@@ -42,13 +35,14 @@ public class UserStoryController implements MainControlleur {
 
     @FXML
     private Text message;
+
     private boolean delete;
 
     @FXML
     void exit() throws IOException {
         // TODO : go to US Backlog
         System.out.println("Exit pressed");
-        // homeControlleur.changeSubScene();
+//        getHomeControlleur().changeSubScene("", null);
     }
 
     @FXML
@@ -116,24 +110,9 @@ public class UserStoryController implements MainControlleur {
     }
 
     @Override
-    public void setProjet(Projet projet) {
-        this.projet = projet;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.activeUser = user;
-    }
-
-    @Override
-    public void setHomeControlleur(HomeController homeControlleur) {
-        this.homeControlleur = homeControlleur;
-    }
-
-    @Override
     public void init(Object param) {
 
-        this.delete = true;
+        this.delete = false;
 
         this.currentUS = (UserStory) param;
 
