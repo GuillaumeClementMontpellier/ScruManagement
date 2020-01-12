@@ -4,6 +4,7 @@ import DAO.BacklogDAO;
 import DAO.ProjectDAO;
 import DAO.TicketDAO;
 import DAO.UserStoryDAO;
+import DAO.ProjectDAO;
 import DAO.factory.AbstractFactoryDAO;
 
 import java.sql.SQLException;
@@ -35,6 +36,11 @@ public class FactoryDAOMariaDB extends AbstractFactoryDAO {
     @Override
     public BacklogDAO createBacklogDAO() throws SQLException {
         return new BacklogDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
+    }
+
+    @Override
+    public ProjectDAO createProjectDAO() throws SQLException {
+        return new ProjectDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
     }
 
     @Override

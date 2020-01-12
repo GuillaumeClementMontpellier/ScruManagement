@@ -2,7 +2,6 @@ package gui.register;
 
 import business.facade.GlobalFacade;
 import business.system.User;
-import gui.projet.ProjetListController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

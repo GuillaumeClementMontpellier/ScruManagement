@@ -13,6 +13,7 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
         super(addressDataBase, userDataBase, passWordDataBase);
     }
 
+    @Override
     public User getUserByID(String mail, String password) throws SQLException {
         // Create query
         String sql = "Select idUser, firstNameUser, lastNameUser from User " +
@@ -67,6 +68,24 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
         ResultSet resultSet = pre.executeQuery();
 
         return resultSet.first();
+    }
+
+    @Override
+    public User getUserByIdUser(int idUser) throws SQLException {
+        // Prepare Query
+        String sql = "Select * FROM User WHERE idUser = ?";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setInt(1, idUser);
+
+        // Execute Query
+        ResultSet resultSet = pre.executeQuery();
+
+        // Parse Query
+        int id = resultSet.getInt("idUser");
+        String firstName = resultSet.getString("firstName");
+        String lastName = resultSet.getString("lastName");
+        String email = resultSet.getString("email");
+        return new User(id, firstName, lastName, email);
     }
 
 }

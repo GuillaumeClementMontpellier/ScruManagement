@@ -120,7 +120,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
         ArrayList<UserStory> solution = new ArrayList();
         int id;
-        int projetID;
+        int idProject;
         int score;
         Date deadline;
         String description;

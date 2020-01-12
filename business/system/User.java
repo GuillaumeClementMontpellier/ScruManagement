@@ -8,15 +8,15 @@ public class User {
     private String email;
     private String passWord;
 
-    public User(int id,String firstName, String lastName, String mail) {
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(int id, String firstName, String lastName, String mail) {
         this.id = id;
         this.email = mail;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -45,6 +45,10 @@ public class User {
         return this.email;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public String getPassWord() {
         return this.passWord;
     }
@@ -63,4 +67,15 @@ public class User {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean equals(Object user) {
+        if (!(user instanceof User)) {
+            return false;
+        }
+        User otherUser = (User) user;
+        if (this.getId() == otherUser.getId()) {
+            return true;
+        }
+        return false;
+    }
 }
