@@ -1,21 +1,21 @@
 package gui.main;
 
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 
 public abstract class AbstractControlleur implements MainControlleur {
 
-    private Projet projet;
+    private Project project;
     private User activeUser;
     private HomeController homeControlleur;
 
-    protected Projet getProjet() {
-        return projet;
+    protected Project getProject() {
+        return project;
     }
 
     @Override
-    public void setProjet(Projet projet) {
-        this.projet = projet;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     protected User getActiveUser() {

@@ -8,15 +8,15 @@ public class User {
     private String email;
     private String passWord;
 
-    public User(int id,String firstName, String lastName, String mail) {
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(int id, String firstName, String lastName, String mail) {
         this.id = id;
         this.email = mail;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -43,6 +43,10 @@ public class User {
 
     public String getEmail() {
         return this.email;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getPassWord() {

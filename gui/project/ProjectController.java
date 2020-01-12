@@ -1,6 +1,6 @@
-package gui.projet;
+package gui.project;
 
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import gui.main.HomeController;
 import javafx.fxml.FXML;
@@ -13,22 +13,22 @@ import main.Scrum;
 
 import java.io.IOException;
 
-public class ProjetController {
+public class ProjectController {
 
-    private Projet projet;
+    private Project project;
     private User user;
 
     @FXML
     private Text projectName;
 
     @FXML
-    void loadProjet() throws IOException {
+    void loadProject() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
 
         Parent root = loader.load();
         HomeController cont = loader.<HomeController>getController();
 
-        cont.setProjet(projet);
+        cont.setProject(project);
         cont.setUser(user);
 
         Scene scene = new Scene(root);
@@ -36,8 +36,8 @@ public class ProjetController {
 
     }
 
-    public void setProject(Projet p) {
-        this.projet = p;
+    public void setProject(Project p) {
+        this.project = p;
         this.projectName.setText(p.getName());
     }
 
@@ -51,7 +51,7 @@ public class ProjetController {
         Parent root = loader.load();
         EditProjectController cont = loader.<EditProjectController>getController();
 
-        cont.setProject(projet);
+        cont.setProject(project);
         cont.setUser(user);
 
         Scene scene = new Scene(root);

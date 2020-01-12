@@ -1,6 +1,6 @@
 package gui.main;
 
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import java.net.URL;
 public class HomeController {
 
     private User activeUser;
-    private Projet projet;
+    private Project project;
 
     @FXML
     private GridPane listSprint;
@@ -28,8 +28,8 @@ public class HomeController {
         this.activeUser = activeUser;
     }
 
-    public void setProjet(Projet projet) {
-        this.projet = projet;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     /**
@@ -49,7 +49,7 @@ public class HomeController {
         MainControlleur childContentController = loader.getController();
 
         childContentController.setHomeControlleur(this);
-        childContentController.setProjet(this.projet);
+        childContentController.setProject(this.project);
         childContentController.setUser(this.activeUser);
         childContentController.init(param);
 

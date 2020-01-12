@@ -1,7 +1,7 @@
 package gui.ticket;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.Ticket;
 import business.system.User;
 import gui.main.AbstractControlleur;
@@ -23,7 +23,7 @@ public class CreateTicketController extends AbstractControlleur {
     @FXML
     private TextArea descriptionField;
 
-    private Projet currentProject;
+    private Project currentProject;
     private User currentUser;
     private HomeController homeControlleur;
 
@@ -40,9 +40,7 @@ public class CreateTicketController extends AbstractControlleur {
         Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket, "Unsolved");
 
         try {
-            success = GlobalFacade.getInstance()
-                    .addTicket(newTicket,
-                            currentProject.getId());
+            success = GlobalFacade.getInstance().addTicket(newTicket, currentProject.getId());
         } catch (SQLException e) {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -64,8 +62,8 @@ public class CreateTicketController extends AbstractControlleur {
     }
 
     @Override
-    public void setProjet(Projet projet) {
-        this.currentProject = projet;
+    public void setProject(Project project) {
+        this.currentProject = project;
     }
 
     @Override

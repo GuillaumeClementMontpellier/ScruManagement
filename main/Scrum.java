@@ -3,7 +3,7 @@ package main;
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
 import business.system.User;
-import gui.projet.ProjetListController;
+import gui.project.ProjectListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +29,7 @@ public class Scrum extends Application {
 
         Parent root = loader.load();
 
-        ProjetListController cont = loader.<ProjetListController>getController();
+        ProjectListController cont = loader.<ProjectListController>getController();
 
         cont.setUser(user);
 

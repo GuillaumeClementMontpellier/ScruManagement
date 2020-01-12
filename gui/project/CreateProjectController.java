@@ -1,7 +1,7 @@
-package gui.projet;
+package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,15 +46,15 @@ public class CreateProjectController {
         String type = typeField.getText();
         Date deadline = Date.valueOf(deadLinePicker.getValue());
 
-        Projet projet = new Projet(-1, name, summary, type, deadline);
-        boolean success = GlobalFacade.getInstance().createProject(projet, user);
+        Project project = new Project(-1, name, summary, type, deadline);
+        boolean success = GlobalFacade.getInstance().createProject(project, user);
         if (success) {
-            message.setText("Erreur lors de creation de projet");
+            message.setText("Erreur lors de creation de project");
             message.setVisible(true);
             return;
         }
 
-        Scrum.goToProjectList(user, getClass().getResource("ProjetList.fxml"));
+        Scrum.goToProjectList(user, getClass().getResource("ProjectList.fxml"));
 
     }
 

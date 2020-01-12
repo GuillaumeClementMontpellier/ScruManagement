@@ -1,7 +1,7 @@
-package gui.projet;
+package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,11 +32,11 @@ public class EditProjectController {
 
     private User user;
 
-    private Projet project;
+    private Project project;
 
     private boolean delete;
 
-    public void setProject(Projet project) {
+    public void setProject(Project project) {
         this.project = project;
         this.delete = false;
         nameField.setText(project.getName());
@@ -58,9 +58,9 @@ public class EditProjectController {
         String type = typeField.getText();
         Date deadline = Date.valueOf(deadLinePicker.getValue());
 
-        Projet projet = new Projet(-1, name, summary, type, deadline);
+        Project project = new Project(-1, name, summary, type, deadline);
 
-        GlobalFacade.getInstance().addProject(projet, user);
+        GlobalFacade.getInstance().addProject(project, user);
     }
 
     @FXML
