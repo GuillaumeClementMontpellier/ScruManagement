@@ -1,7 +1,9 @@
 package gui.main;
 
+import business.facade.GlobalFacade;
 import business.system.Projet;
 import business.system.User;
+import business.system.UserStory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -8,14 +8,19 @@ import gui.main.AbstractControlleur;
 import gui.main.HomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class CreateTicketController extends AbstractControlleur {
+
+    @FXML
+    private ChoiceBox userStoryField;
 
     @FXML
     private TextField titleField;
@@ -23,15 +28,10 @@ public class CreateTicketController extends AbstractControlleur {
     @FXML
     private TextArea descriptionField;
 
-    private Projet currentProject;
-    private User currentUser;
-    private HomeController homeControlleur;
-
     @FXML
     private Text message;
 
-    @FXML
-    void handleCreationTicket(ActionEvent event) throws IOException {
+    public void handleCreationTicket(ActionEvent event) throws IOException {
 
         String titleTicket = titleField.getText();
         String descriptionTicket = descriptionField.getText();
@@ -40,7 +40,8 @@ public class CreateTicketController extends AbstractControlleur {
         Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket, "Unsolved");
 
         try {
-            success = GlobalFacade.getInstance().addTicket(newTicket, currentProject.getId());
+            success = GlobalFacade.getInstance().addTicket(newTicket, getProjet().getId());
+            System.out.println(success);
         } catch (SQLException e) {
             message.setText("Error creating Ticket 1");
             message.setVisible(true);
@@ -48,10 +49,11 @@ public class CreateTicketController extends AbstractControlleur {
         }
 
         if (success) {
-            homeControlleur.changeSubScene("../main/HomeController", newTicket);
+            getHomeControlleur().changeSubScene("../Ticket/TicketController", newTicket);
         } else {
             message.setText("Error creating Ticket 2");
             message.setVisible(true);
+            return;
         }
     }
 
@@ -59,21 +61,6 @@ public class CreateTicketController extends AbstractControlleur {
         // TODO: 12/01/2020 display ticket backlog
         System.out.println("Exit pressed");
         //homeControlleur.changeSubScene("", null);
-    }
-
-    @Override
-    public void setProjet(Projet projet) {
-        this.currentProject = projet;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.currentUser = user;
-    }
-
-    @Override
-    public void setHomeControlleur(HomeController homeControlleur) {
-        this.homeControlleur = homeControlleur;
     }
 
     @Override
