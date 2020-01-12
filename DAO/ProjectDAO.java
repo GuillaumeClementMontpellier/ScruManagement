@@ -1,13 +1,23 @@
 package DAO;
 
-import business.system.Projet;
+import business.system.Collaborator;
+import business.system.Project;
 import business.system.User;
+import javafx.util.Pair;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface ProjectDAO {
-    Projet[] getProjectListFromUser(User u) throws SQLException;
-    Projet getProjectByID(int idProject) throws SQLException;
+    List<Project> getProjectListFromUser(int idUser) throws SQLException;
+
+    Project getProjectByID(int idProject) throws SQLException;
+
+
+    // User & their Role on the project
+    List<Collaborator> getProjectTeam(int idProject) throws SQLException;
 
     User getProjectAdmin(int idProject) throws SQLException;
 
@@ -15,21 +25,19 @@ public interface ProjectDAO {
 
     User getProjectProductOwner(int idProject) throws SQLException;
 
-    User[] getProjectDevelopers(int idProject) throws SQLException;
-
-    User[] getProjectTeam(int idProject) throws SQLException;
+    List<User> getProjectDevelopers(int idProject) throws SQLException;
 
 
-    boolean createProject(Projet projet, User creator) throws SQLException;
+    Project createProject(String name, String summary, String type, Date deadline) throws SQLException;
 
-    boolean editProject(Projet projet) throws SQLException;
+    boolean editProject(Project project) throws SQLException;
 
-    boolean deleteProject(Projet projet) throws SQLException;
+    boolean deleteProject(int idProject) throws SQLException;
 
 
-    boolean addCollaborator(int idProject, User collaborator) throws SQLException;
+    Collaborator addCollaborator(int idProject, int idCollaborator, int role, boolean isAdmin) throws SQLException;
 
-    boolean editCollaborator(int idProject, User collaborator) throws SQLException;
+    boolean editCollaborator(int idProject, int idCollaborator, int role, boolean isAdmin) throws SQLException;
 
-    boolean removeCollaborator(int idProject, User collaborator) throws SQLException;
+    boolean removeCollaborator(int idProject, int collaborator) throws SQLException;
 }

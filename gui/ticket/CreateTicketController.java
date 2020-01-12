@@ -1,10 +1,10 @@
 package gui.ticket;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.Ticket;
 import business.system.User;
-import gui.main.AbstractControlleur;
+import gui.main.AbstractController;
 import gui.main.HomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class CreateTicketController extends AbstractControlleur {
+public class CreateTicketController extends AbstractController {
 
     @FXML
     private ChoiceBox userStoryField;
@@ -27,6 +27,10 @@ public class CreateTicketController extends AbstractControlleur {
 
     @FXML
     private TextArea descriptionField;
+
+    private Project currentProject;
+    private User currentUser;
+    private HomeController homeController;
 
     @FXML
     private Text message;
@@ -40,8 +44,7 @@ public class CreateTicketController extends AbstractControlleur {
         Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket, "Unsolved");
 
         try {
-            success = GlobalFacade.getInstance().addTicket(newTicket, getProjet().getId());
-            System.out.println(success);
+            success = GlobalFacade.getInstance().addTicket(newTicket, currentProject.getId());
         } catch (SQLException e) {
             message.setText("Error creating Ticket 1");
             message.setVisible(true);
@@ -60,7 +63,22 @@ public class CreateTicketController extends AbstractControlleur {
     public void exit() throws IOException {
         // TODO: 12/01/2020 display ticket backlog
         System.out.println("Exit pressed");
-        //homeControlleur.changeSubScene("", null);
+        // homeController.changeSubScene("", );
+    }
+
+    @Override
+    public void setProject(Project project) {
+        this.currentProject = project;
+    }
+
+    @Override
+    public void setUser(User user) {
+        this.currentUser = user;
+    }
+
+    @Override
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
     }
 
     @Override
