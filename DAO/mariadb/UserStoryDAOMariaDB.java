@@ -81,14 +81,6 @@ public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
         return nbAffected > 0;
     }
 
-    /**
-     * If sucess, set UserStory id to generated id
-     *
-     * @param newUS
-     * @param projectID
-     * @return
-     * @throws SQLException
-     */
     @Override
     public boolean addUserStory(UserStory newUS, int projectID) throws SQLException {
 
