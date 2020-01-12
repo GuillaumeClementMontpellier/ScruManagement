@@ -137,28 +137,23 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public Ticket[] getTickets(Column col) throws SQLException {
-        // TODO : review SQL
         String sql = "Select * From Ticket where idTicket EXISTS (Select idTicket from ColumnTicket where idColumn  =  ?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, col.getId());
         ResultSet resultSet = pre.executeQuery();
 
         ArrayList<Ticket> solution = new ArrayList();
-        //TODO when Ticket will be implemented
         int idTicket;
-        int projetId;
         String titleTicket;
 		String descriptionTicket;
 		String statusTicket;
-        Date creationDateTicket;
         while (resultSet.next()) {
 
-            idTicket = resultSet.getInt("idUserStory");
-            projetId = resultSet.getInt("projetID");
-            titleTicket = resultSet.getString("score");
-            deadline = resultSet.getDate("deadline");
-            description = resultSet.getString("descriptionUserStory");
-            solution.add(new Ticket());
+            idTicket = resultSet.getInt("idTicket");
+            titleTicket = resultSet.getString("nameTicket");
+            descriptionTicket = resultSet.getString("descriptionTicket");
+            statusTicket = resultSet.getString("statusTicket");
+            solution.add(new Ticket(idTicket, titleTicket, descriptionTicket, statusTicket));
         }
         Ticket[] soos = solution.toArray(new Ticket[solution.size()]);
         return soos;
