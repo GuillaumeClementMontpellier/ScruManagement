@@ -4,7 +4,6 @@ import DAO.BacklogDAO;
 import DAO.TicketDAO;
 import DAO.UserStoryDAO;
 import DAO.factory.AbstractFactoryDAO;
-import DAO.TicketDAO;
 
 import java.sql.SQLException;
 
