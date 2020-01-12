@@ -11,6 +11,11 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
         super(addressDataBase, userDataBase, passWordDataBase);
     }
 
+    @Override
+    public Ticket[] getTickets(Ticket ticket) throws SQLException {
+        throw new SQLException("Uninplemented");
+    }
+
     public Ticket getTicketById(int ticketId) throws  SQLException {
         String sql = "Select * from Ticket " +
                 "Where idTicket = ?";
@@ -96,8 +101,8 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
 
-        pre.setString(1, updatedTicket.getTitleTicket());
-        pre.setString(2, updatedTicket.getDescriptionTicket());
+        pre.setString(1, updatedTicket.getName());
+        pre.setString(2, updatedTicket.getDescription());
         pre.setString(3, updatedTicket.getStatusTicket());
         pre.setInt(4, ticketId);
 
@@ -132,8 +137,8 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
         PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-        pre.setString(1, newTicket.getTitleTicket());
-        pre.setString(2, newTicket.getDescriptionTicket());
+        pre.setString(1, newTicket.getName());
+        pre.setString(2, newTicket.getDescription());
         pre.setString(3, newTicket.getStatusTicket());
 
         int nbAffected = pre.executeUpdate();
