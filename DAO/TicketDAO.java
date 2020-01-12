@@ -6,8 +6,6 @@ import java.sql.SQLException;
 
 public interface TicketDAO {
 
-    Ticket[] getTickets(Ticket ticket) throws SQLException;
-
     Ticket getTicketById(int ticketId) throws  SQLException;
 
     boolean addTicket(Ticket newTicket, int projectId) throws SQLException;
