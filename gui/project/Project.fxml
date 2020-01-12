@@ -7,7 +7,7 @@
 <?import util.IconView?>
 <GridPane hgap="10.0" prefWidth="600.0" style="-fx-background-color: #cccccc;" vgap="10.0"
           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="gui.projet.ProjetController">
+          fx:controller="gui.project.ProjectController">
     <columnConstraints>
         <ColumnConstraints maxWidth="262.0" minWidth="74.0" prefWidth="260.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="446.0" minWidth="10.0" prefWidth="260.0"/>
@@ -16,7 +16,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
-        <Button mnemonicParsing="false" onAction="#loadProjet" prefWidth="130.0" style="-fx-background-color: lime;"
+        <Button mnemonicParsing="false" onAction="#loadProject" prefWidth="130.0" style="-fx-background-color: lime;"
                 text="Select Project" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
         <AnchorPane>
             <children>

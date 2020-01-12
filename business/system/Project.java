@@ -2,16 +2,16 @@ package business.system;
 
 import java.sql.Date;
 
-public class Projet {
-    private String name;
+public class Project {
     private int id;
+    private String name;
     private String summary;
     private String type;
     private Date deadline;
 
-    public Projet(int id, String name, String summary, String type,  Date deadline) {
-        this.name = name;
+    public Project(int id, String name, String summary, String type, Date deadline) {
         this.id = id;
+        this.name = name;
         this.summary = summary;
         this.type = type;
         this.deadline = deadline;
@@ -21,24 +21,12 @@ public class Projet {
         return this.id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 
     public String getType() {
@@ -55,5 +43,13 @@ public class Projet {
 
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

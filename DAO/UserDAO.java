@@ -12,4 +12,6 @@ public interface UserDAO {
 
     boolean userExists(String mail) throws SQLException;
 
-}
+    User getUserByIdUser(int idUser) throws SQLException;
+
+    }

@@ -2,6 +2,7 @@ package gui.userstory;
 
 import business.facade.GlobalFacade;
 import business.system.UserStory;
+import gui.main.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class UserStoryController extends gui.main.AbstractControlleur {
+public class UserStoryController extends AbstractController {
 
     private UserStory currentUS;
 

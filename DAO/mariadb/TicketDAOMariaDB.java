@@ -3,7 +3,10 @@ package DAO.mariadb;
 import DAO.TicketDAO;
 import business.system.Ticket;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
@@ -16,7 +19,7 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
         throw new SQLException("Uninplemented");
     }
 
-    public Ticket getTicketById(int ticketId) throws  SQLException {
+    public Ticket getTicketById(int ticketId) throws SQLException {
         String sql = "Select * from Ticket " +
                 "Where idTicket = ?";
 
@@ -70,7 +73,8 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
             newTicket.setId(rs.getInt(1));
         }
 
-        return nbAffected > 0;    }
+        return nbAffected > 0;
+    }
 
     public boolean deleteTicket(int ticketId) throws SQLException {
 
