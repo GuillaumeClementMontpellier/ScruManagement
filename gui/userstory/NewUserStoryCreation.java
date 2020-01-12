@@ -2,7 +2,7 @@ package gui.userstory;
 
 import business.facade.GlobalFacade;
 import business.system.UserStory;
-import gui.main.AbstractControlleur;
+import gui.main.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class NewUserStoryCreation extends AbstractControlleur {
+public class NewUserStoryCreation extends AbstractController {
 
     @FXML
     private TextField nomField;
@@ -52,7 +52,7 @@ public class NewUserStoryCreation extends AbstractControlleur {
         }
 
         if (success) {
-            getHomeControlleur().changeSubScene("../userstory/UserStoryController", newUS);
+            getHomeController().changeSubScene("../userstory/UserStoryController", newUS);
         } else {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -62,7 +62,7 @@ public class NewUserStoryCreation extends AbstractControlleur {
     public void exit() throws IOException {
         // TODO : goto US Backlog
         System.out.println("Exit pressed");
-//        homeControlleur.changeSubScene("../userstory/UserStoryController", );
+//        homeController.changeSubScene("../userstory/UserStoryController", );
     }
 
     @Override
