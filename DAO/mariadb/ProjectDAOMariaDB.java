@@ -152,7 +152,7 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
             return null;
         }
         int id = rs.getInt(1);
-        return new Projet(id, name, summary, type, deadline);
+        return new Project(id, name, summary, type, deadline);
     }
 
     @Override

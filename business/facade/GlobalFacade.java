@@ -1,7 +1,5 @@
 package business.facade;
 
-import DAO.SprintDAO;
-import DAO.factory.AbstractFactoryDAO;
 import business.system.*;
 
 import java.sql.Date;
@@ -42,8 +40,8 @@ public class GlobalFacade {
         return instance;
     }
 
-    public UserStory[] getUserStoryByProject(Projet projet) throws SQLException {
-        return userStoryFacade.getUserStoryByProject(projet);
+    public UserStory[] getUserStoryByProject(Project project) throws SQLException {
+        return userStoryFacade.getUserStoryByProject(project);
     }
 
     public User login(String username, String password) throws SQLException {
@@ -54,7 +52,7 @@ public class GlobalFacade {
         return loginFacade.register(username, password, firstName, lastName);
     }
 
-    public boolean addUserStory(UserStory newUS, Projet project) throws SQLException {
+    public boolean addUserStory(UserStory newUS, Project project) throws SQLException {
         return userStoryFacade.addUserStory(newUS, project);
     }
 
@@ -71,19 +69,19 @@ public class GlobalFacade {
     }
 
 
-    public TicketBacklog getTicketBacklog(Projet p) throws SQLException {
+    public TicketBacklog getTicketBacklog(Project p) throws SQLException {
         return backlogFacade.getTicketBacklog(p);
     }
 
-    public ProductBacklog getProductBacklog(Projet p) throws SQLException {
+    public ProductBacklog getProductBacklog(Project p) throws SQLException {
         return backlogFacade.getProductBacklog(p);
     }
 
-    public SprintBacklog getLatestSprintBacklog(Projet p) throws SQLException {
+    public SprintBacklog getLatestSprintBacklog(Project p) throws SQLException {
         return backlogFacade.getLatestSprintBacklog(p);
     }
 
-    public SprintBacklog[] getAllSprintBacklog(Projet p) throws SQLException {
+    public SprintBacklog[] getAllSprintBacklog(Project p) throws SQLException {
         return backlogFacade.getAllSprintBacklog(p);
     }
 
@@ -119,7 +117,7 @@ public class GlobalFacade {
         return backlogFacade.initiateProductTicketBacklog(project);
     }
 
-    public List<Projet> getProjectListFromUser(User u) throws SQLException {
+    public List<Project> getProjectListFromUser(User u) throws SQLException {
         return projectFacade.getProjectListFromUser(u);
     }
 
@@ -127,8 +125,8 @@ public class GlobalFacade {
         return ticketFacade.getTicketById(ticketId);
     }
 
-    public boolean addTicket(Ticket newTicket, Projet projet) throws SQLException {
-        return ticketFacade.addTicket(newTicket, projet);
+    public boolean addTicket(Ticket newTicket, Project project) throws SQLException {
+        return ticketFacade.addTicket(newTicket, project);
     }
 
     public boolean deleteTicket(Ticket oldTicket) throws SQLException {
@@ -139,40 +137,40 @@ public class GlobalFacade {
         return ticketFacade.updateTicket(updatedTicket, oldTicket);
     }
 
-    public Projet getProjectByID(int idProject) throws SQLException {
+    public Project getProjectByID(int idProject) throws SQLException {
         return projectFacade.getProjectByID(idProject);
     }
 
-    public List<Collaborator> getProjectTeam(Projet project) throws SQLException {
+    public List<Collaborator> getProjectTeam(Project project) throws SQLException {
         return projectFacade.getProjectTeam(project);
     }
 
-    public User getProjectAdmin(Projet project) throws SQLException {
+    public User getProjectAdmin(Project project) throws SQLException {
         return projectFacade.getProjectAdmin(project);
     }
 
-    public User getProjectScrumMaster(Projet project) throws SQLException {
+    public User getProjectScrumMaster(Project project) throws SQLException {
         return projectFacade.getProjectScrumMaster(project);
     }
 
-    public User getProjectProductOwner(Projet project) throws SQLException {
+    public User getProjectProductOwner(Project project) throws SQLException {
         return projectFacade.getProjectProductOwner(project);
     }
 
-    public List<User> getProjectDevelopers(Projet project) throws SQLException {
+    public List<User> getProjectDevelopers(Project project) throws SQLException {
         return projectFacade.getProjectDevelopers(project);
     }
 
 
-    public Projet createProject(String name, String summary, String type, Date deadline, User user) throws SQLException {
+    public Project createProject(String name, String summary, String type, Date deadline, User user) throws SQLException {
         return projectFacade.createProject(name, summary, type, deadline, user);
     }
 
-    public boolean editProject(Projet project) throws SQLException {
+    public boolean editProject(Project project) throws SQLException {
         return projectFacade.editProject(project);
     }
 
-    public boolean deleteProject(Projet project) throws SQLException {
+    public boolean deleteProject(Project project) throws SQLException {
         return projectFacade.deleteProject(project);
     }
 

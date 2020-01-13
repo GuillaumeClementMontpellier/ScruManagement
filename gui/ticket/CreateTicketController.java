@@ -1,12 +1,9 @@
 package gui.ticket;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
 import business.system.Ticket;
-import business.system.User;
 import business.system.UserStory;
 import gui.main.AbstractController;
-import gui.main.HomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;

@@ -1,7 +1,7 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import gui.main.AbstractController;
 import javafx.event.ActionEvent;
@@ -36,12 +36,12 @@ public class EditProjectController extends AbstractController {
 
     private User user;
 
-    private Projet project;
+    private Project project;
 
     private boolean delete;
     private boolean initCalled;
 
-    public void setProject(Projet project) {
+    public void setProject(Project project) {
         this.project = project;
         this.delete = false;
         initCalled = false;
@@ -66,7 +66,7 @@ public class EditProjectController extends AbstractController {
 
         if (user.equals(GlobalFacade.getInstance().getProjectAdmin(project))) {
             int idProject = project.getId();
-            Projet editProject = new Projet(idProject, name, summary, type, deadline);
+            Project editProject = new Project(idProject, name, summary, type, deadline);
             boolean success = GlobalFacade.getInstance().editProject(editProject);
 
             if (success) {

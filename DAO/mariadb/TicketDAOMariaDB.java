@@ -1,7 +1,7 @@
 package DAO.mariadb;
 
 import DAO.TicketDAO;
-import business.system.Projet;
+import business.system.Project;
 import business.system.Ticket;
 
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
     }
 
     @Override
-    public Ticket[] getTicketsByProject(Projet projet) throws SQLException {
+    public Ticket[] getTicketsByProject(Project project) throws SQLException {
         // TODO
         throw new SQLException("Uninplemented");
     }

@@ -1,13 +1,13 @@
 package DAO;
 
-import business.system.Projet;
+import business.system.Project;
 import business.system.Ticket;
 
 import java.sql.SQLException;
 
 public interface TicketDAO {
 
-    Ticket[] getTicketsByProject(Projet projet) throws SQLException;
+    Ticket[] getTicketsByProject(Project project) throws SQLException;
 
     Ticket getTicketById(int ticketId) throws  SQLException;
 

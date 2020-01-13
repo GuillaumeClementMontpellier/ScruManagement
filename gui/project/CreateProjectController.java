@@ -1,8 +1,7 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Collaborator;
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import gui.main.HomeController;
 import javafx.event.ActionEvent;
@@ -55,7 +54,7 @@ public class CreateProjectController {
 
         if (name != null) {
             try {
-                Projet newProject = GlobalFacade.getInstance().createProject(name, summary, type, deadline, user);
+                Project newProject = GlobalFacade.getInstance().createProject(name, summary, type, deadline, user);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
 

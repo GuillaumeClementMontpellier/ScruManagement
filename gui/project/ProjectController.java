@@ -1,7 +1,7 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import gui.main.HomeController;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 public class ProjectController {
 
-    private Projet project;
+    private Project project;
     private User user;
 
     @FXML
@@ -41,7 +41,7 @@ public class ProjectController {
 
     }
 
-    public void setProject(Projet p) {
+    public void setProject(Project p) {
         this.project = p;
         this.projectName.setText(p.getName());
     }

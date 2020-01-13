@@ -2,14 +2,14 @@ package business.system;
 
 import java.sql.Date;
 
-public class Projet {
+public class Project {
     private int id;
     private String name;
     private String summary;
     private String type;
     private Date deadline;
 
-    public Projet(int id, String name, String summary, String type, Date deadline) {
+    public Project(int id, String name, String summary, String type, Date deadline) {
         this.id = id;
         this.name = name;
         this.summary = summary;

@@ -1,7 +1,7 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class ProjectListController {
     private GridPane listPane;
 
     private User user;
-    private List<Projet> projectList;
+    private List<Project> projectList;
 
     @FXML
     void goToProjectCreation() throws IOException {

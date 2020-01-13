@@ -3,14 +3,11 @@ package business.facade;
 import DAO.TicketDAO;
 import DAO.factory.AbstractFactoryDAO;
 import business.system.Column;
-import business.system.Projet;
+import business.system.Project;
 import business.system.Ticket;
 import business.system.TicketBacklog;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class TicketFacade {
 
@@ -26,16 +23,16 @@ public class TicketFacade {
         return ticketDAO.getTicketById(ticketId);
     }
 
-    public boolean addTicket(Ticket newTicket, Projet projet) throws SQLException {
+    public boolean addTicket(Ticket newTicket, Project project) throws SQLException {
         TicketDAO ticketDAO = AbstractFactoryDAO.getInstance().createTicketDAO();
 
-        boolean success = ticketDAO.addTicket(newTicket, projet.getId());
+        boolean success = ticketDAO.addTicket(newTicket, project.getId());
         if (!success) {
             return false;
         }
 
         // Search Column to Insert into
-        TicketBacklog ticketBacklog = backlogFacade.getTicketBacklog(projet);
+        TicketBacklog ticketBacklog = backlogFacade.getTicketBacklog(project);
         Column[] column = backlogFacade.getColumn(ticketBacklog);
 
         // Insert Column Ticket

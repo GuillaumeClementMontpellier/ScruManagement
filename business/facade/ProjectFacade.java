@@ -12,48 +12,48 @@ public class ProjectFacade {
     
     private BacklogFacade backlogFacade;
 
-    public List<Projet> getProjectListFromUser(User user) throws SQLException {
+    public List<Project> getProjectListFromUser(User user) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectListFromUser(user.getId());
     }
 
-    public Projet getProjectByID(int idProject) throws SQLException {
+    public Project getProjectByID(int idProject) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectByID(idProject);
     }
 
 
 
-    public List<Collaborator> getProjectTeam(Projet project) throws SQLException {
+    public List<Collaborator> getProjectTeam(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectTeam(project.getId());
     }
 
-    public User getProjectAdmin(Projet project) throws SQLException {
+    public User getProjectAdmin(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectAdmin(project.getId());
     }
 
-    public User getProjectScrumMaster(Projet project) throws SQLException {
+    public User getProjectScrumMaster(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectScrumMaster(project.getId());
     }
 
-    public User getProjectProductOwner(Projet project) throws SQLException {
+    public User getProjectProductOwner(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectProductOwner(project.getId());
     }
 
-    public List<User> getProjectDevelopers(Projet project) throws SQLException {
+    public List<User> getProjectDevelopers(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectDevelopers(project.getId());
     }
 
 
 
-    public Projet createProject(String name, String summary, String type, Date deadline, User user) throws SQLException {
-        ProjectDAO projetDAO = AbstractFactoryDAO.getInstance().createProjetDAO();
-        Projet project = projetDAO.createProject(name, summary, type, deadline);
+    public Project createProject(String name, String summary, String type, Date deadline, User user) throws SQLException {
+        ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
+        Project project = projectDAO.createProject(name, summary, type, deadline);
         if(project == null){
             return null;
         }
@@ -78,12 +78,12 @@ public class ProjectFacade {
         return project;
     }
 
-    public boolean editProject(Projet project) throws SQLException {
+    public boolean editProject(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.editProject(project);
     }
 
-    public boolean deleteProject(Projet project) throws SQLException {
+    public boolean deleteProject(Project project) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.deleteProject(project.getId());
     }
