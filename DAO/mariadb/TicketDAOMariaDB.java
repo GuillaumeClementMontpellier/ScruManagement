@@ -153,6 +153,14 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
             return false;
         }
 
+        int idTicket = -1;
+        if (rs.next()) {
+            idTicket = rs.getInt(1);
+        } else {
+            return false;
+        }
+
+        newTicket.setId(idTicket);
         return true;
     }
 }
