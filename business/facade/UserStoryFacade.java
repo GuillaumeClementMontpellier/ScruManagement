@@ -8,6 +8,9 @@ import business.system.Projet;
 import business.system.UserStory;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UserStoryFacade {
 
@@ -15,6 +18,17 @@ public class UserStoryFacade {
 
     public void setBacklogFacade(BacklogFacade backlogFacade){
         this.backlogFacade = backlogFacade;
+    }
+
+    public UserStory[] getUserStoryByProject(Projet projet) throws SQLException {
+        List<UserStory> lus = new ArrayList<>();
+        ProductBacklog pb = backlogFacade.getProductBacklog(projet);
+        Column[] column = backlogFacade.getColumn(pb);
+        for (Column c : column) {
+            UserStory[] userStory = backlogFacade.getUserStory(c);
+            lus.addAll(Arrays.asList(userStory));
+        }
+        return lus.toArray(new UserStory[lus.size()]);
     }
 
     public UserStory getUserStoryByID(int id) throws SQLException {

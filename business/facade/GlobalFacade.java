@@ -10,6 +10,7 @@ public class GlobalFacade {
 
     // Singleton
     private static GlobalFacade instance = null;
+
     // Logic
     private UserStoryFacade userStoryFacade;
     private LoginFacade loginFacade;
@@ -27,6 +28,7 @@ public class GlobalFacade {
 
         userStoryFacade.setBacklogFacade(backlogFacade);
         ticketFacade.setBacklogFacade(backlogFacade);
+        projectFacade.setBacklogFacade(backlogFacade);
     }
 
     public static GlobalFacade getInstance() {
@@ -34,6 +36,10 @@ public class GlobalFacade {
             instance = new GlobalFacade();
         }
         return instance;
+    }
+
+    public UserStory[] getUserStoryByProject(Projet projet) throws SQLException {
+        return userStoryFacade.getUserStoryByProject(projet);
     }
 
     public User login(String username, String password) throws SQLException {
@@ -154,8 +160,8 @@ public class GlobalFacade {
     }
 
 
-    public Projet createProject(String name, String summary, String type, Date deadline) throws SQLException {
-        return projectFacade.createProject(name, summary, type, deadline);
+    public Projet createProject(String name, String summary, String type, Date deadline, User user) throws SQLException {
+        return projectFacade.createProject(name, summary, type, deadline, user);
     }
 
     public boolean editProject(Projet project) throws SQLException {

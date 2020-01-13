@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProjectFacade {
+    
+    private BacklogFacade backlogFacade;
+
     public List<Projet> getProjectListFromUser(User user) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.getProjectListFromUser(user.getId());
@@ -48,9 +51,31 @@ public class ProjectFacade {
 
 
 
-    public Projet createProject(String name, String summary, String type, Date deadline) throws SQLException {
-        ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
-        return projectDAO.createProject(name, summary, type, deadline);
+    public Projet createProject(String name, String summary, String type, Date deadline, User user) throws SQLException {
+        ProjectDAO projetDAO = AbstractFactoryDAO.getInstance().createProjetDAO();
+        Projet project = projetDAO.createProject(name, summary, type, deadline);
+        if(project == null){
+            return null;
+        }
+        boolean success = backlogFacade.initiateProductTicketBacklog(project.getId());
+        if(!success){
+            return null;
+        }
+        String role = "Scrum Master";
+        int idRole;
+        if (role.equals("Scrum Master")) {
+            idRole = 2;
+        } else if (role.equals("Product Owner")) {
+            idRole = 3;
+        } else {
+            idRole = 4;
+        }
+        Collaborator collaborator = GlobalFacade.getInstance().addCollaborator(project.getId(),
+                user.getId(), idRole, true);
+        if (collaborator == null) {
+            return null;
+        }
+        return project;
     }
 
     public boolean editProject(Projet project) throws SQLException {
@@ -78,5 +103,9 @@ public class ProjectFacade {
     public boolean removeCollaborator(Collaborator collaborator) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         return projectDAO.removeCollaborator(collaborator.getIdProject(), collaborator.getIdUser());
+    }
+
+    public void setBacklogFacade(BacklogFacade backlogFacade) {
+        this.backlogFacade = backlogFacade;
     }
 }

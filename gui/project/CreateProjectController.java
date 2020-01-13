@@ -51,25 +51,11 @@ public class CreateProjectController {
         String summary = summaryField.getText();
         String type = typeField.getText();
         Date deadline = Date.valueOf(deadLinePicker.getValue());
-        String role = "Scrum Master";
 
-        int idUser = user.getId();
-
-        int idRole;
-        if (role.equals("Scrum Master")) {
-            idRole = 2;
-        } else if (role.equals("Product Owner")) {
-            idRole = 3;
-        } else {
-            idRole = 4;
-        }
 
         if (name != null) {
             try {
-                Projet newProject = GlobalFacade.getInstance().createProject(name, summary, type, deadline);
-                int idProject = newProject.getId();
-
-                Collaborator collaborator = GlobalFacade.getInstance().addCollaborator(idProject, idUser, idRole, true);
+                Projet newProject = GlobalFacade.getInstance().createProject(name, summary, type, deadline, user);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
 

@@ -50,7 +50,7 @@ public class FactoryDAOMariaDB extends AbstractFactoryDAO {
 
     @Override
     public ProjectDAO createProjetDAO() throws SQLException {
-        // TODO : implements Projet DAO
-        return null;
+
+        return new ProjectDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
     }
 }
