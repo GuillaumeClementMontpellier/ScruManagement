@@ -2,7 +2,6 @@ package DAO.mariadb;
 
 import DAO.*;
 import DAO.factory.AbstractFactoryDAO;
-import business.system.Sprint;
 
 import java.sql.SQLException;
 

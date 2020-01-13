@@ -1,7 +1,7 @@
 package DAO;
 
 import business.system.Collaborator;
-import business.system.Project;
+import business.system.Projet;
 import business.system.User;
 
 import java.sql.Date;
@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ProjectDAO {
-    List<Project> getProjectListFromUser(int idUser) throws SQLException;
+    List<Projet> getProjectListFromUser(int idUser) throws SQLException;
 
-    Project getProjectByID(int idProject) throws SQLException;
+    Projet getProjectByID(int idProject) throws SQLException;
 
 
     // User & their Role on the project
@@ -26,9 +26,9 @@ public interface ProjectDAO {
     List<User> getProjectDevelopers(int idProject) throws SQLException;
 
 
-    Project createProject(String name, String summary, String type, Date deadline) throws SQLException;
+    Projet createProject(String name, String summary, String type, Date deadline) throws SQLException;
 
-    boolean editProject(Project project) throws SQLException;
+    boolean editProject(Projet project) throws SQLException;
 
     boolean deleteProject(int idProject) throws SQLException;
 
