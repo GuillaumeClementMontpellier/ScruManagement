@@ -1,6 +1,7 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
+import business.system.Collaborator;
 import business.system.Project;
 import business.system.User;
 import gui.main.HomeController;
@@ -18,6 +19,7 @@ import main.Scrum;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 public class CreateProjectController {
@@ -49,7 +51,12 @@ public class CreateProjectController {
         String name = nameField.getText();
         String summary = summaryField.getText();
         String type = typeField.getText();
-        Date deadline = Date.valueOf(deadLinePicker.getValue());
+
+        LocalDate value = deadLinePicker.getValue();
+        Date deadline = null;
+        if (value != null) {
+            deadline = Date.valueOf(value);
+        }
 
 
         if (name != null) {

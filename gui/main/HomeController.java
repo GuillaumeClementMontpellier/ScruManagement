@@ -1,7 +1,9 @@
 package gui.main;
 
+import business.facade.GlobalFacade;
 import business.system.Project;
 import business.system.User;
+import business.system.UserStory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,13 +73,13 @@ public class HomeController {
     }
 
     public void handleComment(MouseEvent mouseEvent) {
-        // TODO
+        // TODO : ne marche pas ?
         System.out.println("HomeController.handleComment");
     }
 
     public void goToProductBacklog(ActionEvent event) {
         try {
-            this.changeSubScene("../backlog/ProductBacklog.fxml",null);
+            this.changeSubScene("../backlog/ProductBacklog.fxml", null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,12 +87,12 @@ public class HomeController {
 
     public void goToTicketBacklog(ActionEvent event) {
         // TODO
-        System.out.println("HomeController.goToTicktBacklog");
+        System.out.println("HomeController.goToTicketBacklog");
     }
 
     public void handleCreationTicket(MouseEvent event) {
         try {
-            this.changeSubScene("../ticket/CreateTicket.fxml",null);
+            this.changeSubScene("../ticket/CreateTicket.fxml", null);
         } catch (IOException e) {
             e.printStackTrace();
         }

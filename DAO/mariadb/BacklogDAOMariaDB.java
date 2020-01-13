@@ -105,7 +105,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
             id = resultSet.getInt("idColumn");
             name = resultSet.getString("name");
             rank = resultSet.getInt("rank");
-            solution.add(new Column(id, name,rank));
+            solution.add(new Column(id, name, rank));
         }
         Column[] soos = solution.toArray(new Column[solution.size()]);
         return soos;
@@ -147,8 +147,8 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         ArrayList<Ticket> solution = new ArrayList();
         int idTicket;
         String titleTicket;
-		String descriptionTicket;
-		String statusTicket;
+        String descriptionTicket;
+        String statusTicket;
         while (resultSet.next()) {
 
             idTicket = resultSet.getInt("idTicket");
@@ -221,21 +221,36 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
 
     private void createBacklog(int idProject, int type) throws SQLException {
-        String sql = "Insert into Backlog(idProject, type) Values (?,?)";
+        String sql = "Insert into Backlog(idProject, typeBacklog) Values (?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pre.setInt(1, idProject);
         pre.setInt(2, type);
+        System.out.println(idProject);
         pre.execute();
 
         ResultSet rs = pre.getGeneratedKeys();
+        boolean first = rs.first();
+        if (!first) {
+            return;
+        }
 
         int id = rs.getInt(1);
 
-        sql = "Insert into Column(idBacklog, name, rank) values (?, TO DO, 1)(?, Work in progress,2)(?, Done,3)";
+        sql = "Insert into ColumnBacklog(idBacklog, name, rank) " +
+                "values (?, ?, ?),(?, ?,?),(?, ?,?);";
         pre = this.connection.prepareStatement(sql);
         pre.setInt(1, id);
-        pre.setInt(2, id);
-        pre.setInt(3, id);
+        pre.setString(2, "TO DO");
+        pre.setInt(3, 1);
+
+        pre.setInt(4, id);
+        pre.setString(5, "WIP");
+        pre.setInt(6, 2);
+
+        pre.setInt(7, id);
+        pre.setString(8, "DONE");
+        pre.setInt(9, 3);
+
         pre.execute();
     }
 
