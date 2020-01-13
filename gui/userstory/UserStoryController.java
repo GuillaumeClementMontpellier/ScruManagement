@@ -42,8 +42,7 @@ public class UserStoryController extends AbstractController {
     @FXML
     void exit() throws IOException {
         // TODO : go to US Backlog
-        System.out.println("Exit pressed");
-        getHomeControlleur().goToProductBacklog(null);
+        getHomeController().goToProductBacklog(null);
     }
 
     @FXML

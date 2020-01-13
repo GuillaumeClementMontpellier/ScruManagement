@@ -1,11 +1,11 @@
 package gui.main;
 
-import business.system.Project;
+import business.system.Projet;
 import business.system.User;
 
 public interface MainController {
 
-    void setProject(Project project);
+    void setProject(Projet project);
 
     void setUser(User user);
 

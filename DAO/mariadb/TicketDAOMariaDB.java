@@ -1,6 +1,7 @@
 package DAO.mariadb;
 
 import DAO.TicketDAO;
+import business.system.Projet;
 import business.system.Ticket;
 
 import java.sql.PreparedStatement;
@@ -15,7 +16,8 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
     }
 
     @Override
-    public Ticket[] getTickets(Ticket ticket) throws SQLException {
+    public Ticket[] getTicketsByProject(Projet projet) throws SQLException {
+        // TODO
         throw new SQLException("Uninplemented");
     }
 
@@ -39,42 +41,9 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
         String descriptionTicket = resultSet.getString("descriptionTicket");
         String statusTicket = resultSet.getString("statusTicket");
 
-        return new Ticket(ticketId, titleTicket, descriptionTicket, statusTicket);
+        return new Ticket(ticketId, titleTicket, descriptionTicket, statusTicket, null);
     }
 
-    public boolean addTicket(Ticket newTicket, int projectId) throws SQLException {
-
-        // Insert Ticket
-        boolean success = insertTicket(newTicket);
-        if (!success) {
-            return false;
-        }
-
-        // Search Column to Insert into
-        int idColumn = getTicketBacklogColumn(projectId);
-        if (idColumn == -1) {
-            return false;
-        }
-
-        // Insert Column Ticket
-        String sql = "INSERT INTO ColumnTicket" +
-                "Values (?, ?)";
-
-        PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-        pre.setInt(1, idColumn);
-        pre.setInt(2, newTicket.getIdTicket());
-
-        int nbAffected = pre.executeUpdate();
-
-        ResultSet rs = pre.getGeneratedKeys();
-
-        if (rs.next()) {
-            newTicket.setIdTicket(rs.getInt(1));
-        }
-
-        return nbAffected > 0;
-    }
 
     public boolean deleteTicket(int ticketId) throws SQLException {
 
@@ -105,8 +74,8 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
 
-        pre.setString(1, updatedTicket.getTitleTicket());
-        pre.setString(2, updatedTicket.getDescriptionTicket());
+        pre.setString(1, updatedTicket.getName());
+        pre.setString(2, updatedTicket.getDescription());
         pre.setString(3, updatedTicket.getStatusTicket());
         pre.setInt(4, ticketId);
 
@@ -135,19 +104,18 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
         return idColumn;
     }
 
-    private boolean insertTicket(Ticket newTicket) throws SQLException {
-        String sql = "Insert into Ticket " +
+    public boolean addTicket(Ticket newTicket, int projectId) throws SQLException {
+        String sql = "Insert into Ticket(nameTicket, descriptionTicket, statusTicket) " +
                 "values ( ?, ?, ?)";
 
         PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-        pre.setString(1, newTicket.getTitleTicket());
-        pre.setString(2, newTicket.getDescriptionTicket());
+        pre.setString(1, newTicket.getName());
+        pre.setString(2, newTicket.getDescription());
         pre.setString(3, newTicket.getStatusTicket());
 
         int nbAffected = pre.executeUpdate();
         ResultSet rs = pre.getGeneratedKeys();
-
 
         if (nbAffected > 0) {
             return false;

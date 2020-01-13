@@ -60,7 +60,7 @@ public class RegisterController {
             message.setVisible(true);
 
         } else {
-            Scrum.goToProjectList(u, getClass().getResource("../projet/ProjetList.fxml"));
+            Scrum.goToProjectList(u, getClass().getResource("../project/ProjetList.fxml"));
         }
     }
 }

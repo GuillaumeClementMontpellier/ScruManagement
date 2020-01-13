@@ -90,7 +90,7 @@ public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
      */
     @Override
     public boolean addUserStory(UserStory newUS) throws SQLException {
-        String sql = "Insert into UserStory " +
+        String sql = "Insert into UserStory(score, deadline, descriptionUserStory, nameUserStory) " +
                 "values ( ?, ?, ?, ?)";
 
         PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

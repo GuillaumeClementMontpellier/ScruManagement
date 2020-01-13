@@ -1,7 +1,7 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Project;
+import business.system.Projet;
 import business.system.User;
 import gui.main.HomeController;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 public class ProjectController {
 
-    private Project project;
+    private Projet project;
     private User user;
 
     @FXML
@@ -41,7 +41,7 @@ public class ProjectController {
 
     }
 
-    public void setProject(Project p) {
+    public void setProject(Projet p) {
         this.project = p;
         this.projectName.setText(p.getName());
     }
@@ -62,8 +62,7 @@ public class ProjectController {
 
             Scene scene = new Scene(root);
             Scrum.getStage().setScene(scene);
-        }
-        else {
+        } else {
             message.setText("Unauthorized action. Ask the administrator project to do this");
             message.setVisible(true);
             return;

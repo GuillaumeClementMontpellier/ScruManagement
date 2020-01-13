@@ -41,30 +41,33 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
       </TextField>
-      <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <ChoiceBox fx:id="userStoryChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <left>
-            <Button cancelButton="true" mnemonicParsing="false" text="Return" BorderPane.alignment="CENTER">
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#handleReturn" text="Return" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="20.0" />
                </BorderPane.margin>
             </Button>
          </left>
          <center>
-            <Button defaultButton="true" mnemonicParsing="false" text="Edit Ticket" BorderPane.alignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleEdit" text="Edit Ticket" BorderPane.alignment="CENTER" />
          </center>
          <right>
-            <Button mnemonicParsing="false" text="Remove Ticket" style="-fx-background-color: tomato;" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: tomato;" text="Remove Ticket" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets right="20.0" />
                </BorderPane.margin>
             </Button>
          </right>
+         <top>
+            <Text fx:id="message" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER" />
+         </top>
       </BorderPane>
    </children>
 </GridPane>

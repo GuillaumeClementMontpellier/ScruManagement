@@ -44,7 +44,7 @@ public class NewUserStoryCreation extends AbstractController {
         UserStory newUS = new UserStory(-1, name, descr, score, deadline);
 
         try {
-            success = GlobalFacade.getInstance().addUserStory(newUS, getProjet());
+            success = GlobalFacade.getInstance().addUserStory(newUS, getProject());
         } catch (SQLException e) {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -61,7 +61,7 @@ public class NewUserStoryCreation extends AbstractController {
 
     public void exit() throws IOException {
         // TODO : goto US Backlog
-        getHomeControlleur().goToProductBacklog(null);
+        getHomeController().goToProductBacklog(null);
     }
 
     @Override

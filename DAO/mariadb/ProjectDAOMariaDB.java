@@ -5,10 +5,7 @@ import DAO.UserDAO;
 import DAO.factory.AbstractFactoryDAO;
 import business.system.*;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,31 +15,34 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         super(addressDataBase, userDataBase, passWordDataBase);
     }
 
-    public List<Project> getProjectListFromUser(int idUser) throws SQLException {
+    public List<Projet> getProjectListFromUser(int idUser) throws SQLException {
         String sql = "Select idProject From WorkOn WHERE idUser = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idUser);
         ResultSet resultSet = pre.executeQuery();
-        List<Project> projects = new ArrayList();
+        List<Projet> projects = new ArrayList<>();
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         while (resultSet.next()) {
-            projects.add(projectDAO.getProjectByID(resultSet.getInt("idProject")));
+            projects.add(projectDAO.getProjectByID(resultSet.getInt(1)));
         }
         return projects;
 
     }
 
     @Override
-    public Project getProjectByID(int idProject) throws SQLException {
+    public Projet getProjectByID(int idProject) throws SQLException {
         ResultSet resultSet = getProject(idProject);
+        boolean first = resultSet.first();
+        if (!first) {
+            return null;
+        }
         int id = resultSet.getInt("idProject");
         String name = resultSet.getString("name");
         String summary = resultSet.getString("summary");
         String type = resultSet.getString("type");
         Date deadline = resultSet.getDate("deadline");
-        return new Project(id, name, summary, type, deadline);
+        return new Projet(id, name, summary, type, deadline);
     }
-
 
 
     @Override
@@ -56,14 +56,14 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         while (resultSet.next()) {
             idUser = resultSet.getInt("idUser");
             idRole = resultSet.getInt("idRole");
-            isAdmin = resultSet.getBoolean("isAdmin");
+            // Todo : is Admin
+//            isAdmin = resultSet.getBoolean("isAdmin");
+            isAdmin = true;
             if (idRole == 2) {
                 collaborator = new ScrumMaster(idUser, idProject, isAdmin);
-            }
-            else if (idRole == 3) {
+            } else if (idRole == 3) {
                 collaborator = new ProductOwner(idUser, idProject, isAdmin);
-            }
-            else {
+            } else {
                 collaborator = new Developer(idUser, idProject, isAdmin);
             }
             team.add(collaborator);
@@ -82,7 +82,7 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
             if (team.get(i).isAdmin()) {
                 return userDAO.getUserByIdUser(team.get(i).getIdUser());
             }
-            i+=1;
+            i += 1;
         }
         return null;
     }
@@ -96,7 +96,7 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
             if (team.get(i).getIdRole() == 2) {
                 return userDAO.getUserByIdUser(team.get(i).getIdUser());
             }
-            i+=1;
+            i += 1;
         }
         return null;
     }
@@ -110,7 +110,7 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
             if (team.get(i).getIdRole() == 3) {
                 return userDAO.getUserByIdUser(team.get(i).getIdUser());
             }
-            i+=1;
+            i += 1;
         }
         return null;
     }
@@ -125,34 +125,38 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
             if (team.get(i).getIdRole() == 4) {
                 users.add(userDAO.getUserByIdUser(team.get(i).getIdUser()));
             }
-            i+=1;
+            i += 1;
         }
         return users;
     }
 
 
-
     @Override
-    public Project createProject(String name, String summary, String type, Date deadline) throws SQLException {
+    public Projet createProject(String name, String summary, String type, Date deadline) throws SQLException {
         // Inserting project
-        String sql = "INSERT INTO Project VALUES (?,?,?,?)";
-        PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre.setString(2, name);
-        pre.setString(3, summary);
-        pre.setString(4, type);
-        pre.setDate(5, deadline);
-        pre.execute();
+        String sql = "INSERT INTO Project(name,summary,type,deadline) VALUES (?,?,?,?)";
+        PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        pre.setString(1, name);
+        pre.setString(2, summary);
+        pre.setString(3, type);
+        pre.setDate(4, deadline);
+        int nbAffected = pre.executeUpdate();
+        if (nbAffected <= 0) {
+            return null;
+        }
 
         // Retrieving id
-        sql = "SELECT LAST_INSERT_ID() FROM Project";
-        pre = this.connection.prepareStatement(sql);
-        ResultSet resultSet = pre.executeQuery();
-        int id = resultSet.getInt("LAST_INSERT_ID()");
-        return new Project(id, name, summary, type, deadline);
+        ResultSet rs = pre.getGeneratedKeys();
+        boolean first = rs.first();
+        if (!first) {
+            return null;
+        }
+        int id = rs.getInt(1);
+        return new Projet(id, name, summary, type, deadline);
     }
 
     @Override
-    public boolean editProject(Project project) throws SQLException {
+    public boolean editProject(Projet project) throws SQLException {
         String sql = "UPDATE Project SET idRole = ? WHERE idProject = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, project.getId());
@@ -174,25 +178,25 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
     }
 
 
-
     @Override
     public Collaborator addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
-        String sql = "INSERT INTO WorkOn VALUES (?,?,?,?)";
+        String sql = "INSERT INTO WorkOn(idUser, idProject, idRole) VALUES (?,?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idCollaborator);
         pre.setInt(2, idProject);
         pre.setInt(3, idRole);
-        pre.setBoolean(4, isAdmin);
-        pre.execute();
+//        pre.setBoolean(4, isAdmin);
+        int nbAffected = pre.executeUpdate();
+        if (nbAffected <= 0) {
+            return null;
+        }
 
         Collaborator collaborator;
         if (idRole == 2) {
             collaborator = new ScrumMaster(idCollaborator, idProject, isAdmin);
-        }
-        else if (idRole == 3) {
+        } else if (idRole == 3) {
             collaborator = new ProductOwner(idCollaborator, idProject, isAdmin);
-        }
-        else {
+        } else {
             collaborator = new Developer(idCollaborator, idProject, isAdmin);
         }
         return collaborator;
@@ -219,7 +223,6 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.execute();
         return true;
     }
-
 
 
     private ResultSet getProject(int idProject) throws SQLException {

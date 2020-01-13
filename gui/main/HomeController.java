@@ -18,7 +18,7 @@ import java.net.URL;
 public class HomeController {
 
     private User activeUser;
-    private Project project;
+    private Projet project;
 
     @FXML
     private GridPane listSprint;
@@ -30,7 +30,7 @@ public class HomeController {
         this.activeUser = activeUser;
     }
 
-    public void setProject(Project project) {
+    public void setProject(Projet project) {
         this.project = project;
     }
 
@@ -68,9 +68,8 @@ public class HomeController {
         System.out.println("HomeController.handleUserSetting");
     }
 
-    public void handleProjectSetting(MouseEvent mouseEvent) {
-        // TODO
-        System.out.println("HomeController.handleProjectSetting");
+    public void handleProjectSetting(MouseEvent mouseEvent) throws IOException {
+        changeSubScene("../project/EditProject.fxml", null);
     }
 
     public void handleComment(MouseEvent mouseEvent) {
@@ -86,7 +85,7 @@ public class HomeController {
         }
     }
 
-    public void goToTicktBacklog(ActionEvent event) {
+    public void goToTicketBacklog(ActionEvent event) {
         // TODO
         System.out.println("HomeController.goToTicktBacklog");
     }

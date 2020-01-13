@@ -1,8 +1,10 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.*;
-import gui.main.AbstractController;
+import business.system.Collaborator;
+import business.system.Projet;
+import business.system.User;
+import gui.main.HomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +21,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 
-public class CreateProjectController extends AbstractController {
+public class CreateProjectController {
 
     @FXML
     private Text message;
@@ -36,9 +38,6 @@ public class CreateProjectController extends AbstractController {
     @FXML
     private DatePicker deadLinePicker;
 
-    @FXML
-    private TextField roleField;
-
     private User user;
 
     public void setUser(User u) {
@@ -47,41 +46,49 @@ public class CreateProjectController extends AbstractController {
 
     @FXML
     void handleConfirm(ActionEvent event) throws SQLException, IOException {
+
         String name = nameField.getText();
         String summary = summaryField.getText();
         String type = typeField.getText();
         Date deadline = Date.valueOf(deadLinePicker.getValue());
-        String role = roleField.getText();
+        String role = "Scrum Master";
 
         int idUser = user.getId();
+
         int idRole;
-        if (role == "Scrum Master") {
+        if (role.equals("Scrum Master")) {
             idRole = 2;
-        }
-        else if (role == "Product Owner") {
+        } else if (role.equals("Product Owner")) {
             idRole = 3;
-        }
-        else {
+        } else {
             idRole = 4;
         }
 
         if (name != null) {
             try {
-                Project newProject = GlobalFacade.getInstance().createProject(name, summary, type, deadline);
+                Projet newProject = GlobalFacade.getInstance().createProject(name, summary, type, deadline);
                 int idProject = newProject.getId();
-                this.setProject(newProject);
 
                 Collaborator collaborator = GlobalFacade.getInstance().addCollaborator(idProject, idUser, idRole, true);
 
-                Parent root = FXMLLoader.load(getClass().getResource("../project/Project.fxml"));
-            }
-            catch (SQLException sql) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
+
+                Parent root = loader.load();
+                HomeController cont = loader.<HomeController>getController();
+
+                cont.setProject(newProject);
+                cont.setUser(user);
+
+                Scene scene = new Scene(root);
+                Scrum.getStage().setScene(scene);
+
+            } catch (SQLException sql) {
+                sql.printStackTrace();
                 message.setText("Database error, try later");
                 message.setVisible(true);
                 return;
             }
-        }
-        else {
+        } else {
             message.setText("Name must be filled");
             message.setVisible(true);
             return;
@@ -94,9 +101,5 @@ public class CreateProjectController extends AbstractController {
         Scrum.goToProjectList(user, getClass().getResource("ProjectList.fxml"));
     }
 
-    @Override
-    public void init(Object param) {
-
-    }
 
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="356.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ticket.EditTicketStateController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.00001525878906" minWidth="10.0" prefWidth="202.00001525878906" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.99998474121094" minWidth="10.0" prefWidth="312.99998474121094" />
@@ -24,7 +24,7 @@
             <font>
                 <Font size="14.0" />
             </font></Label>
-        <TextArea prefHeight="81.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextArea fx:id="descriptionField" prefHeight="81.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets right="10.0" />
             </GridPane.margin></TextArea>
@@ -38,7 +38,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField disable="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <TextField fx:id="stateField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
@@ -53,28 +53,31 @@
       </Text>
       <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
          <left>
-            <Button cancelButton="true" mnemonicParsing="false" text="Return" BorderPane.alignment="CENTER">
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#handleReturn" text="Return" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="20.0" />
                </BorderPane.margin></Button>
          </left>
          <center>
-            <Button defaultButton="true" mnemonicParsing="false" text="Edit Ticktet" BorderPane.alignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleEdit" text="Edit Ticktet" BorderPane.alignment="CENTER" />
          </center>
          <right>
-            <Button mnemonicParsing="false" style="-fx-background-color: tomato;" text="Remove Ticket" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: tomato;" text="Remove Ticket" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets right="20.0" />
                </BorderPane.margin>
             </Button>
          </right>
+         <top>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER" />
+         </top>
       </BorderPane>
       <Label alignment="CENTER" prefHeight="18.0" prefWidth="233.0" text="Title" GridPane.rowIndex="1">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
@@ -84,7 +87,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <ComboBox fx:id="userStoryBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <ComboBox fx:id="stateBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </children>
 </GridPane>

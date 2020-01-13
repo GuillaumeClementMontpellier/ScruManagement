@@ -41,8 +41,8 @@
                                             </TitledPane>
                                         </panes>
                                     </Accordion>
-                                    <Button GridPane.rowIndex="1" onAction="#goToTicktBacklog" text="Ticket Backlog" prefWidth="146"/>
-                                    <IconView fx:value="plus" onMouseClicked="#handleCreationTicket"></IconView>
+                                    <Button GridPane.rowIndex="1" onAction="#goToTicketBacklog" text="Ticket Backlog" prefWidth="146"/>
+                                    <IconView fx:value="plus" onMouseClicked="#handleCreationTicket"/>
                                     <Button GridPane.rowIndex="2" text="Product Backlog" onAction="#goToProductBacklog" prefWidth="146"/>
                                 </GridPane>
                             </content>

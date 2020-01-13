@@ -4,7 +4,7 @@ import DAO.UserStoryDAO;
 import DAO.factory.AbstractFactoryDAO;
 import business.system.Column;
 import business.system.ProductBacklog;
-import business.system.Project;
+import business.system.Projet;
 import business.system.UserStory;
 
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ public class UserStoryFacade {
         return usDAO.deleteUserStory(oldUS.getId());
     }
 
-    public boolean addUserStory(UserStory newUS, Project project) throws SQLException {
+    public boolean addUserStory(UserStory newUS, Projet project) throws SQLException {
 
         UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
         boolean success = usDAO.addUserStory(newUS);

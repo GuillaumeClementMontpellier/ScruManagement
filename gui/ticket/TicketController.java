@@ -1,23 +1,13 @@
 package gui.ticket;
 
 
-import business.facade.GlobalFacade;
-import business.system.Projet;
 import business.system.Ticket;
-import business.system.User;
-import business.system.UserStory;
-import gui.main.AbstractControlleur;
-import gui.main.HomeController;
+import gui.main.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-public class TicketController extends AbstractControlleur {
+public class TicketController extends AbstractController {
 
     @FXML
     public Text titleField;
@@ -38,14 +28,13 @@ public class TicketController extends AbstractControlleur {
 
         this.currentTicket = (Ticket) param;
 
-        titleField.setText(currentTicket.getTitleTicket());
-        descriptionField.setText(currentTicket.getDescriptionTicket());
+        titleField.setText(currentTicket.getName());
+        descriptionField.setText(currentTicket.getDescription());
         statusField.setText(currentTicket.getStatusTicket());
     }
 
     public void handleExit(ActionEvent actionEvent) {
         // TODO: 12/01/2020 display ticket backlog
-        System.out.println("Exit pressed");
-        //homeControlleur.changeSubScene("", null);
+        getHomeController().goToTicketBacklog(null);
     }
 }
