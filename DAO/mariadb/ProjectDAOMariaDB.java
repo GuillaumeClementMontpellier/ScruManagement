@@ -153,13 +153,13 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
     @Override
     public boolean editProject(Project project) throws SQLException {
-        String sql = "UPDATE Project SET idRole = ? WHERE idProject = ?";
+        String sql = "UPDATE Project SET name = ?, summary = ?, type = ?, deadline = ? WHERE idProject = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre.setInt(1, project.getId());
-        pre.setString(2, project.getName());
-        pre.setString(3, project.getSummary());
-        pre.setString(4, project.getType());
-        pre.setDate(5, project.getDeadline());
+        pre.setString(1, project.getName());
+        pre.setString(2, project.getSummary());
+        pre.setString(3, project.getType());
+        pre.setDate(4, project.getDeadline());
+        pre.setInt(5, project.getId());
         pre.execute();
         return true;
     }

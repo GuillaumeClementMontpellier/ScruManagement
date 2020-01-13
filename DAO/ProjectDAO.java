@@ -3,11 +3,9 @@ package DAO;
 import business.system.Collaborator;
 import business.system.Project;
 import business.system.User;
-import javafx.util.Pair;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ProjectDAO {

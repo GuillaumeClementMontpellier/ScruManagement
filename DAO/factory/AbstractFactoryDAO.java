@@ -1,10 +1,6 @@
 package DAO.factory;
 
-import DAO.BacklogDAO;
-import DAO.ProjectDAO;
-import DAO.TicketDAO;
-import DAO.UserDAO;
-import DAO.UserStoryDAO;
+import DAO.*;
 
 import java.sql.SQLException;
 
@@ -29,5 +25,7 @@ public abstract class AbstractFactoryDAO {
     public abstract ProjectDAO createProjectDAO() throws SQLException;
 
     public abstract TicketDAO createTicketDAO() throws  SQLException;
+
+    public abstract SprintDAO createSprintDAO() throws  SQLException;
 
 }

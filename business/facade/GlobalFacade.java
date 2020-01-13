@@ -1,5 +1,7 @@
 package business.facade;
 
+import DAO.SprintDAO;
+import DAO.factory.AbstractFactoryDAO;
 import business.system.*;
 
 import java.sql.Date;
@@ -16,6 +18,7 @@ public class GlobalFacade {
     private BacklogFacade backlogFacade;
     private ProjectFacade projectFacade;
     private TicketFacade ticketFacade;
+    private SprintFacade sprintFacade;
 
     private GlobalFacade() {
 
@@ -24,6 +27,7 @@ public class GlobalFacade {
         this.backlogFacade = new BacklogFacade();
         this.projectFacade = new ProjectFacade();
         this.ticketFacade = new TicketFacade();
+        this.sprintFacade = new SprintFacade();
 
         userStoryFacade.setBacklogFacade(backlogFacade);
     }
@@ -176,7 +180,25 @@ public class GlobalFacade {
 
     public boolean removeCollaborator(Collaborator collaborator) throws SQLException {
         return projectFacade.removeCollaborator(collaborator);
-
     }
 
+    public Sprint getSprintByID(int idSprint, Project project) throws SQLException {
+        return sprintFacade.getSprintById(idSprint, project);
+    }
+
+    public String getTypeOfSprint(Sprint sprint) throws SQLException {
+        return sprintFacade.getTypeOfSprint(sprint);
+    }
+
+    public Sprint createSprint(Project project, String type , Date start, Date end) throws SQLException {
+        return sprintFacade.createSprint(project, type, start, end);
+    }
+
+    public boolean updateSprint(Sprint sprint) throws SQLException {
+        return sprintFacade.updateSprint(sprint);
+    }
+
+    public boolean deleteSprint(Sprint sprint) throws SQLException {
+        return sprintFacade.deleteSprint(sprint);
+    }
 }

@@ -1,10 +1,8 @@
 package DAO.mariadb;
 
-import DAO.BacklogDAO;
-import DAO.TicketDAO;
-import DAO.UserStoryDAO;
-import DAO.ProjectDAO;
+import DAO.*;
 import DAO.factory.AbstractFactoryDAO;
+import business.system.Sprint;
 
 import java.sql.SQLException;
 
@@ -45,5 +43,9 @@ public class FactoryDAOMariaDB extends AbstractFactoryDAO {
     @Override
     public TicketDAO createTicketDAO() throws SQLException {
         return new TicketDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
+    }
+
+    public SprintDAO createSprintDAO() throws SQLException {
+        return new SprintDAOMariaDB(urlDataBase, userDataBase, pwDataBase);
     }
 }
