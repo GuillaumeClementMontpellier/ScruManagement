@@ -68,8 +68,8 @@ public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
                 "nameUserStory = ? " +
                 "where idUserStory = ?";
 
-        System.out.println(id);
-        System.out.println(newUS.getName());
+//        System.out.println(id);
+//        System.out.println(newUS.getName());
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
 

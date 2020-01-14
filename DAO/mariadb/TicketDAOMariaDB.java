@@ -69,10 +69,10 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
     public boolean updateTicket(Ticket updatedTicket, int ticketId) throws SQLException {
         String sql = "UPDATE Ticket " +
-                "SET nameTicket = ? " +
-                "and descriptionTicket = ? " +
-                "and statusTicket = ? " +
-                "and idUserStory = ? " +
+                "SET nameTicket = ?, " +
+                "descriptionTicket = ?, " +
+                "statusTicket = ?, " +
+                "idUserStory = ?, " +
                 "where idTicket = ?";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);

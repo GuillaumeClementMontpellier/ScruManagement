@@ -72,7 +72,7 @@ public class IconView extends Region {
         }
 
         if (svgPaths.getLength() < 1) {
-            System.out.println("No path in svg");
+            System.err.println("No path in svg");
             return null;
         }
 

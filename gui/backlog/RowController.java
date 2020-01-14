@@ -1,6 +1,7 @@
 package gui.backlog;
 
 import business.system.Component;
+import business.system.UserStory;
 import gui.main.HomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,11 @@ public class RowController {
     }
 
     public void handleSee(ActionEvent actionEvent) throws IOException {
-        // TODO : see dynamic typing
-        controller.changeSubScene("../userstory/UserStory.fxml", this.component);
+        // Todo : Change Bad Smell !
+        if (component instanceof UserStory) {
+            controller.changeSubScene("../userstory/UserStory.fxml", this.component);
+        } else {
+            controller.changeSubScene("../ticket/Ticket.fxml", this.component);
+        }
     }
 }

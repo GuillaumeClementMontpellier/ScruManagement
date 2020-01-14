@@ -53,7 +53,7 @@ public class ProjectController {
     }
 
     public void editProject(MouseEvent mouseEvent) throws IOException, SQLException {
-        System.out.println("ProjectController.editProject");
+//        System.out.println("ProjectController.editProject");
         if (user.equals(GlobalFacade.getInstance().getProjectAdmin(project))) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../project/EditProject.fxml"));
 

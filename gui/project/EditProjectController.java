@@ -95,7 +95,7 @@ public class EditProjectController extends AbstractController {
     @FXML
     void handleReturn(ActionEvent event) throws IOException, SQLException {
         if (initCalled) {
-            getHomeController().changeSubScene("../backlog/Backlog.fxml", null);
+            getHomeController().goToProductBacklog(null);
         } else {
             Scrum.goToProjectList(user, getClass().getResource("ProjectList.fxml"));
         }

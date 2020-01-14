@@ -4,6 +4,7 @@ import business.facade.BacklogFacade;
 import business.facade.GlobalFacade;
 import business.system.Backlog;
 import business.system.Column;
+import business.system.Component;
 import business.system.UserStory;
 import gui.main.AbstractController;
 import javafx.fxml.FXML;
@@ -22,9 +23,12 @@ public class BacklogController extends AbstractController {
 
     private Backlog backlog = null;
     private Column[] allColumn = null;
+    private String type;
 
     @Override
     public void init(Object param) {
+
+        this.type = (String) param;
 
         try {
             this.backlog = bFacade.getProductBacklog(this.getProject());
@@ -58,16 +62,20 @@ public class BacklogController extends AbstractController {
             rtc.setComponent(label);
             this.tab.add(root, i, 0);
 
-            UserStory[] allUserStory;
+            Component[] allUserStory;
             try {
-                allUserStory = GlobalFacade.getInstance().getUserStory(allColumn[i]);
+                if (type.equals("Product") || type.equals("Sprint")) {
+                    allUserStory = GlobalFacade.getInstance().getUserStory(allColumn[i]);
+                } else {
+                    allUserStory = GlobalFacade.getInstance().getTickets(allColumn[i]);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 continue;
             }
 
             for (int j = 0; j < allUserStory.length; j++) {
-                UserStory us = allUserStory[j];
+                Component us = allUserStory[j];
                 FXMLLoader loaderRow = new FXMLLoader(getClass().getResource("Row.fxml"));
 
                 try {
