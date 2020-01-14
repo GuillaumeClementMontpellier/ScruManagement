@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
-<?import util.IconView?>
+<?import util.*?>
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" animated="false" collapsible="false"
             maxHeight="-Infinity"
             maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
@@ -41,9 +41,19 @@
                                             </TitledPane>
                                         </panes>
                                     </Accordion>
-                                    <Button GridPane.rowIndex="1" onAction="#goToTicketBacklog" text="Ticket Backlog" prefWidth="146"/>
-                                    <IconView fx:value="plus" onMouseClicked="#handleCreationTicket"/>
-                                    <Button GridPane.rowIndex="2" text="Product Backlog" onAction="#goToProductBacklog" prefWidth="146"/>
+                                    <AnchorPane GridPane.rowIndex="1">
+                                        <Button onAction="#goToTicketBacklog"
+                                                text="Ticket Backlog" prefWidth="146"/>
+                                        <IconView fx:value="plus" onMouseClicked="#handleCreationTicket" layoutY="-27.5"
+                                                  layoutX="7.5"/>
+                                    </AnchorPane>
+                                    <AnchorPane GridPane.rowIndex="2">
+                                        <Button text="Product Backlog" onAction="#goToProductBacklog"
+                                                prefWidth="146"/>
+                                        <IconView fx:value="plus" onMouseClicked="#handleCreationUserStory"
+                                                  layoutY="-27.5"
+                                                  layoutX="7.5"/>
+                                    </AnchorPane>
                                 </GridPane>
                             </content>
                         </ScrollPane>
@@ -58,9 +68,11 @@
                 </SplitPane>
                 <Pane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <Rectangle onMouseEntered="#handleComment" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="41.0" layoutX="-2.0"
+                        <Rectangle onMouseEntered="#handleComment" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT"
+                                   height="41.0" layoutX="-2.0"
                                    layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="37.0"/>
                         <IconView fx:value="comments" layoutX="7.5" layoutY="-20.0"/>
+
                         <fx:include fx:id="childContent" source="../Empty.fxml"/>
                     </children>
                 </Pane>

@@ -1,5 +1,6 @@
 package business.facade;
 
+
 import business.system.*;
 
 import java.sql.Date;
@@ -28,9 +29,9 @@ public class GlobalFacade {
         this.ticketFacade = new TicketFacade();
         this.sprintFacade = new SprintFacade();
 
-        userStoryFacade.setBacklogFacade(backlogFacade);
-        ticketFacade.setBacklogFacade(backlogFacade);
-        projectFacade.setBacklogFacade(backlogFacade);
+        userStoryFacade.setGlobalFacade(this);
+        ticketFacade.setGlobalFacade(this);
+        projectFacade.setGlobalFacade(this);
     }
 
     public static GlobalFacade getInstance() {

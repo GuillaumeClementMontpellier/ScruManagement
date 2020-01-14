@@ -1,16 +1,18 @@
 package gui.main;
 
-import business.facade.GlobalFacade;
 import business.system.Project;
 import business.system.User;
-import business.system.UserStory;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +26,7 @@ public class HomeController {
     private GridPane listSprint;
 
     @FXML
-    private Node childContent;
+    private Pane childContent;
 
     public void setUser(User activeUser) {
         this.activeUser = activeUser;
@@ -55,7 +57,15 @@ public class HomeController {
         childContentController.setUser(this.activeUser);
         childContentController.init(param);
 
-        childContent.getScene().setRoot(root);
+        ObservableList<Node> children = childContent.getChildren();
+        System.out.println(children);
+
+        if (children.size() > 0) {
+        children.set(0, root);
+        } else {
+            children.add(root);
+        }
+
     }
 
     public void handleChat() {
@@ -96,5 +106,14 @@ public class HomeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleCreationUserStory(MouseEvent mouseEvent) {
+        try {
+            this.changeSubScene("../userstory/CreateUserStory.fxml", null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
