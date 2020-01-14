@@ -119,7 +119,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public UserStory[] getUserStory(Column col) throws SQLException {
-        String sql = "Select * From UserStory where idUserStory EXISTS (Select idUserStory from ColumnUserStory where idColumn  =  ?)";
+        String sql = "Select * From UserStory where idUserStory in (Select idUserStory from ColumnUserStory where idColumn  =  ?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, col.getId());
         ResultSet resultSet = pre.executeQuery();
@@ -165,20 +165,17 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public boolean moveComponent(Component c, Column fromCol, Column toCol) throws SQLException {
-        String sql = "DELETE FROM ? WHERE idColumn = ? AND idComponent = ? ";
-        PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre = fillSQL(pre, c, fromCol);
+        PreparedStatement pre = fillSQL("DELETE FROM", "WHERE idColumn = ? AND idComponent = ? ",
+                c, fromCol);
         pre.execute();
         return addComponent(c, toCol);
     }
 
     @Override
     public boolean addComponent(Component c, Column col) throws SQLException {
-        String sql = "Insert INTO ? Values (?,?)";
-        PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre = fillSQL(pre, c, col);
-        pre.execute();
-        return true;
+        PreparedStatement pre = fillSQL("Insert INTO","Values (?,?)", c, col);
+        int nbAffected = pre.executeUpdate();
+        return nbAffected > 0;
     }
 
     @Override
@@ -258,20 +255,23 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         pre.execute();
     }
 
-    private PreparedStatement fillSQL(PreparedStatement pre, Component c, Column col) throws SQLException {
-        pre = setCorrectTable(pre, c);
-        pre.setInt(2, col.getId());
-        pre.setInt(3, c.getId());
+    private PreparedStatement fillSQL(String part1, String part2, Component c, Column col) throws SQLException {
+        PreparedStatement pre = setCorrectTable(part1, part2, c);
+        pre.setInt(1, col.getId());
+        pre.setInt(2, c.getId());
         return pre;
     }
 
-    private PreparedStatement setCorrectTable(PreparedStatement pre, Component c) throws SQLException {
+    private PreparedStatement setCorrectTable(String part1, String part2, Component c) throws SQLException {
         // TODO : change : Bad smell !!
+        String sql = part1;
         if (c instanceof Ticket) {
-            pre.setString(1, "ColumnTicket");
+            sql += " ColumnTicket ";
         } else {
-            pre.setString(1, "ColumnUserStory");
+            sql += " ColumnUserStory(idColumn,idComponent) ";
         }
+        sql += part2;
+        PreparedStatement pre = this.connection.prepareStatement(sql);
         return pre;
     }
 

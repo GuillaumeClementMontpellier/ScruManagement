@@ -56,12 +56,17 @@ public class UserStoryFacade {
         UserStoryDAO usDAO = AbstractFactoryDAO.getInstance().createUserStoryDAO();
         boolean success = usDAO.addUserStory(newUS);
 
+        if (!success) {
+            return false;
+        }
+
         // Add to column
         ProductBacklog pb = globalFacade.getProductBacklog(project);
-        Column column = globalFacade.getColumn(pb)[1];
+        Column column = globalFacade.getColumn(pb)[0];
 
-        globalFacade.addComponent(newUS, column);
+        success = globalFacade.addComponent(newUS, column);
 
+        System.out.println("success 2 = " + success);
         return success;
     }
 }

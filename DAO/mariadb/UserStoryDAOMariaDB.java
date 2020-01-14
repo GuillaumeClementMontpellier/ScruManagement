@@ -103,16 +103,15 @@ public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
         int nbAffected = pre.executeUpdate();
         ResultSet rs = pre.getGeneratedKeys();
 
-        if (nbAffected > 0) {
+        if (nbAffected < 0) {
             return false;
         }
 
-        int idUS = -1;
-        if (rs.next()) {
-            idUS = rs.getInt(1);
-        } else {
+        boolean first = rs.first();
+        if (!first) {
             return false;
         }
+        int idUS = rs.getInt(1);
 
         newUS.setId(idUS);
         return true;

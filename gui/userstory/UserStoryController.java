@@ -40,8 +40,7 @@ public class UserStoryController extends AbstractController {
     private boolean delete;
 
     @FXML
-    void exit() throws IOException {
-        // TODO : go to US Backlog
+    void exit() {
         getHomeController().goToProductBacklog(null);
     }
 
@@ -72,6 +71,7 @@ public class UserStoryController extends AbstractController {
                     .updateUserStory(currentUS,
                             new UserStory(currentUS.getId(), name, descr, score, deadline));
         } catch (SQLException e) {
+            e.printStackTrace();
             message.setText("Error submitting User Story");
             message.setVisible(true);
             return;

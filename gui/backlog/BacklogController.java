@@ -1,12 +1,11 @@
 package gui.backlog;
 
 import business.facade.BacklogFacade;
+import business.facade.GlobalFacade;
 import business.system.Backlog;
 import business.system.Column;
-import business.system.Component;
-import business.system.ProductBacklog;
+import business.system.UserStory;
 import gui.main.AbstractController;
-import gui.project.ProjectController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,33 +26,63 @@ public class BacklogController extends AbstractController {
     @Override
     public void init(Object param) {
         try {
-            this.backlog =  bFacade.getProductBacklog(this.getProject());
+            this.backlog = bFacade.getProductBacklog(this.getProject());
         } catch (SQLException e) {
             e.printStackTrace();
+            return;
         }
 
         try {
             this.allColumn = this.bFacade.getColumn(this.backlog);
         } catch (SQLException e) {
             e.printStackTrace();
+            return;
         }
 
         String label;
         for (int i = 0; i < allColumn.length; i++) {
+
             label = allColumn[i].getName();
-            System.out.println(label);
+//            System.out.println(label);
 
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("RowTitle.fxml"));
-            Parent root = null;
+            FXMLLoader loaderTitle = new FXMLLoader(getClass().getResource("RowTitle.fxml"));
+            Parent root;
             try {
-                root = loader.load();
+                root = loaderTitle.load();
             } catch (IOException e) {
                 e.printStackTrace();
+                continue;
             }
-            RowTitleController rtc = loader.<RowTitleController>getController();
-            rtc.setLabel(label);
-            this.tab.add(root,i,0);
+            RowTitleController rtc = loaderTitle.<RowTitleController>getController();
+            rtc.setComponent(label);
+            this.tab.add(root, i, 0);
+
+            UserStory[] allUserStory;
+            try {
+                allUserStory = GlobalFacade.getInstance().getUserStory(allColumn[i]);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                continue;
+            }
+
+            for (int j = 0; j < allUserStory.length; j++) {
+                UserStory us = allUserStory[j];
+                FXMLLoader loaderRow = new FXMLLoader(getClass().getResource("Row.fxml"));
+
+                try {
+                    root = loaderRow.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    continue;
+                }
+
+                RowController rc = loaderRow.<RowController>getController();
+                rc.setComponent(us);
+                rc.setController(getHomeController());
+
+                this.tab.add(root, i, j + 1);
+            }
+
         }
     }
 

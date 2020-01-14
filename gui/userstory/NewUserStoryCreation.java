@@ -48,13 +48,14 @@ public class NewUserStoryCreation extends AbstractController {
             Project project = GlobalFacade.getInstance().getProjectByID(this.getProject().getId());
             success = GlobalFacade.getInstance().addUserStory(newUS, project);
         } catch (SQLException e) {
+            e.printStackTrace();
             message.setText("Error adding User Story");
             message.setVisible(true);
             return;
         }
 
         if (success) {
-            getHomeController().changeSubScene("../userstory/UserStoryController", newUS);
+            getHomeController().changeSubScene("../userstory/UserStory.fxml", newUS);
         } else {
             message.setText("Error adding User Story");
             message.setVisible(true);

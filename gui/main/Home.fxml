@@ -10,13 +10,13 @@
             maxHeight="-Infinity"
             maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
             text="SCRUManagement" xmlns="http://javafx.com/javafx/11.0.1"
-            fx:controller="gui.main.HomeController">
+            fx:controller="gui.main.HomeController" fx:id="titlePane">
     <SplitPane dividerPositions="0.25" prefHeight="200.0" prefWidth="200.0">
         <SplitPane dividerPositions="0.09964093357271096, 0.8536804308797128" orientation="VERTICAL">
             <!-- Upper Left Title -->
             <GridPane hgap="10" prefHeight="49.0" prefWidth="146.0">
 
-                <IconView fx:value="user-cog" onMouseClicked="#handleUserSetting"/>
+                <IconView fx:value="reply" onMouseClicked="#goToProjectList"/>
                 <Line endX="17.0" endY="-12.66666030883789" startX="17.0" startY="-40.00000762939453"
                       GridPane.columnIndex="1"/>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project" GridPane.columnIndex="2"/>
@@ -33,7 +33,7 @@
                 <GridPane>
                     <IconView fx:value="plus" onMouseClicked="#handleCreationSprint"/>
                     <Button onAction="#goToSprints" GridPane.columnIndex="1"
-                            text="Ticket Backlog" prefWidth="130.0"/>
+                            text="Sprints" prefWidth="130.0"/>
 
                     <IconView fx:value="plus" onMouseClicked="#handleCreationTicket" GridPane.rowIndex="1"/>
                     <Button onAction="#goToTicketBacklog" GridPane.rowIndex="1" GridPane.columnIndex="1"
