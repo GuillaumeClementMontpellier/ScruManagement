@@ -13,9 +13,11 @@ import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import main.Scrum;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 
 public class HomeController {
 
@@ -73,9 +75,11 @@ public class HomeController {
         System.out.println("HomeController.handleChat");
     }
 
-    public void handleUserSetting(MouseEvent mouseEvent) {
+    public void handleUserSetting(MouseEvent mouseEvent) throws IOException, SQLException {
         // TODO
         System.out.println("HomeController.handleUserSetting");
+        Scrum.goToProjectList(this.activeUser, getClass().getResource("../project/ProjectList.fxml"));
+
     }
 
     public void handleProjectSetting(MouseEvent mouseEvent) throws IOException {
