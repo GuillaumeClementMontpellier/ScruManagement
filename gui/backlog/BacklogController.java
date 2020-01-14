@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ProductBacklogController extends AbstractController {
+public class BacklogController extends AbstractController {
     @FXML
     private GridPane tab;
 

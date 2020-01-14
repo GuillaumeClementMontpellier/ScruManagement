@@ -27,8 +27,8 @@
         <Label text="Password" GridPane.rowIndex="2" />
         <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#handleLogin" text="Sign in" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <Button mnemonicParsing="false" onAction="#goToRegister" text="Register" GridPane.rowIndex="4" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#handleLogin" text="Sign in" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <Text fx:id="message" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
     </children>
     <padding>

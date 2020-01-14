@@ -34,7 +34,8 @@ public class CreateTicketController extends AbstractController {
         String descriptionTicket = descriptionField.getText();
 
         boolean success = false;
-        Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket, "Unsolved", userStoryField.getValue());
+        Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket,
+                "Unsolved", userStoryField.getValue().getId());
 
         try {
 

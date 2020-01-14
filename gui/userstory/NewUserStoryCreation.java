@@ -62,7 +62,6 @@ public class NewUserStoryCreation extends AbstractController {
     }
 
     public void exit() throws IOException {
-        // TODO : goto US Backlog
         getHomeController().goToProductBacklog(null);
     }
 

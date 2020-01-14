@@ -89,7 +89,7 @@ public class HomeController {
 
     public void goToProductBacklog(ActionEvent event) {
         try {
-            this.changeSubScene("../backlog/ProductBacklog.fxml", null);
+            this.changeSubScene("../backlog/Backlog.fxml", null);
         } catch (IOException e) {
             e.printStackTrace();
         }

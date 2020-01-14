@@ -55,7 +55,7 @@ public class UserStoryController extends AbstractController {
             descrField.setEditable(true);
             datePicker.setEditable(true);
             scoreField.setEditable(true);
-            editButton.setText("Confirm changes");
+            editButton.setText("You can edit the User Story.");
             return;
         }
 
