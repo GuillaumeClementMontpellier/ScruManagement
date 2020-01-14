@@ -78,12 +78,12 @@ public class HomeController {
     public void handleUserSetting(MouseEvent mouseEvent) throws IOException, SQLException {
         // TODO
         System.out.println("HomeController.handleUserSetting");
-        Scrum.goToProjectList(this.activeUser, getClass().getResource("../project/ProjectList.fxml"));
+        Scrum.goToProjectList(activeUser, getClass().getResource("../project/ProjectList.fxml"));
 
     }
 
-    public void handleProjectSetting(MouseEvent mouseEvent) throws IOException {
-        changeSubScene("../project/EditProject.fxml", null);
+    public void handleProjectSetting(MouseEvent mouseEvent) throws IOException, SQLException {
+        this.changeSubScene("../project/EditProject.fxml", null);
     }
 
 
