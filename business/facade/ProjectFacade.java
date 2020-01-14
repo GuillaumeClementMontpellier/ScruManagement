@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProjectFacade {
     
-    private BacklogFacade backlogFacade;
+    private GlobalFacade globalFacade;
 
     public List<Project> getProjectListFromUser(User user) throws SQLException {
         ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
@@ -57,7 +57,7 @@ public class ProjectFacade {
         if(project == null){
             return null;
         }
-        boolean success = backlogFacade.initiateProductTicketBacklog(project.getId());
+        boolean success = globalFacade.initiateProductTicketBacklog(project.getId());
         if(!success){
             return null;
         }
@@ -105,7 +105,7 @@ public class ProjectFacade {
         return projectDAO.removeCollaborator(collaborator.getIdProject(), collaborator.getIdUser());
     }
 
-    public void setBacklogFacade(BacklogFacade backlogFacade) {
-        this.backlogFacade = backlogFacade;
+    public void setGlobalFacade(GlobalFacade globalFacade) {
+        this.globalFacade = globalFacade;
     }
 }

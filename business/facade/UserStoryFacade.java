@@ -14,18 +14,18 @@ import java.util.List;
 
 public class UserStoryFacade {
 
-    private BacklogFacade backlogFacade;
+    private GlobalFacade globalFacade;
 
-    public void setBacklogFacade(BacklogFacade backlogFacade){
-        this.backlogFacade = backlogFacade;
+    public void setGlobalFacade(GlobalFacade globalFacade){
+        this.globalFacade = globalFacade;
     }
 
     public UserStory[] getUserStoryByProject(Project project) throws SQLException {
         List<UserStory> lus = new ArrayList<>();
-        ProductBacklog pb = backlogFacade.getProductBacklog(project);
-        Column[] column = backlogFacade.getColumn(pb);
+        ProductBacklog pb = globalFacade.getProductBacklog(project);
+        Column[] column = globalFacade.getColumn(pb);
         for (Column c : column) {
-            UserStory[] userStory = backlogFacade.getUserStory(c);
+            UserStory[] userStory = globalFacade.getUserStory(c);
             lus.addAll(Arrays.asList(userStory));
         }
         return lus.toArray(new UserStory[lus.size()]);
@@ -57,10 +57,10 @@ public class UserStoryFacade {
         boolean success = usDAO.addUserStory(newUS);
 
         // Add to column
-        ProductBacklog pb = backlogFacade.getProductBacklog(project);
-        Column column = backlogFacade.getColumn(pb)[1];
+        ProductBacklog pb = globalFacade.getProductBacklog(project);
+        Column column = globalFacade.getColumn(pb)[1];
 
-        backlogFacade.addComponent(newUS, column);
+        globalFacade.addComponent(newUS, column);
 
         return success;
     }

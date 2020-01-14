@@ -11,10 +11,10 @@ import java.sql.SQLException;
 
 public class TicketFacade {
 
-    private BacklogFacade backlogFacade;
+    private GlobalFacade globalFacade;
 
-    public void setBacklogFacade(BacklogFacade backlogFacade) {
-        this.backlogFacade = backlogFacade;
+    public void setGlobalFacade(GlobalFacade globalFacade) {
+        this.globalFacade = globalFacade;
     }
 
     public Ticket getTicketById(int ticketId) throws  SQLException {
@@ -32,11 +32,11 @@ public class TicketFacade {
         }
 
         // Search Column to Insert into
-        TicketBacklog ticketBacklog = backlogFacade.getTicketBacklog(project);
-        Column[] column = backlogFacade.getColumn(ticketBacklog);
+        TicketBacklog ticketBacklog = globalFacade.getTicketBacklog(project);
+        Column[] column = globalFacade.getColumn(ticketBacklog);
 
         // Insert Column Ticket
-        success = backlogFacade.addComponent(newTicket,column[0]);
+        success = globalFacade.addComponent(newTicket,column[0]);
 
         return success;
     }
@@ -44,8 +44,7 @@ public class TicketFacade {
     public boolean deleteTicket(Ticket oldTicket) throws SQLException {
         TicketDAO ticketDAO = AbstractFactoryDAO.getInstance().createTicketDAO();
 
-        boolean success = ticketDAO.deleteTicket(oldTicket.getId());
-        return success;
+        return ticketDAO.deleteTicket(oldTicket.getId());
     }
 
     public boolean updateTicket(Ticket updatedTicket, Ticket oldTicket) throws SQLException {
