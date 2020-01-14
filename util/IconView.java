@@ -1,6 +1,7 @@
 package util;
 
-import javafx.scene.layout.Region;
+import javafx.geometry.Insets;
+import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

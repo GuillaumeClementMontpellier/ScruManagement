@@ -28,6 +28,7 @@ public class ProjectController {
 
     @FXML
     void loadProject() throws IOException {
+        System.out.println("ProjectController.loadProject");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
 
         Parent root = loader.load();

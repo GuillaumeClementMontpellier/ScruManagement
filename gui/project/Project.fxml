@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import util.IconView?>
-<GridPane hgap="10.0" prefWidth="600.0" style="-fx-background-color: #cccccc;" vgap="10.0"
+<GridPane hgap="10.0" prefWidth="590.0" style="-fx-background-color: #cccccc;" vgap="10.0"
           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="gui.project.ProjectController">
     <columnConstraints>
@@ -16,8 +16,6 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
-        <Button mnemonicParsing="false" onAction="#loadProject" prefWidth="130.0" style="-fx-background-color: lime;"
-                text="Select Project" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
         <AnchorPane>
             <children>
                 <IconView fx:value="tasks" layoutX="7.5" layoutY="-27" onMouseClicked="#editProject"/>
@@ -25,6 +23,8 @@
                       text="ProjectName"/>
             </children>
         </AnchorPane>
+        <Button mnemonicParsing="false" onAction="#loadProject" prefWidth="130.0" style="-fx-background-color: lime;"
+                text="Select Project" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
     </children>
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>

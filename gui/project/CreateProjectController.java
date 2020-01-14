@@ -1,7 +1,6 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Collaborator;
 import business.system.Project;
 import business.system.User;
 import gui.main.HomeController;

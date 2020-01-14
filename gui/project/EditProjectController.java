@@ -15,6 +15,7 @@ import main.Scrum;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 public class EditProjectController extends AbstractController {
@@ -48,7 +49,11 @@ public class EditProjectController extends AbstractController {
         nameField.setText(project.getName());
         summaryField.setText(project.getSummary());
         typeField.setText(project.getType());
-        deadLinePicker.setValue(project.getDeadline().toLocalDate());
+        System.out.println(project.getDeadline());
+        if (project.getDeadline() != null) {
+
+            deadLinePicker.setValue(project.getDeadline().toLocalDate());
+        }
     }
 
     public void setUser(User u) {
@@ -62,7 +67,11 @@ public class EditProjectController extends AbstractController {
         String name = nameField.getText();
         String summary = summaryField.getText();
         String type = typeField.getText();
-        Date deadline = Date.valueOf(deadLinePicker.getValue());
+        LocalDate value = deadLinePicker.getValue();
+        Date deadline = null;
+        if (value != null) {
+            deadline = Date.valueOf(value);
+        }
 
         if (user.equals(GlobalFacade.getInstance().getProjectAdmin(project))) {
             int idProject = project.getId();
@@ -70,11 +79,7 @@ public class EditProjectController extends AbstractController {
             boolean success = GlobalFacade.getInstance().editProject(editProject);
 
             if (success) {
-                if (initCalled) {
-                    getHomeController().changeSubScene("../Empty.fxml", null);
-                } else {
-                    Scrum.goToProjectList(user, getClass().getResource("ProjectList.fxml"));
-                }
+                handleReturn(null);
             } else {
                 message.setText("Error editing project");
                 message.setVisible(true);
@@ -89,7 +94,11 @@ public class EditProjectController extends AbstractController {
 
     @FXML
     void handleReturn(ActionEvent event) throws IOException, SQLException {
-        Scrum.goToProjectList(user, getClass().getResource("ProjectList.fxml"));
+        if (initCalled) {
+            getHomeController().changeSubScene("../Empty.fxml", null);
+        } else {
+            Scrum.goToProjectList(user, getClass().getResource("ProjectList.fxml"));
+        }
     }
 
     @FXML
