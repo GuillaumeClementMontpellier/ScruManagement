@@ -60,7 +60,7 @@ public class LoginController {
         } else {
             message.setText("Loading");
 
-            Scrum.goToProjectList(u, getClass().getResource("../projet/ProjetList.fxml"));
+            Scrum.goToProjectList(u, getClass().getResource("../project/ProjectList.fxml"));
         }
     }
 }

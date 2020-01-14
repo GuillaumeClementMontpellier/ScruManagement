@@ -9,22 +9,22 @@ import java.sql.SQLException;
 
 public class BacklogFacade {
 
-    public TicketBacklog getTicketBacklog(Projet p) throws SQLException {
+    public TicketBacklog getTicketBacklog(Project p) throws SQLException {
         BacklogDAO backlogDAO = AbstractFactoryDAO.getInstance().createBacklogDAO();
         return backlogDAO.getTicketBacklog(p.getId());
     }
 
-    public ProductBacklog getProductBacklog(Projet p) throws SQLException {
+    public ProductBacklog getProductBacklog(Project p) throws SQLException {
         BacklogDAO backlogDAO = AbstractFactoryDAO.getInstance().createBacklogDAO();
         return backlogDAO.getProductBacklog(p.getId());
     }
 
-    public SprintBacklog getLatestSprintBacklog(Projet p) throws SQLException {
+    public SprintBacklog getLatestSprintBacklog(Project p) throws SQLException {
         BacklogDAO backlogDAO = AbstractFactoryDAO.getInstance().createBacklogDAO();
         return backlogDAO.getLatestSprintBacklog(p.getId());
     }
 
-    public SprintBacklog[] getAllSprintBacklog(Projet p) throws SQLException {
+    public SprintBacklog[] getAllSprintBacklog(Project p) throws SQLException {
         BacklogDAO backlogDAO = AbstractFactoryDAO.getInstance().createBacklogDAO();
         return backlogDAO.getAllSprintBacklog(p.getId());
     }

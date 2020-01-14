@@ -1,13 +1,12 @@
 package gui.ticket;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
 import business.system.Ticket;
-import business.system.User;
-import gui.main.AbstractControlleur;
-import gui.main.HomeController;
+import business.system.UserStory;
+import gui.main.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -15,7 +14,10 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class CreateTicketController extends AbstractControlleur {
+public class CreateTicketController extends AbstractController {
+
+    @FXML
+    private ChoiceBox<UserStory> userStoryField;
 
     @FXML
     private TextField titleField;
@@ -23,63 +25,43 @@ public class CreateTicketController extends AbstractControlleur {
     @FXML
     private TextArea descriptionField;
 
-    private Projet currentProject;
-    private User currentUser;
-    private HomeController homeControlleur;
-
     @FXML
     private Text message;
 
-    @FXML
-    void handleCreationTicket(ActionEvent event) throws IOException {
+    public void handleCreationTicket(ActionEvent event) throws IOException {
 
         String titleTicket = titleField.getText();
         String descriptionTicket = descriptionField.getText();
 
         boolean success = false;
-        Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket, "Unsolved");
+        Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket, "Unsolved", userStoryField.getValue());
 
         try {
-            success = GlobalFacade.getInstance()
-                    .addTicket(newTicket,
-                            currentProject.getId());
+
+            success = GlobalFacade.getInstance().addTicket(newTicket, getProject());
+
         } catch (SQLException e) {
-            message.setText("Error adding User Story");
+            message.setText("Error creating Ticket 1");
             message.setVisible(true);
             return;
         }
 
         if (success) {
-            homeControlleur.changeSubScene("../main/HomeController", newTicket);
+            getHomeController().changeSubScene("../Ticket/TicketController", newTicket);
         } else {
-            message.setText("Error adding User Story");
+            message.setText("Error creating Ticket 2");
             message.setVisible(true);
+            return;
         }
     }
 
     public void exit() throws IOException {
-        // TODO : goto Ticket Backlog
-        System.out.println("Exit pressed");
-        // homeControlleur.changeSubScene("", );
+        getHomeController().changeSubScene("../Empty.fxml", null);
     }
 
-    @Override
-    public void setProjet(Projet projet) {
-        this.currentProject = projet;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.currentUser = user;
-    }
-
-    @Override
-    public void setHomeControlleur(HomeController homeControlleur) {
-        this.homeControlleur = homeControlleur;
-    }
 
     @Override
     public void init(Object param) {
-
+// TODO : get all UserStories by Project
     }
 }

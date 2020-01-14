@@ -13,6 +13,7 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
         super(addressDataBase, userDataBase, passWordDataBase);
     }
 
+    @Override
     public User getUserByID(String mail, String password) throws SQLException {
         // Create query
         String sql = "Select idUser, firstNameUser, lastNameUser from User " +
@@ -42,15 +43,18 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
     }
 
     @Override
-    public void registerUser(String mail, String password, String firstName, String lastName) throws SQLException {
-        String sql = "INSERT INTO User(emailUser,passWordUser,firstNameUser,lastNameUser) " +
-                "VALUES (?,?,?,?)";
+    public void registerUser(String mail, String password, String firstName, String lastName, String salt) throws SQLException {
+        String sql = "INSERT INTO User(emailUser,passWordUser,firstNameUser,lastNameUser,salt) " +
+                "VALUES (?,?,?,?,?)";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setString(1, mail);
         pre.setString(2, password);
         pre.setString(3, firstName);
         pre.setString(4, lastName);
+        pre.setString(5, salt);
+
+        System.out.println(password);
 
         pre.execute();
     }
@@ -67,6 +71,47 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
         ResultSet resultSet = pre.executeQuery();
 
         return resultSet.first();
+    }
+
+    @Override
+    public User getUserByIdUser(int idUser) throws SQLException {
+        // Prepare Query
+        String sql = "Select * FROM User WHERE idUser = ?";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setInt(1, idUser);
+
+        // Execute Query
+        ResultSet resultSet = pre.executeQuery();
+        boolean success = resultSet.first();
+        if (!success) {
+            return null;
+        }
+
+        // Parse Query
+        int id = resultSet.getInt("idUser");
+        String firstName = resultSet.getString("firstName");
+        String lastName = resultSet.getString("lastName");
+        String email = resultSet.getString("email");
+        return new User(id, firstName, lastName, email);
+    }
+
+    @Override
+    public String getSalt(String mail) throws SQLException {
+
+        // Prepare Query
+        String sql = "Select salt FROM User WHERE emailUser = ?";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setString(1, mail);
+
+        // Execute Query
+        ResultSet resultSet = pre.executeQuery();
+        boolean success = resultSet.first();
+        if (!success) {
+            return null;
+        }
+
+        // Parse Query
+        return resultSet.getString(1);
     }
 
 }

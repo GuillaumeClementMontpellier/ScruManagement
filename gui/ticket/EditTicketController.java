@@ -50,7 +50,7 @@ public class EditTicketController extends AbstractController {
 
     @FXML
     void handleEdit(ActionEvent event) throws SQLException {
-        Ticket newTicket = new Ticket(currentTicket.getIdTicket(), currentTicket.getTitleTicket(), currentTicket.getDescriptionTicket(), currentTicket.getStatusTicket());
+        Ticket newTicket = new Ticket(currentTicket.getId(), currentTicket.getName(), descrField.getText(), currentTicket.getStatusTicket(), userStoryChoice.getValue());
         boolean success = GlobalFacade.getInstance().updateTicket(newTicket, currentTicket);
         if (!success) {
             message.setText("Error editing Ticket");

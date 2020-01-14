@@ -1,8 +1,9 @@
 package gui.userstory;
 
 import business.facade.GlobalFacade;
+import business.system.Project;
 import business.system.UserStory;
-import gui.main.AbstractControlleur;
+import gui.main.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class NewUserStoryCreation extends AbstractControlleur {
+public class NewUserStoryCreation extends AbstractController {
 
     @FXML
     private TextField nomField;
@@ -44,7 +45,8 @@ public class NewUserStoryCreation extends AbstractControlleur {
         UserStory newUS = new UserStory(-1, name, descr, score, deadline);
 
         try {
-            success = GlobalFacade.getInstance().addUserStory(newUS, getProjet());
+            Project project = GlobalFacade.getInstance().getProjectByID(this.getProject().getId());
+            success = GlobalFacade.getInstance().addUserStory(newUS, project);
         } catch (SQLException e) {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -52,7 +54,7 @@ public class NewUserStoryCreation extends AbstractControlleur {
         }
 
         if (success) {
-            getHomeControlleur().changeSubScene("../userstory/UserStoryController", newUS);
+            getHomeController().changeSubScene("../userstory/UserStoryController", newUS);
         } else {
             message.setText("Error adding User Story");
             message.setVisible(true);
@@ -61,8 +63,7 @@ public class NewUserStoryCreation extends AbstractControlleur {
 
     public void exit() throws IOException {
         // TODO : goto US Backlog
-        System.out.println("Exit pressed");
-//        homeControlleur.changeSubScene("../userstory/UserStoryController", );
+        getHomeController().goToProductBacklog(null);
     }
 
     @Override

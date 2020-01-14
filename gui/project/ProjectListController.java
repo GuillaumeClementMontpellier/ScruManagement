@@ -1,7 +1,7 @@
-package gui.projet;
+package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Projet;
+import business.system.Project;
 import business.system.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProjetListController {
+public class ProjectListController {
     @FXML
     private GridPane listPane;
 
     private User user;
-    private Projet[] projectList;
+    private List<Project> projectList;
 
     @FXML
     void goToProjectCreation() throws IOException {
@@ -39,13 +39,13 @@ public class ProjetListController {
         this.user = u;
         this.projectList = GlobalFacade.getInstance().getProjectListFromUser(u);
 
-        for (int i = 0; i < projectList.length; i++) {
+        for (int i = 0; i < projectList.size(); i++) {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Projet.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Project.fxml"));
             Parent root = loader.load();
-            ProjetController cont = loader.<ProjetController>getController();
+            ProjectController cont = loader.<ProjectController>getController();
 
-            cont.setProject(projectList[i]);
+            cont.setProject(projectList.get(i));
             cont.setUser(u);
 
             listPane.add(root, 0, i);

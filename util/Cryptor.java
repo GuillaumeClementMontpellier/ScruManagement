@@ -30,7 +30,7 @@ public class Cryptor {
         return val;
     }
 
-    private static String generateHash(String password, String salt) throws InvalidKeySpecException {
+    public static String generateHash(String password, String salt) throws InvalidKeySpecException {
         int iterations = 1000;
         char[] chars = password.toCharArray();
         byte[] byteSalt = hexToBytes(salt);
@@ -48,7 +48,7 @@ public class Cryptor {
         return bytesToHex(hash);
     }
 
-    private static String getSaltRandom() {
+    public static String getSaltRandom() {
         SecureRandom sr = null;
         try {
             sr = SecureRandom.getInstance("SHA1PRNG");
