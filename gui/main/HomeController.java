@@ -66,7 +66,7 @@ public class HomeController {
         childContentController.init(param);
 
         ObservableList<Node> children = childContent.getChildren();
-        System.out.println(children);
+//        System.out.println(children);
 
         if (children.size() > 0) {
             children.set(0, root);

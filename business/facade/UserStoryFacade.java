@@ -66,7 +66,7 @@ public class UserStoryFacade {
 
         success = globalFacade.addComponent(newUS, column);
 
-        System.out.println("success 2 = " + success);
+//        System.out.println("success 2 = " + success);
         return success;
     }
 }

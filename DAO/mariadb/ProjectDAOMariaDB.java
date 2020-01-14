@@ -21,9 +21,8 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.setInt(1, idUser);
         ResultSet resultSet = pre.executeQuery();
         List<Project> projects = new ArrayList();
-        ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         while (resultSet.next()) {
-            projects.add(projectDAO.getProjectByID(resultSet.getInt("idProject")));
+            projects.add(getProjectByID(resultSet.getInt("idProject")));
         }
         return projects;
 

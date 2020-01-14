@@ -55,8 +55,7 @@
         </SplitPane>
 
         <!-- Main Frame -->
-        <Pane prefHeight="200.0" prefWidth="200.0">
             <fx:include fx:id="childContent" source="../Empty.fxml"/>
-        </Pane>
+
     </SplitPane>
 </TitledPane>

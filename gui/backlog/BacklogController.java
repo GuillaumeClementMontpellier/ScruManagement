@@ -25,6 +25,7 @@ public class BacklogController extends AbstractController {
 
     @Override
     public void init(Object param) {
+
         try {
             this.backlog = bFacade.getProductBacklog(this.getProject());
         } catch (SQLException e) {

@@ -14,7 +14,7 @@ public class GlobalFacade {
 
     // Logic
     private UserStoryFacade userStoryFacade;
-    private LoginFacade loginFacade;
+    private UserFacade userFacade;
     private BacklogFacade backlogFacade;
     private ProjectFacade projectFacade;
     private TicketFacade ticketFacade;
@@ -22,7 +22,7 @@ public class GlobalFacade {
 
     private GlobalFacade() {
 
-        this.loginFacade = new LoginFacade();
+        this.userFacade = new UserFacade();
         this.userStoryFacade = new UserStoryFacade();
         this.backlogFacade = new BacklogFacade();
         this.projectFacade = new ProjectFacade();
@@ -46,11 +46,11 @@ public class GlobalFacade {
     }
 
     public User login(String username, String password) throws SQLException {
-        return loginFacade.login(username, password);
+        return userFacade.login(username, password);
     }
 
     public User register(String username, String password, String firstName, String lastName) throws SQLException {
-        return loginFacade.register(username, password, firstName, lastName);
+        return userFacade.register(username, password, firstName, lastName);
     }
 
     public boolean addUserStory(UserStory newUS, Project project) throws SQLException {

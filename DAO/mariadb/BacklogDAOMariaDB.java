@@ -25,7 +25,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         if (!first) {
             return null;
         }
-        System.out.println(resultSet.getRow());
+//        System.out.println(resultSet.getRow());
         int id = resultSet.getInt("idBacklog");
         return new ProductBacklog(id);
 

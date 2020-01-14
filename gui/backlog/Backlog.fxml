@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
 <ScrollPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gui.backlog.BacklogController" prefHeight="350.0" prefWidth="400.0" >
+            fx:controller="gui.backlog.BacklogController" prefHeight="375.0" prefWidth="450.0" >
     <GridPane fx:id="tab" hgap="10.0" vgap="10.0">
 
         <padding>

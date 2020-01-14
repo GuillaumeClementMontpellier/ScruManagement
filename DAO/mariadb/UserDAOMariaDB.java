@@ -54,7 +54,7 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
         pre.setString(4, lastName);
         pre.setString(5, salt);
 
-        System.out.println(password);
+//        System.out.println(password);
 
         pre.execute();
     }

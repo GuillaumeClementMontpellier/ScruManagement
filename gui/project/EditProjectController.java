@@ -49,7 +49,7 @@ public class EditProjectController extends AbstractController {
         nameField.setText(project.getName());
         summaryField.setText(project.getSummary());
         typeField.setText(project.getType());
-        System.out.println(project.getDeadline());
+//        System.out.println(project.getDeadline());
         if (project.getDeadline() != null) {
 
             deadLinePicker.setValue(project.getDeadline().toLocalDate());

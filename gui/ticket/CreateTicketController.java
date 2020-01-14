@@ -57,7 +57,7 @@ public class CreateTicketController extends AbstractController {
     }
 
     public void exit() throws IOException {
-        getHomeController().changeSubScene("../Empty.fxml", null);
+        getHomeController().goToTicketBacklog(null);
     }
 
 

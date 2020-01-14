@@ -62,11 +62,14 @@ public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
     @Override
     public boolean updateUserStory(int id, UserStory newUS) throws SQLException {
         String sql = "UPDATE UserStory " +
-                "SET score = ? " +
-                "and deadline = ? " +
-                "and descriptionUserStory = ? " +
-                "and name = ? " +
+                "SET score = ?, " +
+                "deadline = ?, " +
+                "descriptionUserStory = ?, " +
+                "nameUserStory = ? " +
                 "where idUserStory = ?";
+
+        System.out.println(id);
+        System.out.println(newUS.getName());
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
 
@@ -82,7 +85,7 @@ public class UserStoryDAOMariaDB extends DAOMariaDB implements UserStoryDAO {
     }
 
     /**
-     * If sucess, set UserStory id to generated id ?
+     * If success, set UserStory id to generated id ?
      *
      * @param newUS
      * @return

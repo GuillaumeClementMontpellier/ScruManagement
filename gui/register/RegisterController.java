@@ -41,7 +41,7 @@ public class RegisterController {
 
     @FXML
     void register(ActionEvent event) throws IOException, SQLException {
-        System.out.println("Try register");
+//        System.out.println("Try register");
 
         String username = emailField.getText();
         String password = passwordField.getText();
