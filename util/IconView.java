@@ -1,7 +1,6 @@
 package util;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.SVGPath;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -106,17 +105,17 @@ public class IconView extends Region {
 
     private void adaptScale(double width, double height) {
 
+        this.getChildren().add(svg);
+
         setMinSize(width, height);
         setPrefSize(width, height);
         setMaxSize(width, height);
 
-        this.getChildren().add(svg);
-
         double pw = svg.prefWidth(width);
         double ph = svg.prefHeight(height);
 
-        double tx = getTranslateX() - (pw / 2) + (width / 2);
-        double ty = getTranslateY() - (ph / 2) + (height / 2);
+        double tx = getTranslateX() - (width / 2);
+        double ty = getTranslateY() - (height / 2);
 
         setTranslateX(tx);
         setTranslateY(ty);
@@ -124,8 +123,8 @@ public class IconView extends Region {
         double scaleWidth = width / pw;
         double scaleHeight = height / ph;
 
-        svg.setScaleX(scaleWidth);
-        svg.setScaleY(scaleHeight);
+        setScaleX(scaleWidth);
+        setScaleY(scaleHeight);
     }
 
 }

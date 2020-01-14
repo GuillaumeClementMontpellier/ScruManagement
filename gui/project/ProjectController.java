@@ -28,7 +28,6 @@ public class ProjectController {
 
     @FXML
     void loadProject() throws IOException {
-        System.out.println("ProjectController.loadProject");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
 
         Parent root = loader.load();
@@ -52,6 +51,7 @@ public class ProjectController {
     }
 
     public void editProject(MouseEvent mouseEvent) throws IOException, SQLException {
+        System.out.println("ProjectController.editProject");
         if (user.equals(GlobalFacade.getInstance().getProjectAdmin(project))) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EditProject.fxml"));
 

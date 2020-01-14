@@ -82,10 +82,6 @@ public class HomeController {
         changeSubScene("../project/EditProject.fxml", null);
     }
 
-    public void handleComment(MouseEvent mouseEvent) {
-        // TODO : ne marche pas ?
-        System.out.println("HomeController.handleComment");
-    }
 
     public void goToProductBacklog(ActionEvent event) {
         try {
@@ -115,5 +111,13 @@ public class HomeController {
             e.printStackTrace();
         }
 
+    }
+
+    public void handleCreationSprint(MouseEvent mouseEvent) {
+        System.out.println("HomeController.handleCreationSprint");
+    }
+
+    public void goToSprints(ActionEvent event) {
+        System.out.println("HomeController.goToSprints");
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
@@ -11,72 +12,52 @@
             maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
             text="SCRUManagement" xmlns="http://javafx.com/javafx/11.0.1"
             fx:controller="gui.main.HomeController">
-    <content>
-        <SplitPane dividerPositions="0.25" prefHeight="200.0" prefWidth="200.0">
-            <items>
-                <SplitPane dividerPositions="0.09964093357271096, 0.8536804308797128" orientation="VERTICAL">
-                    <items>
-                        <AnchorPane prefHeight="49.0" prefWidth="146.0">
-                            <children>
-                                <IconView fx:value="user-cog" onMouseClicked="#handleUserSetting" layoutX="10.0"
-                                          layoutY="10.0"/>
-                                <Line endX="17.0" endY="-12.66666030883789" layoutX="20.0" layoutY="45.0"
-                                      startX="17.0" startY="-40.00000762939453"/>
-                                <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                                      text="Project"/>
-                                <IconView fx:value="cog" onMouseClicked="#handleProjectSetting" layoutX="100.0"
-                                          layoutY="2.5"/>
-                            </children>
-                        </AnchorPane>
-                        <ScrollPane centerShape="false" prefHeight="286.0" prefWidth="146.0">
-                            <content>
-                                <GridPane>
-                                    <Accordion prefWidth="146.0">
-                                        <panes>
-                                            <TitledPane animated="false" text="Sprint Backlog">
-                                                <content>
-                                                    <!-- TODO : replace by list of Sprints and add a Sprint Button -->
-                                                    <GridPane fx:id="listSprint"/>
-                                                </content>
-                                            </TitledPane>
-                                        </panes>
-                                    </Accordion>
-                                    <AnchorPane GridPane.rowIndex="1">
-                                        <Button onAction="#goToTicketBacklog"
-                                                text="Ticket Backlog" prefWidth="146"/>
-                                        <IconView fx:value="plus" onMouseClicked="#handleCreationTicket" layoutY="-27.5"
-                                                  layoutX="7.5"/>
-                                    </AnchorPane>
-                                    <AnchorPane GridPane.rowIndex="2">
-                                        <Button text="Product Backlog" onAction="#goToProductBacklog"
-                                                prefWidth="146"/>
-                                        <IconView fx:value="plus" onMouseClicked="#handleCreationUserStory"
-                                                  layoutY="-27.5"
-                                                  layoutX="7.5"/>
-                                    </AnchorPane>
-                                </GridPane>
-                            </content>
-                        </ScrollPane>
-                        <AnchorPane prefHeight="51.0" prefWidth="108.0">
-                            <children>
-                                <Button mnemonicParsing="false" onAction="#handleChat" prefHeight="50.0"
-                                        prefWidth="146.0" text="Chat"/>
-                                <IconView fx:value="external-link-alt" layoutX="100.0" layoutY="17.5"/>
-                            </children>
-                        </AnchorPane>
-                    </items>
-                </SplitPane>
-                <Pane prefHeight="200.0" prefWidth="200.0">
-                    <children>
-                        <Rectangle onMouseEntered="#handleComment" arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT"
-                                   height="41.0" layoutX="-2.0"
-                                   layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="37.0"/>
-                        <IconView fx:value="comments" layoutX="7.5" layoutY="-20.0"/>
+    <SplitPane dividerPositions="0.25" prefHeight="200.0" prefWidth="200.0">
+        <SplitPane dividerPositions="0.09964093357271096, 0.8536804308797128" orientation="VERTICAL">
+            <!-- Upper Left Title -->
+            <GridPane hgap="10" prefHeight="49.0" prefWidth="146.0">
 
-                        <fx:include fx:id="childContent" source="../Empty.fxml"/>
-                    </children>
-                </Pane>
-            </items>
+                <IconView fx:value="user-cog" onMouseClicked="#handleUserSetting"/>
+                <Line endX="17.0" endY="-12.66666030883789" startX="17.0" startY="-40.00000762939453"
+                      GridPane.columnIndex="1"/>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project" GridPane.columnIndex="2"/>
+                <IconView fx:value="cog" onMouseClicked="#handleProjectSetting" GridPane.columnIndex="3"
+                          GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS"/>
+
+                <padding>
+                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0"/>
+                </padding>
+            </GridPane>
+
+            <!-- Menu -->
+            <ScrollPane centerShape="false" prefHeight="286.0" prefWidth="145.0">
+                <GridPane>
+                    <IconView fx:value="plus" onMouseClicked="#handleCreationSprint"/>
+                    <Button onAction="#goToSprints" GridPane.columnIndex="1"
+                            text="Ticket Backlog" prefWidth="130.0"/>
+
+                    <IconView fx:value="plus" onMouseClicked="#handleCreationTicket" GridPane.rowIndex="1"/>
+                    <Button onAction="#goToTicketBacklog" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                            text="Ticket Backlog" prefWidth="130.0"/>
+
+                    <IconView fx:value="plus" onMouseClicked="#handleCreationUserStory" GridPane.rowIndex="2"/>
+                    <Button text="Product Backlog" onAction="#goToProductBacklog" GridPane.rowIndex="2"
+                            GridPane.columnIndex="1" prefWidth="130.0"/>
+                </GridPane>
+            </ScrollPane>
+
+
+            <!-- Bottom Chat Button -->
+            <AnchorPane prefHeight="51.0" prefWidth="108.0">
+                <Button mnemonicParsing="false" onAction="#handleChat" prefHeight="50.0"
+                        prefWidth="146.0" text="Chat"/>
+                <IconView fx:value="external-link-alt" layoutX="100.0" layoutY="17.5"/>
+            </AnchorPane>
         </SplitPane>
-    </content>
+
+        <!-- Main Frame -->
+        <Pane prefHeight="200.0" prefWidth="200.0">
+            <fx:include fx:id="childContent" source="../Empty.fxml"/>
+        </Pane>
+    </SplitPane>
 </TitledPane>
