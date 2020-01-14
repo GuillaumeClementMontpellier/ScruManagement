@@ -180,12 +180,12 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
     @Override
     public Collaborator addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
-        String sql = "INSERT INTO WorkOn(idUser, idProject, idRole) VALUES (?,?,?)";
+        String sql = "INSERT INTO WorkOn(idUser, idProject, idRole) VALUES (?,?,?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idCollaborator);
         pre.setInt(2, idProject);
         pre.setInt(3, idRole);
-//        pre.setBoolean(4, isAdmin);
+        pre.setBoolean(4, isAdmin);
         int nbAffected = pre.executeUpdate();
         if (nbAffected <= 0) {
             return null;

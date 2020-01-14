@@ -36,6 +36,8 @@ public class ProjectController {
         cont.setProject(project);
         cont.setUser(user);
 
+        projectName.setText(project.getName());
+
         Scene scene = new Scene(root);
         Scrum.getStage().setScene(scene);
 
@@ -52,7 +54,7 @@ public class ProjectController {
 
     public void editProject(MouseEvent mouseEvent) throws IOException, SQLException {
         if (user.equals(GlobalFacade.getInstance().getProjectAdmin(project))) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditProject.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../project/EditProject.fxml"));
 
             Parent root = loader.load();
             EditProjectController cont = loader.<EditProjectController>getController();
@@ -63,8 +65,8 @@ public class ProjectController {
             Scene scene = new Scene(root);
             Scrum.getStage().setScene(scene);
         } else {
-            message.setText("Unauthorized action. Ask the administrator project to do this");
-            message.setVisible(true);
+            //message.setText("Unauthorized action. Ask the administrator project to do this");
+            //message.setVisible(true);
             return;
         }
     }
