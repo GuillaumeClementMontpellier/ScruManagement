@@ -9,5 +9,6 @@ public class RowTitleController {
 
     public void setComponent(String label) {
         this.label.setText(label);
+
     }
 }

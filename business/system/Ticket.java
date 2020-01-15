@@ -5,6 +5,15 @@ public class Ticket extends Component {
 
     private String statusTicket;
     private int idUserStory;
+    private int idColumn;
+
+    public int getIdColumn() {
+        return idColumn;
+    }
+
+    public void setIdColumn(int idColumn) {
+        this.idColumn = idColumn;
+    }
 
     public Ticket(int id, String title, String description, String status, int userStory) {
         setId(id);

@@ -1,7 +1,9 @@
 package gui.ticket;
 
 import business.facade.GlobalFacade;
+import business.system.Column;
 import business.system.Ticket;
+import business.system.TicketBacklog;
 import business.system.UserStory;
 import gui.main.AbstractController;
 import javafx.collections.ObservableList;
@@ -17,6 +19,9 @@ import java.sql.SQLException;
 public class EditTicketController extends AbstractController {
 
     @FXML
+    private ChoiceBox<Column> columnPicker;
+
+    @FXML
     private TextArea descrField;
 
     @FXML
@@ -30,6 +35,7 @@ public class EditTicketController extends AbstractController {
 
     private Ticket currentTicket;
     private boolean delete;
+    private Column oldColumn;
 
     @FXML
     void handleDelete(ActionEvent event) throws SQLException {
@@ -63,10 +69,11 @@ public class EditTicketController extends AbstractController {
         if (!success) {
             message.setText("Error editing Ticket");
             message.setVisible(true);
-
-        } else {
-            handleReturn(null);
+            return;
         }
+        Column column = columnPicker.getValue();
+        GlobalFacade.getInstance().moveComponent(newTicket, oldColumn, column);
+        handleReturn(null);
     }
 
     @FXML
@@ -105,5 +112,25 @@ public class EditTicketController extends AbstractController {
         }
         userStoryChoice.setValue(userSto);
 
+        // Add column to Column picker
+        TicketBacklog tb;
+        try {
+            tb = GlobalFacade.getInstance().getTicketBacklog(getProject());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        Column[] column;
+        try {
+            column = GlobalFacade.getInstance().getColumn(tb);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        columnPicker.getItems().addAll(column);
+        columnPicker.setValue(column[0]);
+
+        oldColumn = new Column(currentTicket.getIdColumn(), null, -1);
     }
 }
