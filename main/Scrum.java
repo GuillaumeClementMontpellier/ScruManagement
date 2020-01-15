@@ -2,7 +2,11 @@ package main;
 
 import DAO.factory.AbstractFactoryDAO;
 import DAO.mariadb.FactoryDAOMariaDB;
+import business.system.Project;
 import business.system.User;
+import gui.main.HomeController;
+import gui.project.CreateProjectController;
+import gui.project.EditProjectController;
 import gui.project.ProjectListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +23,27 @@ public class Scrum extends Application {
 
     private static Stage stageSingleton = null;
 
-    public static Stage getStage() {
-        return stageSingleton;
+    public static void setScene(URL resource) throws IOException {
+        Parent root = FXMLLoader.load(resource);
+
+        Scene scene = new Scene(root);
+        Scrum.stageSingleton.setScene(scene);
+    }
+
+    public static void goToMainScreen(User user, Project project, URL resource) throws IOException, SQLException {
+
+        FXMLLoader loader = new FXMLLoader(resource);
+
+        Parent root = loader.load();
+
+        HomeController cont = loader.<HomeController>getController();
+
+        cont.setUser(user);
+        cont.setProject(project);
+
+        Scene scene = new Scene(root);
+        Scrum.stageSingleton.setScene(scene);
+
     }
 
     public static void goToProjectList(User user, URL resource) throws IOException, SQLException {
@@ -34,7 +57,32 @@ public class Scrum extends Application {
         cont.setUser(user);
 
         Scene scene = new Scene(root);
-        Scrum.getStage().setScene(scene);
+        Scrum.stageSingleton.setScene(scene);
+
+    }
+
+    public static void goToEditProject(User user, Project project, URL resource) throws IOException {
+        FXMLLoader loader = new FXMLLoader(resource);
+
+        Parent root = loader.load();
+        EditProjectController cont = loader.<EditProjectController>getController();
+
+        cont.setProject(project);
+        cont.setUser(user);
+
+        Scene scene = new Scene(root);
+        Scrum.stageSingleton.setScene(scene);
+    }
+    public static void goToProjectCreation(User user, URL resource) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(resource);
+        Parent root = loader.load();
+
+        CreateProjectController cont = loader.<CreateProjectController>getController();
+        cont.setUser(user);
+
+        Scene scene = new Scene(root);
+        Scrum.stageSingleton.setScene(scene);
 
     }
 

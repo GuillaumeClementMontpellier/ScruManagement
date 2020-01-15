@@ -40,28 +40,26 @@ public class EditTicketStateController extends AbstractController {
         titleField.setText(currentTicket.getName());
         message.setText("");
         delete = false;
-        // Todo : choices of state and User Story Box
-    }
 
-    @FXML
-    void handleDelete(ActionEvent event) throws SQLException {
-        if (!delete) {
-            delete = true;
-            message.setText("Are you Sure ?");
+        UserStory userSto;
+        try {
+            userSto = GlobalFacade.getInstance().getUserStoryByID(currentTicket.getUserStory());
+        } catch (SQLException e) {
+            e.printStackTrace();
             return;
         }
+        userStoryBox.setValue(userSto);
 
-        boolean success = GlobalFacade.getInstance().deleteTicket(currentTicket);
-        if (!success) {
-            message.setText("Error deleting Ticket");
-        } else {
-            handleReturn(null);
-        }
+        stateField.setText(currentTicket.getStatusTicket());
+
+        stateBox.getItems().addAll(Ticket.getStatus());
     }
+
 
     @FXML
     void handleEdit(ActionEvent event) throws SQLException {
-        Ticket newTicket = new Ticket(currentTicket.getId(), currentTicket.getName(), descriptionField.getText(), stateBox.getValue(), userStoryBox.getValue());
+        Ticket newTicket = new Ticket(currentTicket.getId(), currentTicket.getName(),
+                descriptionField.getText(), stateBox.getValue(), userStoryBox.getValue().getId());
         boolean success = GlobalFacade.getInstance().updateTicket(newTicket, currentTicket);
         if (!success) {
             message.setText("Error editing Ticket");

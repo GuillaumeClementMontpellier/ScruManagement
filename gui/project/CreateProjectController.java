@@ -1,7 +1,6 @@
 package gui.project;
 
 import business.facade.GlobalFacade;
-import business.system.Collaborator;
 import business.system.Project;
 import business.system.User;
 import gui.main.HomeController;
@@ -62,17 +61,7 @@ public class CreateProjectController {
         if (name != null) {
             try {
                 Project newProject = GlobalFacade.getInstance().createProject(name, summary, type, deadline, user);
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../main/Home.fxml"));
-
-                Parent root = loader.load();
-                HomeController cont = loader.<HomeController>getController();
-
-                cont.setProject(newProject);
-                cont.setUser(user);
-
-                Scene scene = new Scene(root);
-                Scrum.getStage().setScene(scene);
+                Scrum.goToMainScreen(user, newProject,getClass().getResource("../main/Home.fxml") );
 
             } catch (SQLException sql) {
                 sql.printStackTrace();

@@ -31,11 +31,7 @@ public class LoginController {
 
     @FXML
     void goToRegister(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../register/Register.fxml"));
-
-        Scene scene = new Scene(root);
-        Scrum.getStage().setScene(scene);
-
+        Scrum.setScene(getClass().getResource("../register/Register.fxml"));
     }
 
     @FXML
@@ -48,20 +44,19 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        User u = null;
+        User u;
         try {
             u = GlobalFacade.getInstance().login(username, password);
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-
-        if (u == null) {
             message.setText("Invalid Mail or Password");
-        } else {
-            message.setText("Loading");
-
-            Scrum.goToProjectList(u, getClass().getResource("../project/ProjectList.fxml"));
+            return;
         }
+
+        message.setText("Loading");
+
+        Scrum.goToProjectList(u, getClass().getResource("../project/ProjectList.fxml"));
+
     }
 }
 

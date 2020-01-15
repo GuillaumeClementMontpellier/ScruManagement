@@ -21,9 +21,8 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
         pre.setInt(1, idUser);
         ResultSet resultSet = pre.executeQuery();
         List<Project> projects = new ArrayList();
-        ProjectDAO projectDAO = AbstractFactoryDAO.getInstance().createProjectDAO();
         while (resultSet.next()) {
-            projects.add(projectDAO.getProjectByID(resultSet.getInt("idProject")));
+            projects.add(getProjectByID(resultSet.getInt("idProject")));
         }
         return projects;
 
@@ -180,12 +179,12 @@ public class ProjectDAOMariaDB extends DAOMariaDB implements ProjectDAO {
 
     @Override
     public Collaborator addCollaborator(int idProject, int idCollaborator, int idRole, boolean isAdmin) throws SQLException {
-        String sql = "INSERT INTO WorkOn(idUser, idProject, idRole) VALUES (?,?,?)";
+        String sql = "INSERT INTO WorkOn(idUser, idProject, idRole, isAdmin) VALUES (?,?,?,?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, idCollaborator);
         pre.setInt(2, idProject);
         pre.setInt(3, idRole);
-//        pre.setBoolean(4, isAdmin);
+        pre.setBoolean(4, isAdmin);
         int nbAffected = pre.executeUpdate();
         if (nbAffected <= 0) {
             return null;

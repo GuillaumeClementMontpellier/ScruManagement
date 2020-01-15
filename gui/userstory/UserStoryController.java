@@ -40,8 +40,7 @@ public class UserStoryController extends AbstractController {
     private boolean delete;
 
     @FXML
-    void exit() throws IOException {
-        // TODO : go to US Backlog
+    void exit() {
         getHomeController().goToProductBacklog(null);
     }
 
@@ -55,7 +54,8 @@ public class UserStoryController extends AbstractController {
             descrField.setEditable(true);
             datePicker.setEditable(true);
             scoreField.setEditable(true);
-            editButton.setText("Confirm changes");
+            message.setText("You can now edit the User Story.");
+            message.setVisible(true);
             return;
         }
 
@@ -72,10 +72,12 @@ public class UserStoryController extends AbstractController {
                     .updateUserStory(currentUS,
                             new UserStory(currentUS.getId(), name, descr, score, deadline));
         } catch (SQLException e) {
+            e.printStackTrace();
             message.setText("Error submitting User Story");
             message.setVisible(true);
             return;
         }
+//        System.out.println("success = " + success);
 
         if (success) {
             exit();
@@ -94,12 +96,13 @@ public class UserStoryController extends AbstractController {
             message.setVisible(true);
             return;
         }
-        boolean success = false;
+        boolean success ;
         try {
             success = GlobalFacade.getInstance().deleteUserStory(currentUS);
         } catch (SQLException e) {
             message.setText("Error deleting User Story");
             message.setVisible(true);
+            return;
         }
         if (success) {
             exit();

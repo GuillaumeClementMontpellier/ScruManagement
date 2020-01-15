@@ -8,20 +8,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import main.Scrum;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 
 public class HomeController {
 
+    @FXML
+    public TitledPane titlePane;
     private User activeUser;
     private Project project;
-
     @FXML
     private GridPane listSprint;
 
@@ -34,6 +36,12 @@ public class HomeController {
 
     public void setProject(Project project) {
         this.project = project;
+        this.titlePane.setText(project.getName());
+        try {
+            changeSubScene("../backlog/Backlog.fxml", "Product");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -58,46 +66,44 @@ public class HomeController {
         childContentController.init(param);
 
         ObservableList<Node> children = childContent.getChildren();
-        System.out.println(children);
+//        System.out.println(children);
 
         if (children.size() > 0) {
-        children.set(0, root);
+            children.set(0, root);
         } else {
             children.add(root);
         }
 
     }
 
+    // Abandonned
     public void handleChat() {
-        // TODO
         System.out.println("HomeController.handleChat");
     }
 
-    public void handleUserSetting(MouseEvent mouseEvent) {
-        // TODO
-        System.out.println("HomeController.handleUserSetting");
+    public void goToProjectList(MouseEvent mouseEvent) throws IOException, SQLException {
+        Scrum.goToProjectList(activeUser, getClass().getResource("../project/ProjectList.fxml"));
     }
 
     public void handleProjectSetting(MouseEvent mouseEvent) throws IOException {
-        changeSubScene("../project/EditProject.fxml", null);
+        this.changeSubScene("../project/EditProject.fxml", null);
     }
 
-    public void handleComment(MouseEvent mouseEvent) {
-        // TODO : ne marche pas ?
-        System.out.println("HomeController.handleComment");
-    }
 
     public void goToProductBacklog(ActionEvent event) {
         try {
-            this.changeSubScene("../backlog/ProductBacklog.fxml", null);
+            this.changeSubScene("../backlog/Backlog.fxml", "Product");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void goToTicketBacklog(ActionEvent event) {
-        // TODO
-        System.out.println("HomeController.goToTicketBacklog");
+        try {
+            this.changeSubScene("../backlog/Backlog.fxml", "Ticket");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleCreationTicket(MouseEvent event) {
@@ -115,5 +121,21 @@ public class HomeController {
             e.printStackTrace();
         }
 
+    }
+
+    public void handleCreationSprint(MouseEvent mouseEvent) {
+        System.out.println("HomeController.handleCreationSprint");
+    }
+
+    public void goToSprints(ActionEvent event) {
+        System.out.println("HomeController.goToSprints");
+    }
+
+    public void handleAddCollab(MouseEvent mouseEvent) {
+        System.out.println("HomeController.handleAddCollab");
+    }
+
+    public void goToCollabs(ActionEvent actionEvent) {
+        System.out.println("HomeController.goToCollabs");
     }
 }

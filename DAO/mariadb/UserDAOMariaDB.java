@@ -54,7 +54,7 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
         pre.setString(4, lastName);
         pre.setString(5, salt);
 
-        System.out.println(password);
+//        System.out.println(password);
 
         pre.execute();
     }
@@ -89,9 +89,9 @@ public class UserDAOMariaDB extends DAOMariaDB implements UserDAO {
 
         // Parse Query
         int id = resultSet.getInt("idUser");
-        String firstName = resultSet.getString("firstName");
-        String lastName = resultSet.getString("lastName");
-        String email = resultSet.getString("email");
+        String firstName = resultSet.getString("firstNameUser");
+        String lastName = resultSet.getString("lastNameUser");
+        String email = resultSet.getString("emailUser");
         return new User(id, firstName, lastName, email);
     }
 

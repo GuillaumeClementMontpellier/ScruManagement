@@ -40,8 +40,10 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
         String titleTicket = resultSet.getString("nameTicket");
         String descriptionTicket = resultSet.getString("descriptionTicket");
         String statusTicket = resultSet.getString("statusTicket");
+        int idUserStory = resultSet.getInt("idUserStory");
 
-        return new Ticket(ticketId, titleTicket, descriptionTicket, statusTicket, null);
+
+        return new Ticket(ticketId, titleTicket, descriptionTicket, statusTicket, idUserStory);
     }
 
 
@@ -67,68 +69,51 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
     public boolean updateTicket(Ticket updatedTicket, int ticketId) throws SQLException {
         String sql = "UPDATE Ticket " +
-                "SET nameTicket = ? " +
-                "and descriptionTicket = ? " +
-                "and statusTicket = ? " +
-                "where idUserStory = ?";
+                "SET nameTicket = ?, " +
+                "descriptionTicket = ?, " +
+                "statusTicket = ?, " +
+                "idUserStory = ? " +
+                "where idTicket = ?";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
 
         pre.setString(1, updatedTicket.getName());
         pre.setString(2, updatedTicket.getDescription());
         pre.setString(3, updatedTicket.getStatusTicket());
-        pre.setInt(4, ticketId);
+        pre.setInt(4, updatedTicket.getUserStory());
+        pre.setInt(5, ticketId);
 
         int nbAffected = pre.executeUpdate();
 
         return nbAffected > 0;
     }
 
-    private int getTicketBacklogColumn(int projectId) throws SQLException {
-        // TODO : put real type
-        String sql = "Select c.idColumn from Backlog b, ColumnBacklog c " +
-                "WHERE b.idProject = ? " +
-                "and b.typeBacklog = 2 " +
-                "and b.idBacklog = c.idBacklog";
-
-        PreparedStatement pre = this.connection.prepareStatement(sql);
-
-        pre.setInt(1, projectId);
-
-        ResultSet rs = pre.executeQuery();
-
-        int idColumn = -1;
-        if (rs.next()) {
-            idColumn = rs.getInt(1);
-        }
-        return idColumn;
-    }
 
     public boolean addTicket(Ticket newTicket, int projectId) throws SQLException {
-        String sql = "Insert into Ticket(nameTicket, descriptionTicket, statusTicket) " +
-                "values ( ?, ?, ?)";
+        String sql = "Insert into Ticket(nameTicket, descriptionTicket, statusTicket, idUserStory) " +
+                "values ( ?, ?, ?, ?)";
 
         PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         pre.setString(1, newTicket.getName());
         pre.setString(2, newTicket.getDescription());
         pre.setString(3, newTicket.getStatusTicket());
+        pre.setInt(4, newTicket.getUserStory());
 
         int nbAffected = pre.executeUpdate();
         ResultSet rs = pre.getGeneratedKeys();
 
-        if (nbAffected > 0) {
+        if (nbAffected < 0) {
             return false;
         }
 
-        int idTicket = -1;
-        if (rs.next()) {
+        int idTicket;
+        boolean success = rs.next();
+        if (success) {
             idTicket = rs.getInt(1);
-        } else {
-            return false;
+            newTicket.setId(idTicket);
         }
+        return success;
 
-        newTicket.setId(idTicket);
-        return true;
     }
 }

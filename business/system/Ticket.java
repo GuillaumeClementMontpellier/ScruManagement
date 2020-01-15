@@ -4,9 +4,9 @@ package business.system;
 public class Ticket extends Component {
 
     private String statusTicket;
-    private UserStory userStory;
+    private int idUserStory;
 
-    public Ticket(int id, String title, String description, String status, UserStory userStory) {
+    public Ticket(int id, String title, String description, String status, int userStory) {
         setId(id);
         setName(title);
         setDescription(description);
@@ -14,12 +14,20 @@ public class Ticket extends Component {
         setUserStory(userStory);
     }
 
-    public UserStory getUserStory() {
-        return userStory;
+    public static String[] getStatus() {
+        String[] strings = new String[3];
+        strings[0] = "Unsolved";
+        strings[1] = "WIP";
+        strings[2] = "Solved";
+        return strings;
     }
 
-    public void setUserStory(UserStory userStory) {
-        this.userStory = userStory;
+    public int getUserStory() {
+        return idUserStory;
+    }
+
+    public void setUserStory(int userStory) {
+        this.idUserStory = userStory;
     }
 
     public String getStatusTicket() {

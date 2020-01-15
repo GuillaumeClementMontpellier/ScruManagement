@@ -36,27 +36,27 @@ public class Cryptor {
         byte[] byteSalt = hexToBytes(salt);
 
         PBEKeySpec spec = new PBEKeySpec(chars, byteSalt, iterations, 64 * 8);
-        SecretKeyFactory skf = null;
+        SecretKeyFactory skf;
         try {
             skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            return null;
         }
-        assert skf != null;
         byte[] hash = skf.generateSecret(spec).getEncoded();
 
         return bytesToHex(hash);
     }
 
     public static String getSaltRandom() {
-        SecureRandom sr = null;
+        SecureRandom sr;
         try {
             sr = SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            return null;
         }
         byte[] salt = new byte[16];
-        assert sr != null;
         sr.nextBytes(salt);
         return bytesToHex(salt);
     }

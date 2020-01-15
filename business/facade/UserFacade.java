@@ -8,7 +8,7 @@ import util.Cryptor;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
-public class LoginFacade {
+public class UserFacade {
 
     public User login(String mail, String password) throws SQLException {
         UserDAO userDAO = AbstractFactoryDAO.getInstance().createUserDAO();

@@ -33,10 +33,10 @@ public class TicketFacade {
 
         // Search Column to Insert into
         TicketBacklog ticketBacklog = globalFacade.getTicketBacklog(project);
-        Column[] column = globalFacade.getColumn(ticketBacklog);
+        Column column = globalFacade.getColumn(ticketBacklog)[0];
 
         // Insert Column Ticket
-        success = globalFacade.addComponent(newTicket,column[0]);
+        success = globalFacade.addComponent(newTicket,column);
 
         return success;
     }
