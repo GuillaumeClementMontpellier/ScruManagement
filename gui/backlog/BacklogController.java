@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class BacklogController extends AbstractController {
     @FXML
@@ -94,6 +93,7 @@ public class BacklogController extends AbstractController {
                 RowController rc = loaderRow.<RowController>getController();
                 rc.setComponent(us);
                 rc.setController(getHomeController());
+                rc.setColumn(allColumns[i]);
 
                 this.tab.add(root, i, j + 1);
             }
@@ -104,4 +104,5 @@ public class BacklogController extends AbstractController {
     public void handleConfirm(ActionEvent actionEvent) {
         System.out.println("BacklogController.handleConfirm");
     }
+
 }

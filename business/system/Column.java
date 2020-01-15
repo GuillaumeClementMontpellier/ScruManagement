@@ -7,6 +7,11 @@ public class Column implements Commentable, Comparable<Column> {
     private int rank;
     private String description;
 
+    @Override
+    public String toString() {
+        return name + " : " + getId();
+    }
+
     public Column(int id, String name, int rank) {
         this.id = id;
         this.name = name;

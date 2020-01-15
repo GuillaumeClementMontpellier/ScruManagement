@@ -55,7 +55,7 @@ public class NewUserStoryCreation extends AbstractController {
         }
 
         if (success) {
-            getHomeController().changeSubScene("../userstory/UserStory.fxml", newUS);
+            exit();
         } else {
             message.setText("Error adding User Story");
             message.setVisible(true);

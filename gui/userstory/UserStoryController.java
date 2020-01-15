@@ -1,14 +1,13 @@
 package gui.userstory;
 
 import business.facade.GlobalFacade;
+import business.system.Column;
+import business.system.ProductBacklog;
 import business.system.UserStory;
 import gui.main.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -18,6 +17,9 @@ import java.sql.SQLException;
 public class UserStoryController extends AbstractController {
 
     private UserStory currentUS;
+
+    @FXML
+    private ChoiceBox<Column> columnPicker;
 
     @FXML
     private Button editButton;
@@ -38,6 +40,7 @@ public class UserStoryController extends AbstractController {
     private Text message;
 
     private boolean delete;
+    private Column oldColumn;
 
     @FXML
     void exit() {
@@ -54,6 +57,7 @@ public class UserStoryController extends AbstractController {
             descrField.setEditable(true);
             datePicker.setEditable(true);
             scoreField.setEditable(true);
+            editButton.setText("Confirm Edit");
             message.setText("You can now edit the User Story.");
             message.setVisible(true);
             return;
@@ -77,13 +81,17 @@ public class UserStoryController extends AbstractController {
             message.setVisible(true);
             return;
         }
-//        System.out.println("success = " + success);
 
-        if (success) {
-            exit();
-        } else {
+        if (!success){
             message.setText("Error submitting User Story");
             message.setVisible(true);
+            return;
+        }
+
+        try {
+            GlobalFacade.getInstance().moveComponent(currentUS, oldColumn, columnPicker.getValue());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
@@ -124,6 +132,18 @@ public class UserStoryController extends AbstractController {
         datePicker.setValue(currentUS.getDeadline().toLocalDate());
         scoreField.setText(String.valueOf(currentUS.getScore()));
 
+        Column[] column;
+        try {
+            ProductBacklog pb = GlobalFacade.getInstance().getProductBacklog(getProject());
+            column = GlobalFacade.getInstance().getColumn(pb);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        columnPicker.getItems().addAll(column);
+        columnPicker.setValue(column[0]);
+
+        oldColumn = new Column(currentUS.getColumnId(), null, -1);
     }
 
 }
