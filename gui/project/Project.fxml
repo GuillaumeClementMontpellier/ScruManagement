@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import util.IconView?>
-<GridPane hgap="10.0" prefWidth="590.0" style="-fx-background-color: #cccccc;" vgap="10.0"
+<GridPane hgap="10.0" prefWidth="580.0" style="-fx-background-color: #cccccc;" vgap="10.0"
           xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="gui.project.ProjectController">
     <columnConstraints>

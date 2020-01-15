@@ -6,7 +6,6 @@ import business.system.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import main.Scrum;
 
@@ -26,14 +25,7 @@ public class ProjectListController {
     @FXML
     void goToProjectCreation() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./CreateProject.fxml"));
-        Parent root = loader.load();
-
-        CreateProjectController cont = loader.<CreateProjectController>getController();
-        cont.setUser(user);
-
-        Scene scene = new Scene(root);
-        Scrum.getStage().setScene(scene);
+        Scrum.goToProjectCreation(user, getClass().getResource("./CreateProject.fxml"));
 
     }
 

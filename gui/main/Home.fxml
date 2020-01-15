@@ -31,17 +31,26 @@
             <!-- Menu -->
             <ScrollPane centerShape="false" prefHeight="286.0" prefWidth="145.0">
                 <GridPane>
-                    <IconView fx:value="plus" onMouseClicked="#handleCreationSprint"/>
-                    <Button onAction="#goToSprints" GridPane.columnIndex="1"
-                            text="Sprints" prefWidth="130.0"/>
 
-                    <IconView fx:value="plus" onMouseClicked="#handleCreationTicket" GridPane.rowIndex="1"/>
-                    <Button onAction="#goToTicketBacklog" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                    <!-- Product Backlog -->
+                    <IconView fx:value="plus" onMouseClicked="#handleCreationTicket"/>
+                    <Button onAction="#goToTicketBacklog" GridPane.columnIndex="1"
                             text="Ticket Backlog" prefWidth="130.0"/>
 
-                    <IconView fx:value="plus" onMouseClicked="#handleCreationUserStory" GridPane.rowIndex="2"/>
-                    <Button text="Product Backlog" onAction="#goToProductBacklog" GridPane.rowIndex="2"
+                    <!-- Ticket Backlog -->
+                    <IconView fx:value="plus" onMouseClicked="#handleCreationUserStory" GridPane.rowIndex="1"/>
+                    <Button text="Product Backlog" onAction="#goToProductBacklog" GridPane.rowIndex="1"
                             GridPane.columnIndex="1" prefWidth="130.0"/>
+
+                    <!-- Sprint -->
+                    <IconView fx:value="plus" onMouseClicked="#handleCreationSprint" GridPane.rowIndex="2"/>
+                    <Button onAction="#goToSprints" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                            text="Sprints" prefWidth="130.0"/>
+
+                    <!-- Collaborateur -->
+                    <IconView fx:value="plus" onMouseClicked="#handleAddCollab" GridPane.rowIndex="3"/>
+                    <Button onAction="#goToCollabs" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                            text="Collaborateurs" prefWidth="130.0"/>
                 </GridPane>
             </ScrollPane>
 
@@ -55,7 +64,7 @@
         </SplitPane>
 
         <!-- Main Frame -->
-            <fx:include fx:id="childContent" source="../Empty.fxml"/>
+        <fx:include fx:id="childContent" source="../Empty.fxml"/>
 
     </SplitPane>
 </TitledPane>

@@ -4,9 +4,6 @@ import business.facade.GlobalFacade;
 import business.system.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -33,15 +30,11 @@ public class RegisterController {
 
     @FXML
     void goToLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../login/Login.fxml"));
-
-        Scene scene = new Scene(root);
-        Scrum.getStage().setScene(scene);
+        Scrum.setScene(getClass().getResource("../login/Login.fxml"));
     }
 
     @FXML
     void register(ActionEvent event) throws IOException, SQLException {
-//        System.out.println("Try register");
 
         String username = emailField.getText();
         String password = passwordField.getText();
@@ -53,11 +46,16 @@ public class RegisterController {
             u = GlobalFacade.getInstance().register(username, password, firstName, lastName);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            message.setText("The email was already taken");
+            message.setText("Error registering");
             message.setVisible(true);
             return;
         }
 
+        if (u == null) {
+            message.setText("The email was already taken");
+            message.setVisible(true);
+            return;
+        }
 
         Scrum.goToProjectList(u, getClass().getResource("../project/ProjectList.fxml"));
 

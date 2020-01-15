@@ -76,6 +76,7 @@ public class HomeController {
 
     }
 
+    // Abandonned
     public void handleChat() {
         System.out.println("HomeController.handleChat");
     }
@@ -128,5 +129,13 @@ public class HomeController {
 
     public void goToSprints(ActionEvent event) {
         System.out.println("HomeController.goToSprints");
+    }
+
+    public void handleAddCollab(MouseEvent mouseEvent) {
+        System.out.println("HomeController.handleAddCollab");
+    }
+
+    public void goToCollabs(ActionEvent actionEvent) {
+        System.out.println("HomeController.goToCollabs");
     }
 }
