@@ -1,6 +1,8 @@
 package gui.backlog;
 
+import business.system.Column;
 import business.system.Component;
+import business.system.Ticket;
 import business.system.UserStory;
 import gui.main.HomeController;
 import javafx.event.ActionEvent;
@@ -16,6 +18,11 @@ public class RowController {
 
     private HomeController controller;
     private Component component;
+    private Column column;
+
+    public void setColumn(Column column) {
+        this.column = column;
+    }
 
     public void setComponent(Component component) {
         this.component = component;
@@ -29,9 +36,13 @@ public class RowController {
     public void handleSee(ActionEvent actionEvent) throws IOException {
         // Todo : Change Bad Smell !
         if (component instanceof UserStory) {
+            ((UserStory) component).setColumnId(column.getId());
             controller.changeSubScene("../userstory/UserStory.fxml", this.component);
         } else {
+            ((Ticket) component).setIdColumn(column.getId());
             controller.changeSubScene("../ticket/Ticket.fxml", this.component);
         }
     }
+
+
 }

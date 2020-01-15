@@ -53,7 +53,7 @@ public class CreateTicketController extends AbstractController {
         }
 
         if (success) {
-            getHomeController().changeSubScene("../Ticket/Ticket.fxml", newTicket);
+            getHomeController().goToTicketBacklog(null);
         } else {
             message.setText("Error creating Ticket");
             message.setVisible(true);

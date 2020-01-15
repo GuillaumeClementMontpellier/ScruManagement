@@ -117,7 +117,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public UserStory[] getUserStory(Column col) throws SQLException {
-        String sql = "Select * From UserStory where idUserStory in (Select idUserStory from ColumnUserStory where idColumn  =  ?)";
+        String sql = "Select * From UserStory where idUserStory in (Select idComponent from ColumnUserStory where idColumn  =  ?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, col.getId());
         ResultSet resultSet = pre.executeQuery();
@@ -291,7 +291,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         if (c instanceof Ticket) {
             sql += " ColumnTicket ";
         } else {
-            sql += " ColumnUserStory(idColumn,idComponent) ";
+            sql += " ColumnUserStory ";
         }
         sql += part2;
         PreparedStatement pre = this.connection.prepareStatement(sql);
