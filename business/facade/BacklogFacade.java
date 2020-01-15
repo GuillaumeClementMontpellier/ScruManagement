@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 public class BacklogFacade {
 
+    private GlobalFacade globalFacade;
+
     public TicketBacklog getTicketBacklog(Project p) throws SQLException {
         BacklogDAO backlogDAO = AbstractFactoryDAO.getInstance().createBacklogDAO();
         return backlogDAO.getTicketBacklog(p.getId());
@@ -67,5 +69,54 @@ public class BacklogFacade {
     public boolean initiateProductTicketBacklog(int idProject) throws SQLException {
         BacklogDAO backlogDAO = AbstractFactoryDAO.getInstance().createBacklogDAO();
         return backlogDAO.initiateProductTicketBacklog(idProject);
+    }
+
+    public boolean deleteBacklogs(Project project) throws SQLException {
+        BacklogDAO backlogDAO = AbstractFactoryDAO.getInstance().createBacklogDAO();
+
+        Column[] pCol = backlogDAO.getColumn(backlogDAO.getProductBacklog(project.getId()));
+        Column[] tCol = backlogDAO.getColumn(backlogDAO.getTicketBacklog(project.getId()));
+        SprintBacklog[] sBack = backlogDAO.getAllSprintBacklog(project.getId());
+
+        // Remove Colonnes Backlog
+        for (Column c : tCol) { // for each
+            Ticket[] ticket = backlogDAO.getTickets(c);
+            for (Ticket u : ticket) { // remove User Stories
+                boolean success = globalFacade.deleteTicket(u);
+                if (!success) {
+                    System.err.println("Suppression T");
+                }
+            }
+            int nb = backlogDAO.deleteColumn(c);
+            if (nb <= 0) {
+                System.err.println("Suppression T col " + c.getId());
+            }
+        }
+        // Remove Colonnes Backlog
+        for (Column c : pCol) { // for each
+            UserStory[] userStory = backlogDAO.getUserStory(c);
+            for (UserStory u : userStory) { // remove User Stories
+                boolean success = globalFacade.deleteUserStory(u);
+                if (!success) {
+                    System.err.println("Suppression US");
+                }
+            }
+            int nb = backlogDAO.deleteColumn(c);
+            if (nb <= 0) {
+                System.err.println("Suppression US col " + c.getId());
+            }
+        }
+
+        for (SprintBacklog sb : sBack) {
+            boolean success = deleteSprintBacklog(sb);
+            if (!success) {
+                System.err.println("Suppression US col sprint");
+            }
+        }
+        return backlogDAO.removeBacklogs(project);
+    }
+
+    public void setGlobalFacade(GlobalFacade globalFacade) {
+        this.globalFacade = globalFacade;
     }
 }

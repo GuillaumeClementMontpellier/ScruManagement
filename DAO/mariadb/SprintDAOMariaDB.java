@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class SprintDAOMariaDB extends DAOMariaDB implements SprintDAO {
 
@@ -22,22 +23,12 @@ public class SprintDAOMariaDB extends DAOMariaDB implements SprintDAO {
         pre.setInt(1, idSprint);
         pre.setInt(2, idProject);
         ResultSet resultSet = pre.executeQuery();
-        String type = resultSet.getString("type");
         Date start = resultSet.getDate("start");
         Date end = resultSet.getDate("end");
-        return new Sprint(idSprint, idProject, type, start, end);
+        return new Sprint(idSprint, idProject, start, end);
     }
 
-    @Override
-    public String getTypeOfSprint(Sprint sprint) throws SQLException {
-        String sql = "Select type FROM Sprint WHERE idSprint = ? && idProject = ?";
-        PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre.setInt(1, sprint.getIdSprint());
-        pre.setInt(2, sprint.getIdProject());
-        ResultSet resultSet = pre.executeQuery();
-        String type = resultSet.getString("type");
-        return type;
-    }
+
 
     @Override
     public Sprint createSprint(int idProject, String type, Date start, Date end) throws SQLException {
@@ -52,26 +43,25 @@ public class SprintDAOMariaDB extends DAOMariaDB implements SprintDAO {
         }
 
         // Inserting sprint
-        sql = "INSERT INTO Project VALUES (?,?,?,?)";
+        sql = "INSERT INTO Sprint(idProject, idSprint, start, end) VALUES (?,?,?,?)";
         pre = this.connection.prepareStatement(sql);
-        pre.setDate(1, start);
-        pre.setDate(2, end);
-        pre.setInt(3, idSprint);
-        pre.setInt(4, idProject);
+        pre.setInt(1, idSprint);
+        pre.setInt(2, idProject);
+        pre.setDate(3, start);
+        pre.setDate(4, end);
         pre.execute();
 
-        return new Sprint(idSprint, idProject, type, start, end);
+        return new Sprint(idSprint, idProject, start, end);
     }
 
     @Override
     public boolean updateSprint(Sprint sprint) throws SQLException {
-        String sql = "UPDATE Sprint SET type = ?, start = ?, end = ? WHERE id Sprint = ? && idProject = ?";
+        String sql = "UPDATE Sprint SET  start = ?, end = ? WHERE id Sprint = ? && idProject = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
-        pre.setString(1, sprint.getType());
-        pre.setDate(2, sprint.getStart());
-        pre.setDate(3, sprint.getEnd());
-        pre.setInt(4, sprint.getIdSprint());
-        pre.setInt(5, sprint.getIdProject());
+        pre.setDate(1, sprint.getStart());
+        pre.setDate(2, sprint.getEnd());
+        pre.setInt(3, sprint.getIdSprint());
+        pre.setInt(4, sprint.getIdProject());
         pre.execute();
         return true;
     }
@@ -84,5 +74,22 @@ public class SprintDAOMariaDB extends DAOMariaDB implements SprintDAO {
         pre.setInt(2, sprint.getIdProject());
         pre.execute();
         return true;
+    }
+
+    @Override
+    public Sprint[] getSprintsByProject(Project project) throws SQLException {
+        String sql = "Select * FROM Sprint WHERE idProject = ?";
+        PreparedStatement pre = this.connection.prepareStatement(sql);
+        pre.setInt(1, project.getId());
+        ResultSet resultSet = pre.executeQuery();
+        ArrayList<Sprint> sprints = new ArrayList<>();
+        while (resultSet.next()) {
+            int idSprint = resultSet.getInt("idSprint");
+            int idProject = resultSet.getInt("idProject");
+            Date start = resultSet.getDate("start");
+            Date end = resultSet.getDate("end");
+            sprints.add(new Sprint(idSprint, idProject,  start, end));
+        }
+        return sprints.toArray(new Sprint[0]);
     }
 }

@@ -34,4 +34,8 @@ public interface BacklogDAO {
 
     //use it only once, when the project is created
     boolean initiateProductTicketBacklog(int idProject) throws SQLException;
+
+    boolean removeBacklogs(Project project) throws SQLException;
+
+    int deleteColumn(Column col) throws SQLException;
 }

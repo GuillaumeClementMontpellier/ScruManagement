@@ -4,6 +4,7 @@ import business.facade.GlobalFacade;
 import business.system.Ticket;
 import business.system.UserStory;
 import gui.main.AbstractController;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -14,7 +15,6 @@ import javafx.scene.text.Text;
 import java.sql.SQLException;
 
 public class EditTicketController extends AbstractController {
-
 
     @FXML
     private TextArea descrField;
@@ -51,9 +51,15 @@ public class EditTicketController extends AbstractController {
 
     @FXML
     void handleEdit(ActionEvent event) throws SQLException {
-        Ticket newTicket = new Ticket(currentTicket.getId(), currentTicket.getName(), descrField.getText(),
-                currentTicket.getStatusTicket(), userStoryChoice.getValue().getId());
+        UserStory value = userStoryChoice.getValue();
+        int id = 0;
+        if (value != null) {
+            id = value.getId();
+        }
+        Ticket newTicket = new Ticket(currentTicket.getId(), titleField.getText(), descrField.getText(),
+                currentTicket.getStatusTicket(), id);
         boolean success = GlobalFacade.getInstance().updateTicket(newTicket, currentTicket);
+
         if (!success) {
             message.setText("Error editing Ticket");
             message.setVisible(true);
@@ -78,6 +84,26 @@ public class EditTicketController extends AbstractController {
         titleField.setText(currentTicket.getName());
         message.setVisible(false);
         delete = false;
-        // Todo : choices of state and User Story Box
+
+        UserStory[] us;
+        try {
+            us = GlobalFacade.getInstance().getUserStoryByProject(getProject());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        ObservableList<UserStory> items = userStoryChoice.getItems();
+        items.addAll(us);
+//        items.add(null);
+
+        UserStory userSto;
+        try {
+            userSto = GlobalFacade.getInstance().getUserStoryByID(currentTicket.getUserStory());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        userStoryChoice.setValue(userSto);
+
     }
 }

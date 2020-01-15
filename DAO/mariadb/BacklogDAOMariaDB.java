@@ -75,9 +75,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public SprintBacklog[] getAllSprintBacklog(int idProject) throws SQLException {
-        //TODO
-
-        String sql = "Select * From SprintBacklog Where idBacklog Exists(Select idBacklog From  backlog where idProject = ? and typeBacklog = ? order by idBacklog Desc)";
+        String sql = "Select * From Backlog where idProject = ? and typeBacklog = ? order by idBacklog Desc";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setString(1, Integer.toString(idProject));
         pre.setString(2, "3");
@@ -145,13 +143,12 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public Ticket[] getTickets(Column col) throws SQLException {
-        String sql = "Select * From Ticket where idTicket EXISTS (Select idTicket from ColumnTicket where idColumn  =  ?)";
+        String sql = "Select * From Ticket where idTicket in (Select idComponent from ColumnTicket where idColumn = ?)";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, col.getId());
         ResultSet resultSet = pre.executeQuery();
         ArrayList<Ticket> solution = new ArrayList<>();
         while (resultSet.next()) {
-
             int idTicket = resultSet.getInt("idTicket");
             String titleTicket = resultSet.getString("nameTicket");
             String descriptionTicket = resultSet.getString("descriptionTicket");
@@ -173,7 +170,7 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public boolean addComponent(Component c, Column col) throws SQLException {
-        PreparedStatement pre = fillSQL("Insert INTO","Values (?,?)", c, col);
+        PreparedStatement pre = fillSQL("Insert INTO", "Values (?,?)", c, col);
         int nbAffected = pre.executeUpdate();
         return nbAffected > 0;
     }
@@ -203,11 +200,11 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
 
     @Override
     public boolean deleteSprintBacklog(SprintBacklog sprintBacklog) throws SQLException {
-        String sql = "Remove From SprintBacklog Where idBacklog = ?";
+        String sql = "delete From SprintBacklog Where idBacklog = ?";
         PreparedStatement pre = this.connection.prepareStatement(sql);
         pre.setInt(1, sprintBacklog.getId());
         pre.execute();
-        sql = "Remove From Backlog Where idBacklog = ?";
+        sql = "delete From Backlog Where idBacklog = ?";
         pre = this.connection.prepareStatement(sql);
         pre.setInt(1, sprintBacklog.getId());
         pre.execute();
@@ -219,6 +216,32 @@ public class BacklogDAOMariaDB extends DAOMariaDB implements BacklogDAO {
         createBacklog(idProject, 1);
         createBacklog(idProject, 2);
         return true;
+    }
+
+    @Override
+    public boolean removeBacklogs(Project project) throws SQLException {
+        String sql = "Delete from Backlog where idProject = ?";
+        PreparedStatement pre = connection.prepareStatement(sql);
+        pre.setInt(1, project.getId());
+        int nbDel = pre.executeUpdate();
+        return nbDel > 0;
+    }
+
+    @Override
+    public int deleteColumn(Column col) throws SQLException {
+        String sql1 = "Delete from ColumnTicket where idColumn = ?";
+        String sql2 = "Delete from ColumnUserStory where idColumn = ?";
+        String sql3 = "Delete from ColumnBacklog where idColumn = ?";
+        PreparedStatement pre1 = connection.prepareStatement(sql1);
+        PreparedStatement pre2 = connection.prepareStatement(sql2);
+        PreparedStatement pre3 = connection.prepareStatement(sql3);
+        pre1.setInt(1, col.getId());
+        pre2.setInt(1, col.getId());
+        pre3.setInt(1, col.getId());
+        int nb1 = pre1.executeUpdate();
+        int nb2 = pre2.executeUpdate();
+        int nb3 = pre3.executeUpdate();
+        return nb1 + nb2 + nb3;
     }
 
 

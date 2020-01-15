@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class TicketController extends AbstractController {
@@ -41,6 +42,7 @@ public class TicketController extends AbstractController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return;
         }
 
         titleField.setText(currentTicket.getName());
@@ -49,7 +51,14 @@ public class TicketController extends AbstractController {
     }
 
     public void handleExit(ActionEvent actionEvent) {
-        // TODO: 12/01/2020 display ticket backlog
         getHomeController().goToTicketBacklog(null);
+    }
+
+    public void handleEditState(ActionEvent actionEvent) throws IOException {
+        getHomeController().changeSubScene("../ticket/EditTicketState.fxml", currentTicket);
+    }
+
+    public void handleEdit(ActionEvent actionEvent) throws IOException {
+        getHomeController().changeSubScene("../ticket/EditTicket.fxml", currentTicket);
     }
 }

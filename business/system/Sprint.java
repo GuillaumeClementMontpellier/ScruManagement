@@ -5,14 +5,12 @@ import java.sql.Date;
 public class Sprint {
     private int idSprint;
     private int idProject;
-    private String type;
     private Date start;
     private Date end;
 
-    public Sprint(int idSprint, int idProject, String type, Date start, Date end) {
+    public Sprint(int idSprint, int idProject,  Date start, Date end) {
         this.idSprint = idSprint;
         this.idProject = idProject;
-        this.type = type;
         this.start = start;
         this.end = end;
     }
@@ -31,14 +29,6 @@ public class Sprint {
 
     public void setIdProject(int idProject) {
         this.idProject = idProject;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Date getStart() {

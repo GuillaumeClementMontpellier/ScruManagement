@@ -38,4 +38,5 @@ public interface ProjectDAO {
     boolean editCollaborator(int idProject, int idCollaborator, int role, boolean isAdmin) throws SQLException;
 
     boolean removeCollaborator(int idProject, int collaborator) throws SQLException;
+
 }

@@ -104,6 +104,7 @@ public class EditProjectController extends AbstractController {
     @FXML
     void handleDelete(ActionEvent actionEvent) throws SQLException, IOException {
         if (!delete) {
+            delete = true;
             message.setText("Are you sure? This cannot be undone!");
             message.setVisible(true);
             return;

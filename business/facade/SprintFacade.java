@@ -15,11 +15,6 @@ public class SprintFacade {
         return sprintDAO.getSprintById(idSprint, project.getId());
     }
 
-    public String getTypeOfSprint(Sprint sprint) throws SQLException {
-        SprintDAO sprintDAO = AbstractFactoryDAO.getInstance().createSprintDAO();
-        return sprintDAO.getTypeOfSprint(sprint);
-    }
-
     public Sprint createSprint(Project project, String type , Date start, Date end) throws SQLException {
         SprintDAO sprintDAO = AbstractFactoryDAO.getInstance().createSprintDAO();
         return sprintDAO.createSprint(project.getId(), type, start, end);
@@ -35,4 +30,8 @@ public class SprintFacade {
         return sprintDAO.deleteSprint(sprint);
     }
 
+    public Sprint[] getSprintsByProject(Project project) throws SQLException {
+        SprintDAO sprintDAO = AbstractFactoryDAO.getInstance().createSprintDAO();
+        return sprintDAO.getSprintsByProject(project);
+    }
 }

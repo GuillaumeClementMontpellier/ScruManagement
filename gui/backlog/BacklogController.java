@@ -1,28 +1,29 @@
 package gui.backlog;
 
-import business.facade.BacklogFacade;
 import business.facade.GlobalFacade;
 import business.system.Backlog;
 import business.system.Column;
 import business.system.Component;
-import business.system.UserStory;
 import gui.main.AbstractController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class BacklogController extends AbstractController {
     @FXML
+    private TextField nomColumnField;
+    @FXML
     private GridPane tab;
 
-    private BacklogFacade bFacade = new BacklogFacade();
-
     private Backlog backlog = null;
-    private Column[] allColumn = null;
+    private Column[] allColumns = null;
     private String type;
 
     @Override
@@ -30,26 +31,28 @@ public class BacklogController extends AbstractController {
 
         this.type = (String) param;
 
+        // Fetch the Columns
         try {
-            this.backlog = bFacade.getProductBacklog(this.getProject());
+            if (type.equals("Product") || type.equals("Sprint")) {
+                this.backlog = GlobalFacade.getInstance().getProductBacklog(this.getProject());
+            } else {
+                this.backlog = GlobalFacade.getInstance().getTicketBacklog(this.getProject());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return;
         }
 
         try {
-            this.allColumn = this.bFacade.getColumn(this.backlog);
+            this.allColumns = GlobalFacade.getInstance().getColumn(this.backlog);
         } catch (SQLException e) {
             e.printStackTrace();
             return;
         }
 
-        String label;
-        for (int i = 0; i < allColumn.length; i++) {
+        for (int i = 0; i < allColumns.length; i++) { // For each Column
 
-            label = allColumn[i].getName();
-//            System.out.println(label);
-
+            // Set the Column Title
             FXMLLoader loaderTitle = new FXMLLoader(getClass().getResource("RowTitle.fxml"));
             Parent root;
             try {
@@ -59,23 +62,26 @@ public class BacklogController extends AbstractController {
                 continue;
             }
             RowTitleController rtc = loaderTitle.<RowTitleController>getController();
-            rtc.setComponent(label);
+            rtc.setComponent(allColumns[i].getName());
             this.tab.add(root, i, 0);
 
-            Component[] allUserStory;
+            // Fetch the Components of the Column
+            Component[] allComponents;
             try {
                 if (type.equals("Product") || type.equals("Sprint")) {
-                    allUserStory = GlobalFacade.getInstance().getUserStory(allColumn[i]);
+                    allComponents = GlobalFacade.getInstance().getUserStory(allColumns[i]);
                 } else {
-                    allUserStory = GlobalFacade.getInstance().getTickets(allColumn[i]);
+                    allComponents = GlobalFacade.getInstance().getTickets(allColumns[i]);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
                 continue;
             }
 
-            for (int j = 0; j < allUserStory.length; j++) {
-                Component us = allUserStory[j];
+            for (int j = 0; j < allComponents.length; j++) { // for Each component
+
+                // DIsplay Component View
+                Component us = allComponents[j];
                 FXMLLoader loaderRow = new FXMLLoader(getClass().getResource("Row.fxml"));
 
                 try {
@@ -95,4 +101,7 @@ public class BacklogController extends AbstractController {
         }
     }
 
+    public void handleConfirm(ActionEvent actionEvent) {
+        System.out.println("BacklogController.handleConfirm");
+    }
 }

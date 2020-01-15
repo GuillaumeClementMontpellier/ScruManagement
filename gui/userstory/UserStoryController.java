@@ -96,12 +96,13 @@ public class UserStoryController extends AbstractController {
             message.setVisible(true);
             return;
         }
-        boolean success = false;
+        boolean success ;
         try {
             success = GlobalFacade.getInstance().deleteUserStory(currentUS);
         } catch (SQLException e) {
             message.setText("Error deleting User Story");
             message.setVisible(true);
+            return;
         }
         if (success) {
             exit();

@@ -4,6 +4,7 @@ import business.facade.GlobalFacade;
 import business.system.Ticket;
 import business.system.UserStory;
 import gui.main.AbstractController;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -33,26 +34,29 @@ public class CreateTicketController extends AbstractController {
         String titleTicket = titleField.getText();
         String descriptionTicket = descriptionField.getText();
 
-        boolean success = false;
+        boolean success ;
+        UserStory value = userStoryField.getValue();
+        int id = 0;
+        if (value != null) {
+            id = value.getId();
+        }
         Ticket newTicket = new Ticket(-1, titleTicket, descriptionTicket,
-                "Unsolved", userStoryField.getValue().getId());
+                "Unsolved", id);
 
         try {
-
             success = GlobalFacade.getInstance().addTicket(newTicket, getProject());
-
         } catch (SQLException e) {
-            message.setText("Error creating Ticket 1");
+            e.printStackTrace();
+            message.setText("Error creating Ticket");
             message.setVisible(true);
             return;
         }
 
         if (success) {
-            getHomeController().changeSubScene("../Ticket/TicketController", newTicket);
+            getHomeController().changeSubScene("../Ticket/Ticket.fxml", newTicket);
         } else {
-            message.setText("Error creating Ticket 2");
+            message.setText("Error creating Ticket");
             message.setVisible(true);
-            return;
         }
     }
 
@@ -63,6 +67,15 @@ public class CreateTicketController extends AbstractController {
 
     @Override
     public void init(Object param) {
-// TODO : get all UserStories by Project
+        UserStory[] us;
+        try {
+            us = GlobalFacade.getInstance().getUserStoryByProject(getProject());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        ObservableList<UserStory> items = userStoryField.getItems();
+        items.addAll(us);
+//        items.add(null);
     }
 }

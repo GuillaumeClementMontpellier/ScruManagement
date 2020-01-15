@@ -14,6 +14,14 @@ public class Ticket extends Component {
         setUserStory(userStory);
     }
 
+    public static String[] getStatus() {
+        String[] strings = new String[3];
+        strings[0] = "Unsolved";
+        strings[1] = "WIP";
+        strings[2] = "Solved";
+        return strings;
+    }
+
     public int getUserStory() {
         return idUserStory;
     }

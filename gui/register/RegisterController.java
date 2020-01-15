@@ -48,19 +48,18 @@ public class RegisterController {
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
 
-        User u = null;
+        User u;
         try {
             u = GlobalFacade.getInstance().register(username, password, firstName, lastName);
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-
-        if (u == null) {
             message.setText("The email was already taken");
             message.setVisible(true);
-
-        } else {
-            Scrum.goToProjectList(u, getClass().getResource("../project/ProjectList.fxml"));
+            return;
         }
+
+
+        Scrum.goToProjectList(u, getClass().getResource("../project/ProjectList.fxml"));
+
     }
 }

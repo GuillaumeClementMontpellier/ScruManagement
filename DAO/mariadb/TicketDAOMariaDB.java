@@ -72,7 +72,7 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
                 "SET nameTicket = ?, " +
                 "descriptionTicket = ?, " +
                 "statusTicket = ?, " +
-                "idUserStory = ?, " +
+                "idUserStory = ? " +
                 "where idTicket = ?";
 
         PreparedStatement pre = this.connection.prepareStatement(sql);
@@ -91,7 +91,7 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
 
     public boolean addTicket(Ticket newTicket, int projectId) throws SQLException {
         String sql = "Insert into Ticket(nameTicket, descriptionTicket, statusTicket, idUserStory) " +
-                "values ( ?, ?, ?)";
+                "values ( ?, ?, ?, ?)";
 
         PreparedStatement pre = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -103,11 +103,11 @@ public class TicketDAOMariaDB extends DAOMariaDB implements TicketDAO {
         int nbAffected = pre.executeUpdate();
         ResultSet rs = pre.getGeneratedKeys();
 
-        if (nbAffected > 0) {
+        if (nbAffected < 0) {
             return false;
         }
 
-        int idTicket = -1;
+        int idTicket;
         boolean success = rs.next();
         if (success) {
             idTicket = rs.getInt(1);

@@ -32,6 +32,7 @@ public class GlobalFacade {
         userStoryFacade.setGlobalFacade(this);
         ticketFacade.setGlobalFacade(this);
         projectFacade.setGlobalFacade(this);
+        backlogFacade.setGlobalFacade(this);
     }
 
     public static GlobalFacade getInstance() {
@@ -192,11 +193,8 @@ public class GlobalFacade {
         return sprintFacade.getSprintById(idSprint, project);
     }
 
-    public String getTypeOfSprint(Sprint sprint) throws SQLException {
-        return sprintFacade.getTypeOfSprint(sprint);
-    }
 
-    public Sprint createSprint(Project project, String type , Date start, Date end) throws SQLException {
+    public Sprint createSprint(Project project, String type, Date start, Date end) throws SQLException {
         return sprintFacade.createSprint(project, type, start, end);
     }
 
@@ -206,5 +204,13 @@ public class GlobalFacade {
 
     public boolean deleteSprint(Sprint sprint) throws SQLException {
         return sprintFacade.deleteSprint(sprint);
+    }
+
+    public boolean deleteBacklogs(Project project) throws SQLException {
+        return backlogFacade.deleteBacklogs(project);
+    }
+
+    public Sprint[] getSprintsByProject(Project project) throws SQLException {
+        return sprintFacade.getSprintsByProject(project);
     }
 }

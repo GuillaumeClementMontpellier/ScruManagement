@@ -38,7 +38,7 @@ public class HomeController {
         this.project = project;
         this.titlePane.setText(project.getName());
         try {
-            changeSubScene("../backlog/Backlog.fxml", null);
+            changeSubScene("../backlog/Backlog.fxml", "Product");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,7 +98,11 @@ public class HomeController {
     }
 
     public void goToTicketBacklog(ActionEvent event) {
-        System.out.println("HomeController.goToTicketBacklog");
+        try {
+            this.changeSubScene("../backlog/Backlog.fxml", "Ticket");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleCreationTicket(MouseEvent event) {
